@@ -6,10 +6,12 @@ namespace Core.Services.Contracts
     {
         Task<bool> Create(CreateGenreModel model);
 
-        Task<bool> Edit();
+        Task<bool> Edit(EditGenreModel model);
 
         Task<ListGenreModel> GetById(string id);
 
         Task<ICollection<ListGenreModel>> GetAll();
+
+        Task<bool> Delete(string id);
     }
 }
