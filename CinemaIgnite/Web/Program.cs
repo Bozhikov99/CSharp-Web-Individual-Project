@@ -1,3 +1,6 @@
+using Core.Mapping;
+using Core.Services;
+using Core.Services.Contracts;
 using Infrastructure.Contracts;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +18,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>());
+
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
@@ -22,6 +27,8 @@ builder.Services.AddScoped<IProjectionRepository, ProjectionRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IGenreService, GenreService>();
 
 builder.Services.AddControllersWithViews();
 
