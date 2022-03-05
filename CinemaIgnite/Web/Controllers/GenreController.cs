@@ -18,6 +18,12 @@ namespace Web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Edit(string id)
+        {
+            ListGenreModel genre = await genreService.GetById(id);
+            return View(genre);
+        }
+
         public async Task<IActionResult> All()
         {
             IEnumerable<ListGenreModel> genres = await genreService.GetAll();
@@ -29,7 +35,6 @@ namespace Web.Controllers
             try
             {
                 await genreService.Delete(id);
-
             }
             catch (Exception)
             {
@@ -61,6 +66,20 @@ namespace Web.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditGenreModel model)
+        {
+            try
+            {
+                await genreService.Edit(model);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+
+            return RedirectToAction(nameof(All));
+        }
 
     }
 }

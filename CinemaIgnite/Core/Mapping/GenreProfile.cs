@@ -12,6 +12,8 @@ namespace Core.Mapping
                 .ReverseMap();
 
             CreateMap<CreateGenreModel, Genre>();
+
+            CreateMap<EditGenreModel, Genre>();
         }
     }
 }
