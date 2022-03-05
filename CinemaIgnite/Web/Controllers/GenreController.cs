@@ -24,6 +24,21 @@ namespace Web.Controllers
             return View(genres);
         }
 
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                await genreService.Delete(id);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateGenreModel model)
         {
@@ -43,7 +58,9 @@ namespace Web.Controllers
                 throw;
             }
 
-            return Redirect(nameof(All));
+            return RedirectToAction(nameof(All));
         }
+
+
     }
 }
