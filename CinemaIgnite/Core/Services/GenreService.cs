@@ -18,9 +18,10 @@ namespace Core.Services
         private readonly IGenreRepository repository;
         private readonly IMapper mapper;
 
-        public GenreService(IGenreRepository repository)
+        public GenreService(IGenreRepository repository, IMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
 
         public async Task<bool> Create(CreateGenreModel model)
