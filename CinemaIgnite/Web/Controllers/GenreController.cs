@@ -38,7 +38,8 @@ namespace Web.Controllers
             }
             catch (Exception)
             {
-                throw;
+                string error = "Error deleting genre";
+                return View("UserError", error);
             }
 
             return RedirectToAction(nameof(All));
@@ -59,8 +60,8 @@ namespace Web.Controllers
             }
             catch (Exception)
             {
-
-                throw;
+                string error = "Error creating a genre";
+                return View("UserError", error);
             }
 
             return RedirectToAction(nameof(All));
@@ -75,7 +76,8 @@ namespace Web.Controllers
             }
             catch (Exception)
             {
-                return View("Error");
+                string error = "Error editing genre";
+                return View("UserError", error);
             }
 
             return RedirectToAction(nameof(All));

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Web.Models;
 
