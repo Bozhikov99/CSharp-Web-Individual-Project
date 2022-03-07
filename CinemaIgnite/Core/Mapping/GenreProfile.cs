@@ -9,6 +9,7 @@ namespace Core.Mapping
         public GenreProfile()
         {
             CreateMap<Genre, ListGenreModel>()
+                .ForMember(d => d.MovieCount, s => s.MapFrom(s => s.Movies.Count))
                 .ReverseMap();
 
             CreateMap<CreateGenreModel, Genre>();

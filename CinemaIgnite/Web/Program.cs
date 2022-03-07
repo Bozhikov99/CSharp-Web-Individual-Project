@@ -6,7 +6,6 @@ using Infrastructure.Contracts;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +19,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<CinemaDbContext>();
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>());
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>());
 
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
@@ -30,6 +30,7 @@ builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 builder.Services.AddControllersWithViews();
 

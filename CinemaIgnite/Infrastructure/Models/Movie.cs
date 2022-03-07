@@ -23,6 +23,7 @@ namespace Infrastructure.Models
         public string Id { get; set; }
 
         [Required]
+        [MaxLength(MovieConstants.TitleMaxLength)]
         public string Title { get; set; }
 
         [Required]

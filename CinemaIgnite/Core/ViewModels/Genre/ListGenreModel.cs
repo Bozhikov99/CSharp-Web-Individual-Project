@@ -8,5 +8,7 @@ namespace Core.ViewModels.Genre
         public string Id { get; set; }
 
         public string Name { get; set; }
+
+        public int MovieCount { get; set; }
     }
 }

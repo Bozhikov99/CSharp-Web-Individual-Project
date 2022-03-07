@@ -10,7 +10,7 @@ namespace Web.Controllers
 
         public GenreController(IGenreService genreService)
         {
-            this.genreService = genreService;
+            this.genreService = genreService; 
         }
 
         public async Task<IActionResult> Create()
@@ -53,12 +53,9 @@ namespace Web.Controllers
                 return View();
             }
 
-            try
-            {
-                await genreService.Create(model);
+            bool isCreated = await genreService.Create(model);
 
-            }
-            catch (Exception)
+            if (!isCreated)
             {
                 string error = "Error creating a genre";
                 return View("UserError", error);

@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    partial class CinemaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220306092737_GenreMovieMappingTable")]
+    partial class GenreMovieMappingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,6 +52,21 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("Infrastructure.Models.GenreMovie", b =>
+                {
+                    b.Property<string>("GenreId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MovieId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("GenreId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("GenreMovies");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.Movie", b =>
@@ -262,6 +279,25 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("MoviesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infrastructure.Models.GenreMovie", b =>
+                {
+                    b.HasOne("Infrastructure.Models.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.Notification", b =>

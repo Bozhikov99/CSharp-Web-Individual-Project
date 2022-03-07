@@ -17,20 +17,46 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Genre" asp-action="Create">Жанрове</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="genreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Genres
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="genreDropdown">
+                            <li><a class="dropdown-item" asp-controller="Genre" asp-action="Create">Create</a></li>
+                            <li><a class="dropdown-item" asp-controller="Genre" asp-action="All">All</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="movieDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Movies
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="movieDropdown">
+                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create">Create</a></li>
+                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="All">All</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        @*EXAMPLE*@
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
             </div>
         </nav>
     </header>
