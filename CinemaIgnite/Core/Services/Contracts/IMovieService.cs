@@ -17,6 +17,8 @@ namespace Core.Services.Contracts
 
         Task<IEnumerable<ListMovieModel>> GetAll();
 
+        Task<EditMovieModel> GetEditModel(string id);
+
         //Task<MovieDetailsModel> GetById(string id);
     }
 }

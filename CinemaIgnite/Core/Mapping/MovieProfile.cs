@@ -12,6 +12,9 @@ namespace Core.Mapping
 
             CreateMap<Movie, ListMovieModel>()
                 .ForMember(d => d.Genres, s => s.MapFrom(m => m.Genres.Select(g => g.Name)));
+
+            CreateMap<Movie, EditMovieModel>()
+                .ReverseMap();
         }
     }
 }

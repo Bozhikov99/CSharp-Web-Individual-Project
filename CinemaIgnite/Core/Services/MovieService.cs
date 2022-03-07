@@ -74,19 +74,40 @@ namespace Core.Services
             }
         }
 
+        public async Task<EditMovieModel> GetEditModel(string id)
+        {
+            Movie movie = await movieRepository.GetByIdAsync<Movie>(id);
+            EditMovieModel model = mapper.Map<EditMovieModel>(movie);
+
+            return model;
+        }
+
         public async Task<bool> Edit(EditMovieModel model)
         {
-            Genre genre = mapper.Map<Genre>(model);
+            var movie = movieRepository.All<Movie>()
+                .Include(m=>m.Genres)
+                .First(m=>m.Id==model.Id);
+
+            movie.Genres.Clear();
+
+            List<Genre> genres = new List<Genre>();
+
+            foreach (string id in model.GenreIds)
+            {
+                Genre currentGenre = await genreRepository.GetByIdAsync<Genre>(id);
+                genres.Add(currentGenre);
+            }
+
+            movie.Genres = genres;
 
             try
             {
-                movieRepository.Update(genre);
                 await movieRepository.SaveChangesAsync();
-                return false;
+                return true;
             }
             catch (Exception)
             {
-                return true;
+                return false;
             }
         }
     }

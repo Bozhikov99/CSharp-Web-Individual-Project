@@ -38,5 +38,7 @@ namespace Core.ViewModels.Movie
 
         [Required]
         public string Country { get; set; }
+
+        public ICollection<string> GenreIds { get; set; }
     }
 }

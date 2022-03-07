@@ -104,6 +104,12 @@ namespace Infrastructure.Common
             DbSet<T>().Update(entity);
         }
 
+        public async Task UPDATE<T>(T entity) where T: class
+        {
+            Context.Entry(entity).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+        }
+
         public void UpdateRange<T>(IEnumerable<T> entities) where T : class
         {
             DbSet<T>().UpdateRange(entities);
