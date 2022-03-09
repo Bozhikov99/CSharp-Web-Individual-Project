@@ -15,6 +15,8 @@ namespace Core.Mapping
 
             CreateMap<Movie, EditMovieModel>()
                 .ReverseMap();
+
+            CreateMap<Movie, MovieDetailsModel>();
         }
     }
 }

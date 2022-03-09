@@ -18,7 +18,7 @@ namespace Core.Services
         private readonly IGenreRepository repository;
         private readonly IMapper mapper;
 
-        public GenreService(IGenreRepository repository, IMapper mapper)
+        public GenreService(IMapper mapper, IGenreRepository repository)
         {
             this.repository = repository;
             this.mapper = mapper;
