@@ -35,13 +35,13 @@ namespace Infrastructure.Common
 
         public IQueryable<T> AllReadonly<T>() where T : class
         {
-            return this.DbSet<T>()
+            return DbSet<T>()
                 .AsQueryable()
                 .AsNoTracking();
         }
         public IQueryable<T> AllReadonly<T>(Expression<Func<T, bool>> search) where T : class
         {
-            return this.DbSet<T>()
+            return DbSet<T>()
                 .Where(search)
                 .AsQueryable()
                 .AsNoTracking();

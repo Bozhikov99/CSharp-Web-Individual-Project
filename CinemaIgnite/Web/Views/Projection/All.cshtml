@@ -1,0 +1,47 @@
+﻿@using Core.ViewModels.Projection
+@model IEnumerable<ListProjectionModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in ViewBag.Movies)
+        {
+            <div class="col-md-12 movie-row">
+                <p>@m.Title</p>
+                <div class="btn-group projection-group" role="group">
+                    @foreach (var projection in Model.Where(p => p.MovieId == m.Id).OrderByDescending(p => p.Date))
+                    {
+                        if (projection.TicketsAvailable > 0)
+                        {
+                           
+                                <button class="btn btn-danger">
+                                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+                                    <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
+                                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
+                                </button>
+
+                        }
+
+                    }
+                </div>
+            </div>
+        }
+    </tbody>
+</table>

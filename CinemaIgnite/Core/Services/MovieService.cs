@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,16 @@ namespace Core.Services
 
         public async Task<IEnumerable<ListMovieModel>> GetAll()
         {
-            IEnumerable<ListMovieModel> movies = await movieRepository.AllReadonly<Movie>()
+            IEnumerable<ListMovieModel> movies = await movieRepository.All<Movie>()
+                .ProjectTo<ListMovieModel>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
+
+            return movies;
+        }
+
+        public async Task<IEnumerable<ListMovieModel>> GetAll(Expression<Func<Movie, bool>> search)
+        {
+            IEnumerable<ListMovieModel> movies = await movieRepository.All(search)
                 .ProjectTo<ListMovieModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 
@@ -85,8 +95,8 @@ namespace Core.Services
         public async Task<bool> Edit(EditMovieModel model)
         {
             var movie = movieRepository.All<Movie>()
-                .Include(m=>m.Genres)
-                .First(m=>m.Id==model.Id);
+                .Include(m => m.Genres)
+                .First(m => m.Id == model.Id);
 
             movie.Genres.Clear();
 

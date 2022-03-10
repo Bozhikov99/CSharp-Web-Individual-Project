@@ -78,7 +78,7 @@ namespace Core.Services.Contracts
         public async Task<IEnumerable<ListProjectionModel>> GetAllForDate(DateTime date)
         {
             IEnumerable<ListProjectionModel> projections = await repository.All<Projection>()
-                .Where(p => p.Date == date)
+                .Where(p => p.Date.Year == date.Year && p.Date.Month == date.Month && p.Date.Day == date.Day)
                 .ProjectTo<ListProjectionModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 

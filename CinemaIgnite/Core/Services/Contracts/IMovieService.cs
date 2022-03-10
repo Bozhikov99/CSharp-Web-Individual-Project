@@ -1,7 +1,9 @@
 ﻿using Core.ViewModels.Movie;
+using Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +18,8 @@ namespace Core.Services.Contracts
         Task<bool> Delete(string id);
 
         Task<IEnumerable<ListMovieModel>> GetAll();
+
+        Task<IEnumerable<ListMovieModel>> GetAll(Expression<Func<Movie, bool>> search);
 
         Task<EditMovieModel> GetEditModel(string id);
 

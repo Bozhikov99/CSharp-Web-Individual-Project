@@ -31,6 +31,13 @@ namespace Web.Controllers
             date = DateTime.Today;
             IEnumerable<ListProjectionModel> projections = await projectionService.GetAllForDate(date);
 
+            IEnumerable<ListMovieModel> movies = await movieService
+                .GetAll(m => m.Projections.Any(p => p.Date.Year == date.Year &&
+                p.Date.Month == date.Month &&
+                p.Date.Day == date.Day));
+
+            ViewBag.Movies = movies;
+
             return View(projections);
         }
 
