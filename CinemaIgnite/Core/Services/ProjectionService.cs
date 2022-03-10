@@ -23,9 +23,28 @@ namespace Core.Services.Contracts
             this.mapper = mapper;
             this.repository = repository;
         }
-        public Task<(bool isCreated, string error)> Create(CreateProjectionModel model, string movieId)
+        public async Task<(bool isCreated, string error)> Create(CreateProjectionModel model)
         {
-            throw new NotImplementedException();
+            string error = null;
+            bool isCreated = false;
+
+            Projection projection = mapper.Map<Projection>(model);
+
+            try
+            {
+
+                await repository.AddAsync(projection);
+                await repository.SaveChangesAsync();
+                isCreated = true;
+            }
+            catch (Exception)
+            {
+                error = "Could not create projection";
+            }
+
+            //TODO: Apply date exception handling
+
+            return (isCreated, error);
         }
 
         public async Task<bool> Delete(string id)
