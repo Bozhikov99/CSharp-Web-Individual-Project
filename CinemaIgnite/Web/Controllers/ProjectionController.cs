@@ -8,8 +8,6 @@ namespace Web.Controllers
     public class ProjectionController : Controller
     {
         private readonly IProjectionService projectionService;
-
-        //for test purposes
         private readonly IMovieService movieService;
 
         public ProjectionController(IProjectionService projectionService, IMovieService movieService)
@@ -28,7 +26,6 @@ namespace Web.Controllers
 
         public async Task<IActionResult> All(DateTime date)
         {
-            date = DateTime.Today;
             IEnumerable<ListProjectionModel> projections = await projectionService.GetAllForDate(date);
 
             IEnumerable<ListMovieModel> movies = await movieService

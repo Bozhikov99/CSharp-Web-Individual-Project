@@ -1,3 +1,4 @@
+using Common;
 using Core.Mapping;
 using Core.Services;
 using Core.Services.Contracts;
@@ -7,6 +8,7 @@ using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Web.ModelBinders;
+using Web.ModelBinders.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +41,7 @@ builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {
         options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+        options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormattingConstant.Format));
     });
 
 var app = builder.Build();
