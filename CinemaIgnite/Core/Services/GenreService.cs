@@ -2,7 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Core.Services.Contracts;
 using Core.ViewModels.Genre;
-using Infrastructure.Contracts;
+using Infrastructure.Common;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,10 +15,10 @@ namespace Core.Services
 {
     public class GenreService : IGenreService
     {
-        private readonly IGenreRepository repository;
+        private readonly IRepository repository;
         private readonly IMapper mapper;
 
-        public GenreService(IMapper mapper, IGenreRepository repository)
+        public GenreService(IMapper mapper, IRepository repository)
         {
             this.repository = repository;
             this.mapper = mapper;

@@ -4,8 +4,13 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Common
 {
-    public abstract class Repository: IRepository
+    public class Repository : IRepository
     {
+        public Repository(CinemaDbContext context)
+        {
+            Context = context;
+        }
+
         protected DbContext Context { get; set; }
 
         protected DbSet<T> DbSet<T>() where T : class

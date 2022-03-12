@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using Core.Services.Contracts;
 using Core.ViewModels.Ticket;
-using Infrastructure.Contracts;
+using Infrastructure.Common;
 using Infrastructure.Models;
 
 namespace Core.Services
 {
     public class TicketService : ITicketService
     {
-        private readonly ITicketRepository repository;
+        private readonly IRepository repository;
         private readonly IMapper mapper;
 
-        public TicketService(IMapper mapper, ITicketRepository repository)
+        public TicketService(IMapper mapper, IRepository repository)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -24,22 +24,25 @@ namespace Core.Services
 
             Ticket ticket = mapper.Map<Ticket>(model);
 
-            if (repository.All<Ticket>(t => t.Seat == model.Seat) != null)
+            if (repository.All<Ticket>()
+                .Single(x=>x.Seat==model.Seat) != null)
             {
                 error = $"A ticket for seat {model.Seat} is already bought";
-                return (isCreated, error);
+            }
+            else
+            {
+                try
+                {
+                    await repository.AddAsync(model);
+                    await repository.SaveChangesAsync();
+                    isCreated = true;
+                }
+                catch (Exception)
+                {
+                    error = "Error creating ticket";
+                }
             }
 
-            try
-            {
-                await repository.AddAsync(model);
-                await repository.SaveChangesAsync();
-                isCreated = true;
-            }
-            catch (Exception)
-            {
-                error = "Error creating ticket";
-            }
 
             return (isCreated, error);
         }

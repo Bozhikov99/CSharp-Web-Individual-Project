@@ -3,8 +3,7 @@ using Core.Mapping;
 using Core.Services;
 using Core.Services.Contracts;
 using Infrastructure;
-using Infrastructure.Contracts;
-using Infrastructure.Repositories;
+using Infrastructure.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Web.ModelBinders;
@@ -26,13 +25,7 @@ builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<ProjectionProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<TicketProfile>());
 
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
-builder.Services.AddScoped<IProjectionRepository, ProjectionRepository>();
-builder.Services.AddScoped<IRatingRepository, RatingRepository>();
-builder.Services.AddScoped<ITicketRepository, TicketRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRepository, Repository>();
 
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IMovieService, MovieService>();

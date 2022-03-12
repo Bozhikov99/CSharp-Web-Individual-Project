@@ -2,8 +2,8 @@
 using AutoMapper.QueryableExtensions;
 using Common;
 using Core.ViewModels.Projection;
-using Infrastructure.Contracts;
 using Infrastructure.Models;
+using Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,11 +16,11 @@ namespace Core.Services.Contracts
 {
     public class ProjectionService : IProjectionService
     {
-        private readonly IProjectionRepository repository;
+        private readonly IRepository repository;
 
         private readonly IMapper mapper;
 
-        public ProjectionService(IMapper mapper, IProjectionRepository repository)
+        public ProjectionService(IMapper mapper, IRepository repository)
         {
             this.mapper = mapper;
             this.repository = repository;
