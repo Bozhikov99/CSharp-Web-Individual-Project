@@ -34,12 +34,12 @@
                     {
                         if (projection.TicketsAvailable > 0)
                         {
-                           
-                                <button class="btn btn-danger">
-                                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
-                                    <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
-                                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
-                                </button>
+
+                            <button class="btn btn-danger">
+                                @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+                                <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
+                                @*<p class="tooltiptext">@projection.Price лв.</p>*@
+                            </button>
 
                         }
                     }

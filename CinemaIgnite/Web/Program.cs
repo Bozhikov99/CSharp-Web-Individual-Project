@@ -24,6 +24,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<ProjectionProfile>());
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<TicketProfile>());
 
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
@@ -36,6 +37,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IProjectionService, ProjectionService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
