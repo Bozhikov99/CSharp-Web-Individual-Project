@@ -38,11 +38,24 @@ namespace Web.Controllers
             return View(projections);
         }
 
-        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            (bool isDeleted, DateTime date) = await projectionService.Delete(id);
+
+            if (!isDeleted)
+            {
+                string error = "Unexpected error deleting projection";
+                return View("UserError", error);
+            }
+            string dateString = date.ToString("yyyy-MM-dd");
+            string url = $"https://localhost:44395/Projection/All?date={dateString}";
+
+            return Redirect(url);       //I know this is gross, yet I did not think of another way...
+        }
+
+        [HttpPost] //TODO: Create notifications for all users favouring the movie
         public async Task<IActionResult> Create(CreateProjectionModel model)
         {
-            string error = string.Empty;
-
             if (!ModelState.IsValid)
             {
                 IEnumerable<ListMovieModel> movies = await movieService.GetAll();
@@ -51,21 +64,17 @@ namespace Web.Controllers
                 return View();
             }
 
-            try
-            {
-                (bool isCreated, error) = await projectionService.Create(model);
+            (bool isCreated, DateTime date) = await projectionService.Create(model);
 
-                if (!isCreated)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-            catch (Exception)
+            if (!isCreated)
             {
+                string error = "Unexpected error creating projection";
                 return View("UserError", error);
             }
+            string dateString = date.ToString("yyyy-MM-dd");
+            string url = $"https://localhost:44395/Projection/All?date={dateString}";
 
-            return RedirectToAction(nameof(All));
+            return Redirect(url);
         }
     }
 }

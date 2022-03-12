@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common;
 using Core.ViewModels.Projection;
 using Infrastructure.Contracts;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +25,11 @@ namespace Core.Services.Contracts
             this.mapper = mapper;
             this.repository = repository;
         }
-        public async Task<(bool isCreated, string error)> Create(CreateProjectionModel model)
+        public async Task<(bool isCreated, DateTime date)> Create(CreateProjectionModel model)
         {
-            string error = null;
+
             bool isCreated = false;
+            DateTime date;
 
             Projection projection = mapper.Map<Projection>(model);
 
@@ -35,30 +38,38 @@ namespace Core.Services.Contracts
 
                 await repository.AddAsync(projection);
                 await repository.SaveChangesAsync();
+
+                date = DateTime.Parse(model.Date.ToString(), new CultureInfo("bg-bg"));
                 isCreated = true;
             }
             catch (Exception)
             {
-                error = "Could not create projection";
+                date = DateTime.MinValue;
             }
 
             //TODO: Apply date exception handling
 
-            return (isCreated, error);
+            return (isCreated, date);
         }
 
-        public async Task<bool> Delete(string id)
+        public async Task<(bool isDeleted, DateTime date)> Delete(string id)
         {
+            bool isDeleted = false;
+            DateTime date;
+
             try
             {
+                date = await GetDate(id);
                 await repository.DeleteAsync<Projection>(id);
                 await repository.SaveChangesAsync();
-                return true;
+                isDeleted = true;
             }
             catch (Exception)
             {
-                return false;
+                date = DateTime.MinValue;
             }
+
+            return (isDeleted, date);
         }
 
         public async Task<bool> DeleteAllForMovie(string movieId)
@@ -124,6 +135,14 @@ namespace Core.Services.Contracts
             Projection projection = await repository.GetByIdAsync<Projection>(id);
 
             return projection;
+        }
+
+        private async Task<DateTime> GetDate(string id)
+        {
+            Projection projection = await repository.GetByIdAsync<Projection>(id);
+            DateTime date = projection.Date;
+
+            return date;
         }
     }
 }

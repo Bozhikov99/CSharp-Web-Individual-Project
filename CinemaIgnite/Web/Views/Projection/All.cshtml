@@ -6,6 +6,10 @@
 }
 
 <h1>List</h1>
+<script src="~/js/Program.js" type="module"></script>
+<form class="date-input" style="display:inline" asp-controller="Projection" asp-action="All">
+    <input type="date" id="projectionDate" name="date">
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -38,7 +42,6 @@
                                 </button>
 
                         }
-
                     }
                 </div>
             </div>

@@ -4,9 +4,9 @@ namespace Core.Services.Contracts
 {
     public interface IProjectionService
     {
-        Task<(bool isCreated, string error)> Create(CreateProjectionModel model);
+        Task<(bool isCreated, DateTime date)> Create(CreateProjectionModel model);
 
-        Task<bool> Delete(string id);
+        Task<(bool isDeleted, DateTime date)> Delete(string id);
 
         Task<IEnumerable<ListProjectionModel>> GetAllForMovie(string movieId);
 
