@@ -1,9 +1,10 @@
 ﻿using Infrastructure.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class CinemaDbContext : DbContext
+    public class CinemaDbContext : IdentityDbContext
     {
         public CinemaDbContext()
         {
@@ -42,7 +43,7 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

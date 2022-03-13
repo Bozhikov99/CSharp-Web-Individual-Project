@@ -1,4 +1,5 @@
 ﻿using Common;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -39,6 +40,10 @@ namespace Infrastructure.Models
         [Required]
         [MaxLength(UserConstants.EmailMaxLength)]
         public string Email { get; set; }
+
+        public string IdentityUserId { get; set; }
+
+        public virtual IdentityUser IdentityUser { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; }
 
