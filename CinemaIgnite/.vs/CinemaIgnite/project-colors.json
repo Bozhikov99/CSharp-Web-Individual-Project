@@ -30,7 +30,22 @@
       "ProjectGuid": "291ed780-e41d-47d2-ab07-9471b6b9e16e",
       "DisplayName": "Core",
       "ColorIndex": 4
+    },
+    "f233d285-ba4e-4811-b2f2-1b7ed06f5835": {
+      "ProjectGuid": "f233d285-ba4e-4811-b2f2-1b7ed06f5835",
+      "DisplayName": "App",
+      "ColorIndex": 5
+    },
+    "f61896c8-a4e4-4bb1-ae7b-1362a2b4baa4": {
+      "ProjectGuid": "f61896c8-a4e4-4bb1-ae7b-1362a2b4baa4",
+      "DisplayName": "WebApplication1",
+      "ColorIndex": 6
+    },
+    "1adf5345-c1c8-4b66-a0e5-ff24c41b5e8e": {
+      "ProjectGuid": "1adf5345-c1c8-4b66-a0e5-ff24c41b5e8e",
+      "DisplayName": "WebApplication2",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 8
 }

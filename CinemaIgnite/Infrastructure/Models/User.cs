@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         public User()
         {
@@ -41,9 +41,6 @@ namespace Infrastructure.Models
         [MaxLength(UserConstants.EmailMaxLength)]
         public string Email { get; set; }
 
-        public string IdentityUserId { get; set; }
-
-        public virtual IdentityUser IdentityUser { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; }
 

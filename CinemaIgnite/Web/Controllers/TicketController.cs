@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class TicketController : Controller
+    public class TicketController : BaseController
     {
         private readonly ITicketService ticketService;
 

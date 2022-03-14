@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class CinemaDbContext : IdentityDbContext
+    public class CinemaDbContext : IdentityDbContext<User>
     {
         public CinemaDbContext()
         {

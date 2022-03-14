@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class GenreController : Controller
+    public class GenreController : BaseController
     {
         private readonly IGenreService genreService;
 

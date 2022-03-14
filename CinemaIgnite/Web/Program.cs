@@ -4,6 +4,7 @@ using Core.Services;
 using Core.Services.Contracts;
 using Infrastructure;
 using Infrastructure.Common;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Web.ModelBinders;
@@ -16,7 +17,13 @@ builder.Services.AddDbContext<CinemaDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<User>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+})
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CinemaDbContext>();
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>());

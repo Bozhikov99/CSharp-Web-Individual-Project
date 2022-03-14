@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class MovieController : Controller
+    public class MovieController : BaseController
     {
         private readonly IMovieService movieService;
 
