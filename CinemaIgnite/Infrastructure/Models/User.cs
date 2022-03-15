@@ -35,9 +35,6 @@ namespace Infrastructure.Models
         public string LastName { get; set; }
 
         [Required]
-        public string Password { get; set; }
-
-        [Required]
         [MaxLength(UserConstants.EmailMaxLength)]
         public string Email { get; set; }
 
