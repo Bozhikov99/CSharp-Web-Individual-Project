@@ -16,6 +16,7 @@ namespace Core.ViewModels.User
         public string LastName { get; set; }
 
         [Required]
+        [StringLength(UserConstants.PasswordMaxLength, MinimumLength = UserConstants.PasswordMinLength, ErrorMessage = ErrorMessagesConstants.InvalidLengthMessage)]
         public string Password { get; set; }
 
         [Compare(nameof(Password), ErrorMessage = ErrorMessagesConstants.PasswordsNotMatchingMessage)]

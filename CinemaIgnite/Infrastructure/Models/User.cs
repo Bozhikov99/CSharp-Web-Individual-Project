@@ -34,9 +34,9 @@ namespace Infrastructure.Models
         [MaxLength(UserConstants.NameMaxLength)]
         public string LastName { get; set; }
 
-        [Required]
-        [MaxLength(UserConstants.EmailMaxLength)]
-        public string Email { get; set; }
+        //[Required]
+        //[MaxLength(UserConstants.EmailMaxLength)]
+        //public string Email { get; set; }
 
 
         public virtual ICollection<Ticket> Tickets { get; set; }

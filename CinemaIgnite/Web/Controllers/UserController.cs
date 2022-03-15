@@ -24,6 +24,11 @@ namespace Web.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserModel model)
         {
@@ -33,7 +38,7 @@ namespace Web.Controllers
             }
 
             User user = mapper.Map<User>(model);
-            user.UserName = model.FirstName;
+            user.UserName = model.Email;
 
             var result = await userManager.CreateAsync(user, model.Password);
 
@@ -49,6 +54,34 @@ namespace Web.Controllers
 
                 return View(model);
             }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginUserModel model)
+        {
+            string email = model.Email;
+
+            User? user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                //ModelState.AddModelError(string.Empty, "Invalid data");
+
+                string error = "Invalid data";
+                return View("UserError", error);
+            }
+
+            bool isValidPassword = await userManager.CheckPasswordAsync(user, model.Password);
+
+            if (!isValidPassword)
+            {
+                string error = "Invalid data";
+                return View("UserError", error);
+            }
+
+            await signInManager.SignInAsync(user, true);
 
             return RedirectToAction("Index", "Home");
         }
