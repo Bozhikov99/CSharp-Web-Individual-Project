@@ -38,6 +38,7 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IProjectionService, ProjectionService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>

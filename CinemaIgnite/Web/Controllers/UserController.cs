@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Services.Contracts;
 using Core.ViewModels.User;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Identity;
@@ -10,12 +11,14 @@ namespace Web.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly IUserService userService;
         private readonly IMapper mapper;
 
-        public UserController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IUserService userService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.userService = userService;
             this.mapper = mapper;
         }
 
@@ -37,10 +40,7 @@ namespace Web.Controllers
                 return View();
             }
 
-            User user = mapper.Map<User>(model);
-            user.UserName = model.Email;
-
-            var result = await userManager.CreateAsync(user, model.Password);
+            var result = await userService.Register(model);
 
             if (!result.Succeeded)
             {
@@ -61,27 +61,12 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserModel model)
         {
-            string email = model.Email;
+            (bool isLoggedIn, string error) = await userService.Login(model);
 
-            User? user = await userManager.FindByEmailAsync(email);
-
-            if (user == null)
+            if (!isLoggedIn)
             {
-                //ModelState.AddModelError(string.Empty, "Invalid data");
-
-                string error = "Invalid data";
                 return View("UserError", error);
             }
-
-            bool isValidPassword = await userManager.CheckPasswordAsync(user, model.Password);
-
-            if (!isValidPassword)
-            {
-                string error = "Invalid data";
-                return View("UserError", error);
-            }
-
-            await signInManager.SignInAsync(user, true);
 
             return RedirectToAction("Index", "Home");
         }
