@@ -52,6 +52,13 @@ namespace Web.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        public async Task<IActionResult> Details(string id)
+        {
+            MovieDetailsModel model = await movieService.GetMovieDetails(id);
+
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateMovieModel model)
         {

@@ -126,5 +126,13 @@ namespace Core.Services
                 return false;
             }
         }
+
+        public async Task<MovieDetailsModel> GetMovieDetails(string id)
+        {
+            Movie movie = await repository.GetByIdAsync<Movie>(id);
+            MovieDetailsModel model = mapper.Map<MovieDetailsModel>(movie);
+
+            return model;
+        }
     }
 }
