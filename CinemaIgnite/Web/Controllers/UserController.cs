@@ -2,6 +2,7 @@
 using Core.Services.Contracts;
 using Core.ViewModels.User;
 using Infrastructure.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,13 +11,10 @@ namespace Web.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService userService;
-        private readonly IMapper mapper;
 
-        public UserController(IMapper mapper, IUserService userService)
+        public UserController(IUserService userService)
         {
-
             this.userService = userService;
-            this.mapper = mapper;
         }
 
         public IActionResult Register()
@@ -27,6 +25,14 @@ namespace Web.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            UserProfileModel model = await userService.GetUserProfile();
+
+            return View(model);
         }
 
         [HttpPost]

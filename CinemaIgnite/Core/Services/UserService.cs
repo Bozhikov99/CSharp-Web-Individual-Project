@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Services.Contracts;
 using Core.ViewModels.User;
+using Infrastructure.Common;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -15,13 +16,15 @@ namespace Core.Services
         private readonly SignInManager<User> signInManager;
         private readonly IMapper mapper;
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IRepository repository;
 
-        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor)
+        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IRepository repository)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.mapper = mapper;
             this.httpContextAccessor = httpContextAccessor;
+            this.repository = repository;
         }
 
         public async Task<(bool isLoggedIn, string error)> Login(LoginUserModel model)
@@ -68,6 +71,15 @@ namespace Core.Services
                 .FindFirstValue(ClaimTypes.NameIdentifier);
 
             return userId;
+        }
+
+        public async Task<UserProfileModel> GetUserProfile()
+        {
+            string userId = GetUserId();
+            User user = await repository.GetByIdAsync<User>(userId);
+            UserProfileModel model = mapper.Map<UserProfileModel>(user);
+
+            return model;
         }
     }
 }

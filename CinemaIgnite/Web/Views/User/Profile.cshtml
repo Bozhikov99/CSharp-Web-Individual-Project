@@ -1,0 +1,10 @@
+﻿@using Core.ViewModels.User
+@model UserProfileModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h1>Profile</h1>
+
+<p>Name: @Model.FirstName @Model.LastName</p>
+<p>Email: @Model.Email</p>

@@ -14,6 +14,8 @@ namespace Core.Services.Contracts
 
         Task<(bool isLoggedIn, string error)> Login(LoginUserModel model);
 
+        Task<UserProfileModel> GetUserProfile();
+
         string GetUserId();
     }
 }

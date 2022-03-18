@@ -9,6 +9,8 @@ namespace Core.Mapping
         public UserProfile()
         {
             CreateMap<RegisterUserModel, User>();
+
+            CreateMap<User, UserProfileModel>();
         }
     }
 }
