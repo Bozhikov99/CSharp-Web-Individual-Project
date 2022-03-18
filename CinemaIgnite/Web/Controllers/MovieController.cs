@@ -64,8 +64,6 @@ namespace Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //IEnumerable<string> errors = ModelState.Values.SelectMany(e => e.Errors)
-                //    .Select(e => e.ErrorMessage);
                 return View();
             }
 

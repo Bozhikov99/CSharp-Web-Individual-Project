@@ -13,5 +13,7 @@ namespace Core.Services.Contracts
         Task<IdentityResult?> Register(RegisterUserModel model);
 
         Task<(bool isLoggedIn, string error)> Login(LoginUserModel model);
+
+        string GetUserId();
     }
 }

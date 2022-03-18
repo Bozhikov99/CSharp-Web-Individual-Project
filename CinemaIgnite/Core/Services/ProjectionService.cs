@@ -106,14 +106,6 @@ namespace Core.Services.Contracts
             return projections;
         }
 
-        public async Task<ProjectionDetails> GetProjectionById(string id)
-        {
-            Projection projection = await GetById(id);
-            ProjectionDetails details = mapper.Map<ProjectionDetails>(projection);
-
-            return details;
-        }
-
         public async Task<ProjectionDetails> GetProjectionDetails(string id)
         {
             Projection projection = await GetById(id);

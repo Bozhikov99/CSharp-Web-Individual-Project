@@ -9,6 +9,6 @@ namespace Core.Services.Contracts
 {
     public interface ITicketService
     {
-        Task<(bool isCreated, string error)> Create(CreateTicketModel model);
+        Task<(bool isCreated, string error)> Create(CreateTicketModel model, string userId);
     }
 }

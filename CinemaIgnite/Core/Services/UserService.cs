@@ -2,12 +2,9 @@
 using Core.Services.Contracts;
 using Core.ViewModels.User;
 using Infrastructure.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Core.Services
 {
@@ -17,12 +14,14 @@ namespace Core.Services
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly IMapper mapper;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.mapper = mapper;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<(bool isLoggedIn, string error)> Login(LoginUserModel model)
@@ -61,6 +60,14 @@ namespace Core.Services
             IdentityResult? result = await userManager.CreateAsync(user, model.Password);
 
             return result;
+        }
+
+        public string GetUserId()
+        {
+            string userId = httpContextAccessor.HttpContext.User
+                .FindFirstValue(ClaimTypes.NameIdentifier);
+
+            return userId;
         }
     }
 }

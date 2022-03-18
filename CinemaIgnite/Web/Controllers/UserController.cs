@@ -9,15 +9,12 @@ namespace Web.Controllers
 {
     public class UserController : BaseController
     {
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
         private readonly IUserService userService;
         private readonly IMapper mapper;
 
-        public UserController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IUserService userService)
+        public UserController(IMapper mapper, IUserService userService)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+
             this.userService = userService;
             this.mapper = mapper;
         }

@@ -38,6 +38,13 @@ namespace Web.Controllers
             return View(projections);
         }
 
+        public async Task<IActionResult> Details(string id)
+        {
+            ProjectionDetails model = await projectionService.GetProjectionDetails(id);
+
+            return View(model);
+        }
+
         public async Task<IActionResult> Delete(string id)
         {
             (bool isDeleted, DateTime date) = await projectionService.Delete(id);

@@ -14,8 +14,6 @@ namespace Core.Services.Contracts
 
         Task<ProjectionDetails> GetProjectionDetails(string id);
 
-        Task<ProjectionDetails> GetProjectionById(string id);
-
         bool IsPlaceTaken(int seat);
 
         Task<bool> DeleteAllForMovie(string movieId);

@@ -23,9 +23,6 @@ namespace Infrastructure.Models
             Notifications = new List<Notification>();
         }
 
-        [Key]
-        public string Id { get; set; }
-
         [Required]
         [MaxLength(UserConstants.NameMaxLength)]
         public string FirstName { get; set; }

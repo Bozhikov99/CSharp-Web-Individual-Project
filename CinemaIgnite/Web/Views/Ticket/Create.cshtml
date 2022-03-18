@@ -1,4 +1,5 @@
-﻿@model Infrastructure.Models.Ticket
+﻿@using Core.ViewModels.Ticket
+@model CreateTicketModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,27 +11,16 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CreateForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Seat" class="control-label"></label>
                 <input asp-for="Seat" class="form-control" />
                 <span asp-validation-for="Seat" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjectionId" class="control-label"></label>
-                <select asp-for="ProjectionId" class ="form-control" asp-items="ViewBag.ProjectionId"></select>
-            </div>
-            <div class="form-group">
+                <input asp-for="UserId" class="form-control" type="hidden" value=@ViewBag.UserId />
+                <input asp-for="ProjectionId" class="form-control" type="hidden" value=@ViewBag.ProjectionId />
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -42,5 +32,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }

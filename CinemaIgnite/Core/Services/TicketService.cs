@@ -17,15 +17,14 @@ namespace Core.Services
             this.mapper = mapper;
         }
 
-        public async Task<(bool isCreated, string error)> Create(CreateTicketModel model)
+        public async Task<(bool isCreated, string error)> Create(CreateTicketModel model, string userId)
         {
             bool isCreated = false;
             string error = string.Empty;
 
             Ticket ticket = mapper.Map<Ticket>(model);
-
-            if (repository.All<Ticket>()
-                .Single(x=>x.Seat==model.Seat) != null)
+            
+            if (IsSeatTaken(model.Seat))
             {
                 error = $"A ticket for seat {model.Seat} is already bought";
             }
@@ -33,7 +32,12 @@ namespace Core.Services
             {
                 try
                 {
-                    await repository.AddAsync(model);
+                    User user = await repository.GetByIdAsync<User>(userId);
+                    user.Tickets.Add(ticket);
+
+                    ticket.User = user;
+
+                    await repository.AddAsync(ticket);
                     await repository.SaveChangesAsync();
                     isCreated = true;
                 }
@@ -45,6 +49,14 @@ namespace Core.Services
 
 
             return (isCreated, error);
+        }
+
+        private bool IsSeatTaken(int seat)
+        {
+            bool isTaken = repository.AllReadonly<Ticket>()
+                .Any(t => t.Seat == seat);
+
+            return isTaken;
         }
     }
 }
