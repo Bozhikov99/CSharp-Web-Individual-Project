@@ -16,6 +16,14 @@ namespace Core.Services.Contracts
 
         Task<UserProfileModel> GetUserProfile();
 
+        Task<bool> AddMovieToFavourites(string movieId);
+
+        Task<bool> RemoveMovieFromFavourites(string movieId);
+
+        Task<bool> HasFavouriteMovie(string movieId);
+
+        bool IsLoggedIn();
+
         string GetUserId();
     }
 }

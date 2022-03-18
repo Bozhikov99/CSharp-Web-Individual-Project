@@ -1,1 +1,52 @@
-﻿<i class="fa-light fa-heart"></i>
+﻿@using Infrastructure.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@*<script src="~/js/addMovieToFavourites.js" type="module"></script>*@
+
+   @if (ViewBag.IsLoggedIn)
+{
+    if (ViewBag.IsFavourite)
+    {
+        <button id="fav-button" class="btn-warning">Unfav it</button>
+    }
+    else
+    {
+        <button id="fav-button" class="btn-danger">Fav it</button>
+
+        @*<button id="fav-button" class="btn-warning">Fav it</button>*@
+    }
+}
+<script type="text/javascript">
+    let favButtonElement = document.querySelector('#fav-button');
+    console.log(favButtonElement.textContent);
+
+    favButtonElement.addEventListener('click', () => {
+    let buttonText=favButtonElement.textContent;
+
+    if(buttonText=='Fav it'){
+    $.ajax({
+    type: "POST",
+    url: "@Url.Action("AddMovieToFavourites")",
+    data: { id: '@ViewBag.MovieId'}
+    })
+    .then((result)=>{
+        favButtonElement.textContent='Unfav it';
+        favButtonElement.classList.remove('btn-danger');
+        favButtonElement.classList.add('btn-warning');
+    });
+    }else {
+        $.ajax({
+    type: "POST",
+    url: "@Url.Action("RemoveMovieFromFavourites")",
+    data: { id: '@ViewBag.MovieId'}
+    })
+    .then((result)=>{
+        favButtonElement.textContent='Fav it';
+        favButtonElement.classList.remove('btn-warning');
+        favButtonElement.classList.add('btn-danger');
+    });
+    }
+
+    });</script>

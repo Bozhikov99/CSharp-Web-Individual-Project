@@ -5,6 +5,7 @@ using Infrastructure.Common;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Core.Services
@@ -65,12 +66,52 @@ namespace Core.Services
             return result;
         }
 
-        public string GetUserId()
+        public async Task<bool> AddMovieToFavourites(string movieId)
         {
-            string userId = httpContextAccessor.HttpContext.User
-                .FindFirstValue(ClaimTypes.NameIdentifier);
+            bool isAdded = false;
+            string userId = GetUserId();
 
-            return userId;
+            Movie movie = await repository.GetByIdAsync<Movie>(movieId);
+            User user = await repository.GetByIdAsync<User>(userId);
+
+            user.FavouriteMovies.Add(movie);
+
+            try
+            {
+                repository.Update(user);
+                await repository.SaveChangesAsync();
+                isAdded = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return isAdded;
+        }
+
+        public async Task<bool> RemoveMovieFromFavourites(string movieId)
+        {
+            bool isRemoved = false;
+            string userId = GetUserId();
+
+            Movie movie = await repository.GetByIdAsync<Movie>(movieId);
+            User user = repository.All<User>()
+                .Include(u => u.FavouriteMovies)
+                .First(u => u.Id == userId);
+
+            user.FavouriteMovies.Remove(movie);
+
+            try
+            {
+                repository.Update(user);
+                await repository.SaveChangesAsync();
+                isRemoved = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return isRemoved;
         }
 
         public async Task<UserProfileModel> GetUserProfile()
@@ -80,6 +121,33 @@ namespace Core.Services
             UserProfileModel model = mapper.Map<UserProfileModel>(user);
 
             return model;
+        }
+
+        public async Task<bool> HasFavouriteMovie(string movieId)
+        {
+            string userId = GetUserId();
+            var user = repository.All<User>()
+                .Include(u => u.FavouriteMovies)
+                .First(u => u.Id == userId);
+
+            bool isFavourite = user.FavouriteMovies.Any(m => m.Id == movieId);
+
+            return isFavourite;
+        }
+
+        public string GetUserId()
+        {
+            string userId = httpContextAccessor.HttpContext.User
+                .FindFirstValue(ClaimTypes.NameIdentifier);
+
+            return userId;
+        }
+
+        public bool IsLoggedIn()
+        {
+            string userId = GetUserId();
+
+            return userId != null;
         }
     }
 }
