@@ -83,7 +83,7 @@ namespace Web.Controllers
 
             if (isLoggedIn)
             {
-                bool isFavourite = await userService.HasFavouriteMovie(id);
+                bool isFavourite = userService.HasFavouriteMovie(id);
 
                 ViewBag.UserId = userService.GetUserId();
                 ViewBag.IsFavourite = isFavourite;

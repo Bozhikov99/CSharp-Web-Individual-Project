@@ -20,7 +20,7 @@ namespace Core.Services.Contracts
 
         Task<bool> RemoveMovieFromFavourites(string movieId);
 
-        Task<bool> HasFavouriteMovie(string movieId);
+        bool HasFavouriteMovie(string movieId);
 
         bool IsLoggedIn();
 

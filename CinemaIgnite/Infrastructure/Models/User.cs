@@ -36,5 +36,7 @@ namespace Infrastructure.Models
         public virtual ICollection<Movie> FavouriteMovies { get; set; }
 
         public virtual ICollection<Notification> Notifications { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

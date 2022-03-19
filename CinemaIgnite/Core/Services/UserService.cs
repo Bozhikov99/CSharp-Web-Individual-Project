@@ -123,7 +123,7 @@ namespace Core.Services
             return model;
         }
 
-        public async Task<bool> HasFavouriteMovie(string movieId)
+        public bool HasFavouriteMovie(string movieId)
         {
             string userId = GetUserId();
             var user = repository.All<User>()
