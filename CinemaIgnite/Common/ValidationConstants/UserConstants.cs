@@ -13,5 +13,7 @@
         public const int EmailMinLength = 4;
 
         public const int EmailMaxLength = 254;
+
+        public const string NameAllowedCharacters = "абвгдежзийклмнопрстуфхцчшщъьюяАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЮЯ";
     }
 }

@@ -22,6 +22,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
+    options.User.AllowedUserNameCharacters = options.User.AllowedUserNameCharacters + UserConstants.NameAllowedCharacters;
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CinemaDbContext>();
@@ -39,6 +40,7 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IProjectionService, ProjectionService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>

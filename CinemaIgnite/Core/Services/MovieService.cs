@@ -129,8 +129,17 @@ namespace Core.Services
 
         public async Task<MovieDetailsModel> GetMovieDetails(string id)
         {
-            Movie movie = await repository.GetByIdAsync<Movie>(id);
+            Movie movie = repository.All<Movie>(m=>m.Id==id)
+                .Include(m=>m.Ratings)
+                .First();
+
             MovieDetailsModel model = mapper.Map<MovieDetailsModel>(movie);
+
+            //model.Rating = movie.Ratings
+            //    .Select(r => r.Value)
+            //    .Sum() / movie.Ratings.Count;
+
+            string rating = $"{model.Rating:F2}";
 
             return model;
         }
