@@ -40,6 +40,8 @@ namespace Core.Services.Contracts
                 await repository.SaveChangesAsync();
 
                 date = DateTime.Parse(model.Date.ToString(), new CultureInfo("bg-bg"));
+                await NotifyUsersOnCreation(model.MovieId, date);
+
                 isCreated = true;
             }
             catch (Exception)
@@ -135,6 +137,29 @@ namespace Core.Services.Contracts
             DateTime date = projection.Date;
 
             return date;
+        }
+
+        private async Task NotifyUsersOnCreation(string movieId, DateTime date)
+        {
+            User[] users = await repository.All<User>(u => u.FavouriteMovies.Any(m => m.Id == movieId))
+                .ToArrayAsync();
+
+            Movie movie = await repository.GetByIdAsync<Movie>(movieId);
+
+
+            Notification notification = new Notification()
+            {
+                Text = $"A projection for the {movie.Title} is available on {date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} at {date.ToString("HH:mm", CultureInfo.InvariantCulture)}",
+                IsChecked = false
+            };
+
+            foreach (User u in users)
+            {
+                u.Notifications.Add(notification);
+            }
+
+            repository.UpdateRange(users);
+            await repository.SaveChangesAsync();
         }
     }
 }
