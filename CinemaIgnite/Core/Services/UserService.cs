@@ -135,6 +135,67 @@ namespace Core.Services
             return isFavourite;
         }
 
+        public (bool hasRating, int? value) GetRating(string movieId)
+        {
+            int? value = 0;
+            string userId = GetUserId();
+            var user = repository.All<User>()
+                .Include(u => u.Ratings)
+                .First(u => u.Id == userId);
+
+            bool hasRating = user.Ratings.Any(r => r.MovieId == movieId);
+
+            if (hasRating)
+            {
+                Rating rating = repository.All<Rating>()
+                    .First(r => r.MovieId == movieId);
+
+                value = rating.Value;
+            }
+
+            return (hasRating, value);
+        }
+
+        public async Task<bool> RateMovie(string movieId, int value)
+        {
+            bool isSuccessful = false;
+
+            string userId = GetUserId();
+            var user = repository.All<User>()
+                .Include(u => u.Ratings)
+                .First(u => u.Id == userId);
+
+            Rating currentRating = user.Ratings
+                .FirstOrDefault(r => r.MovieId == movieId);
+
+            if (currentRating != null)
+            {
+                user.Ratings.Remove(currentRating);
+            }
+
+
+            Rating newRating = new Rating()
+            {
+                MovieId = movieId,
+                UserId = userId,
+                Value = value
+            };
+
+            try
+            {
+                user.Ratings.Add(newRating);
+                repository.Update(user);
+                await repository.SaveChangesAsync();
+                isSuccessful = true;
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return isSuccessful;
+        }
+
         public string GetUserId()
         {
             string userId = httpContextAccessor.HttpContext.User

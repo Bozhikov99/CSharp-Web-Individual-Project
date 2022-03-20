@@ -23,6 +23,9 @@ namespace Infrastructure.Models
 
         public virtual User User { get; set; }
 
+        [ForeignKey(nameof(Movie))]
+        public string MovieId { get; set; }
+
         public virtual Movie Movie { get; set; }
     }
 }

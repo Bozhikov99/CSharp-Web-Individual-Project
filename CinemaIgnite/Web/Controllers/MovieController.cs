@@ -41,28 +41,6 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<PartialViewResult> AddMovieToFavourites(string id)
-        {
-            await userService.AddMovieToFavourites(id);
-            ViewBag.IsFavourite = true;
-            ViewBag.IsLoggedIn = true;
-
-            return PartialView("_FavouriteMoviePartial");
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<PartialViewResult> RemoveMovieFromFavourites(string id)
-        {
-            await userService.RemoveMovieFromFavourites(id);
-            ViewBag.IsFavourite = false;
-            ViewBag.IsLoggedIn = true;
-
-            return PartialView("_FavouriteMoviePartial");
-        }
-
         public async Task<IActionResult> Delete(string id)
         {
             bool isDeleted = await movieService.Delete(id);
@@ -84,9 +62,16 @@ namespace Web.Controllers
             if (isLoggedIn)
             {
                 bool isFavourite = userService.HasFavouriteMovie(id);
+                (bool hasRating, int? value) = userService.GetRating(id);
 
                 ViewBag.UserId = userService.GetUserId();
                 ViewBag.IsFavourite = isFavourite;
+                ViewBag.HasRating = hasRating;
+
+                if (hasRating)
+                {
+                    ViewBag.Rating = value;
+                }
             }
 
             ViewBag.MovieId = id;
@@ -131,6 +116,38 @@ namespace Web.Controllers
             }
 
             return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<PartialViewResult> AddMovieToFavourites(string id)
+        {
+            await userService.AddMovieToFavourites(id);
+            ViewBag.IsFavourite = true;
+            ViewBag.IsLoggedIn = true;
+
+            return PartialView("_FavouriteMoviePartial");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<PartialViewResult> RemoveMovieFromFavourites(string id)
+        {
+            await userService.RemoveMovieFromFavourites(id);
+            ViewBag.IsFavourite = false;
+            ViewBag.IsLoggedIn = true;
+
+            return PartialView("_FavouriteMoviePartial");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<PartialViewResult> RateMovie(string movieId, int value)
+        {
+            bool isSuccessful = await userService.RateMovie(movieId, value);
+            ViewBag.HasRating = true;
+            ViewBag.Rating = value;
+            return PartialView("_RateMoviePartial");
         }
     }
 }

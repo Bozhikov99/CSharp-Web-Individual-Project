@@ -1,9 +1,4 @@
-﻿@using Infrastructure.Models
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
-
-@*<script src="~/js/addMovieToFavourites.js" type="module"></script>*@
+﻿@*<script src="~/js/addMovieToFavourites.js" type="module"></script>*@
 
    @if (ViewBag.IsLoggedIn)
 {
@@ -26,27 +21,27 @@
     let buttonText=favButtonElement.textContent;
 
     if(buttonText=='Fav it'){
-    $.ajax({
-    type: "POST",
-    url: "@Url.Action("AddMovieToFavourites")",
-    data: { id: '@ViewBag.MovieId'}
-    })
-    .then((result)=>{
-        favButtonElement.textContent='Unfav it';
-        favButtonElement.classList.remove('btn-danger');
-        favButtonElement.classList.add('btn-warning');
-    });
-    }else {
         $.ajax({
-    type: "POST",
-    url: "@Url.Action("RemoveMovieFromFavourites")",
-    data: { id: '@ViewBag.MovieId'}
-    })
-    .then((result)=>{
-        favButtonElement.textContent='Fav it';
-        favButtonElement.classList.remove('btn-warning');
-        favButtonElement.classList.add('btn-danger');
-    });
+        type: "POST",
+        url: "@Url.Action("AddMovieToFavourites")",
+        data: { id: '@ViewBag.MovieId'}
+        })
+        .then((result)=>{
+            favButtonElement.textContent='Unfav it';
+            favButtonElement.classList.remove('btn-danger');
+            favButtonElement.classList.add('btn-warning');
+        });
+    } else {
+        $.ajax({
+        type: "POST",
+        url: "@Url.Action("RemoveMovieFromFavourites")",
+        data: { id: '@ViewBag.MovieId'}
+        })
+        .then((result)=>{
+            favButtonElement.textContent='Fav it';
+            favButtonElement.classList.remove('btn-warning');
+            favButtonElement.classList.add('btn-danger');
+        });
     }
 
     });</script>
