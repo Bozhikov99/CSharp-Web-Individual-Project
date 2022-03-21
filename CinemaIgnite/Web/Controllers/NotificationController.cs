@@ -17,13 +17,16 @@ namespace Web.Controllers
             this.userService = userService;
         }
 
+        [HttpPost]
         public async Task<IActionResult> Read(string id)
         {
             await notificationService.Read(id);
-
+            string userId = userService.GetUserId();
+            ViewBag.Unread = notificationService.GetUnreadCount(userId);
             return new EmptyResult();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
             await notificationService.Delete(id);

@@ -25,14 +25,49 @@
             {
                 <p class="notification-title" style="font-weight: bold">@item.Title</p>
             }
-            <p>@item.Date.ToString("dd.MM.yyyy HH:mm")</p>
             <div class="notification-text" hidden>
                 @Html.DisplayFor(modelItem => item.Text)
                 @Html.DisplayFor(modelItem => item.Date)
                 <p id="user-id" hidden>@item.Id</p>
+                <button class="delete-notification">Delete</button>
             </div>
         </div>
 
 
     }
 </div>
+
+<script type="text/javascript">
+    let titleElements=document.querySelectorAll('.notification-title');
+    let delElements=document.querySelectorAll('.delete-notification');
+
+    titleElements.forEach(te=>te.addEventListener('click', (e)=>{
+        let parent=te.parentElement;
+        let userId=parent.querySelector('#user-id')
+            .textContent;
+
+        $.ajax({
+        type: "POST",
+        url: "@Url.Action("Read")",
+        data: { id: userId}
+        })
+        .then((result)=>{
+        });
+    }))
+
+    delElements.forEach(de=>de.addEventListener('click', ()=>{
+        let divElement=de.parentElement.parentElement;
+        let userId=divElement.querySelector('#user-id')
+            .textContent;
+
+        $.ajax({
+        type: "POST",
+        url: "@Url.Action("Delete")",
+        data: { id: userId}
+        })
+        .then((result)=>{
+            divElement.remove();
+        });
+    }))
+
+</script>

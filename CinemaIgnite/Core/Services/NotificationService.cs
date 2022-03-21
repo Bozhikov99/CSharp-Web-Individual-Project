@@ -26,7 +26,7 @@ namespace Core.Services
 
         public async Task<int> GetUnreadCount(string userId)
         {
-            IEnumerable<Notification> unreadNotifications = await repository.All<Notification>(n => n.UserId == userId)
+            IEnumerable<Notification> unreadNotifications = await repository.All<Notification>(n => n.UserId == userId && !n.IsChecked)
                 .ToArrayAsync();
 
             return unreadNotifications.Count();
