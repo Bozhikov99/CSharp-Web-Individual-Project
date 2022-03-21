@@ -18,8 +18,14 @@ namespace Infrastructure.Models
         public string Id { get; set; }
 
         [Required]
+        [MaxLength(NotificationConstants.TitleMaxLength)]
+        public string Title { get; set; }
+
+        [Required]
         [MaxLength(NotificationConstants.TextMaxLength)]
         public string Text { get; set; }
+
+        public DateTime Date { get; set; }
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }

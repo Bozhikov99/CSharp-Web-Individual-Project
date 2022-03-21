@@ -26,5 +26,13 @@ namespace Core.Services
 
             return unreadNotifications.Count();
         }
+
+        public async Task Read(string id)
+        {
+            Notification notification = await repository.GetByIdAsync<Notification>(id);
+            notification.IsChecked = true;
+
+            await repository.SaveChangesAsync();
+        }
     }
 }

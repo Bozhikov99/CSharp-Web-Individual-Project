@@ -146,7 +146,9 @@ namespace Core.Services.Contracts
 
             Movie movie = await repository.GetByIdAsync<Movie>(movieId);
 
-
+            string title = movie.Title;
+            string day=date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture));
+            string hour=date.ToString("HH:mm", CultureInfo.InvariantCulture));
             Notification notification = new Notification()
             {
                 Text = $"A projection for the {movie.Title} is available on {date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} at {date.ToString("HH:mm", CultureInfo.InvariantCulture)}",
