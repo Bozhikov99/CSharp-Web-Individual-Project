@@ -1,0 +1,38 @@
+﻿@using Core.ViewModels.Notification
+@model IEnumerable<NotificationDetailsModel>
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<script src="~/js/notifications.js" type="module"></script>
+
+<h1>All</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="container">
+
+    @foreach (var item in Model)
+    {
+        <div class="notification-div">
+            @if (item.IsChecked)
+            {
+                <p class="notification-title">@item.Title</p>
+            }
+            else
+            {
+                <p class="notification-title" style="font-weight: bold">@item.Title</p>
+            }
+            <p>@item.Date.ToString("dd.MM.yyyy HH:mm")</p>
+            <div class="notification-text" hidden>
+                @Html.DisplayFor(modelItem => item.Text)
+                @Html.DisplayFor(modelItem => item.Date)
+                <p id="user-id" hidden>@item.Id</p>
+            </div>
+        </div>
+
+
+    }
+</div>

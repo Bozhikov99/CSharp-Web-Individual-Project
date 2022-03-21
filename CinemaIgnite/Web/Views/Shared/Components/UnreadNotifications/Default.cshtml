@@ -2,5 +2,5 @@
 
 @if (ViewBag.UserId!=null)
 {
-    <button class="btn-primary">@Model</button>
+    <button class="btn-danger"><a asp-controller="Notification" asp-action="All">@Model</a></button>
 }

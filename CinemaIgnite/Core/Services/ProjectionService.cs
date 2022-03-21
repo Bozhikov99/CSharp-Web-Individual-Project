@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.TemplateConstants;
 
 namespace Core.Services.Contracts
 {
@@ -147,11 +148,14 @@ namespace Core.Services.Contracts
             Movie movie = await repository.GetByIdAsync<Movie>(movieId);
 
             string title = movie.Title;
-            string day=date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture));
-            string hour=date.ToString("HH:mm", CultureInfo.InvariantCulture));
+            string day = date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+            string hour = date.ToString("HH:mm", CultureInfo.InvariantCulture);
+
             Notification notification = new Notification()
             {
-                Text = $"A projection for the {movie.Title} is available on {date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} at {date.ToString("HH:mm", CultureInfo.InvariantCulture)}",
+                Title = NotificationTemplateConstants.MovieProjectionTitle,
+                Text = string.Format(NotificationTemplateConstants.MovieProjectionMessage, title, day, hour),
+                Date = DateTime.Now,
                 IsChecked = false
             };
 

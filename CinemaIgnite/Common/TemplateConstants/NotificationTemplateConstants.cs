@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Common.TemplateConstants
 {
-    internal class NotificationTemplateConstants
+    public class NotificationTemplateConstants
     {
+        public const string MovieProjectionTitle = "Coming soon";
+        public const string MovieProjectionMessage = "A projection for the {0} is available on {1} at {2}";
+
     }
 }

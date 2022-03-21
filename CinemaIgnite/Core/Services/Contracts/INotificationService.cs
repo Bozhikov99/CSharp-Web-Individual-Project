@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.ViewModels.Notification;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,9 @@ namespace Core.Services.Contracts
         Task<int> GetUnreadCount(string userId);
 
         Task Read(string id);
+
+        Task<IEnumerable<NotificationDetailsModel>> GetAll(string userId);
+
+        Task Delete(string id);
     }
 }

@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Core.ViewModels.Notification;
+using Infrastructure.Models;
 
 namespace Core.Mapping
 {
-    internal class NotificationProfile
+    public class NotificationProfile : Profile
     {
+        public NotificationProfile()
+        {
+            CreateMap<Notification, NotificationDetailsModel>();
+        }
     }
 }
