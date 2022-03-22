@@ -1,0 +1,7 @@
+﻿@using Core.ViewModels.Genre
+@model IEnumerable<ListGenreModel>
+
+    @foreach (var g in Model)
+    {
+        <li ><a class="dropdown-item" asp-controller="Movie" asp-action="Search" asp-route-genresSearch=@g.Id>@g.Name (@g.MovieCount)</a> </li>
+    }

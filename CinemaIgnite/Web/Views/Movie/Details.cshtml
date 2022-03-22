@@ -64,7 +64,7 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Rating)
         </dt>
-        <dd class="col-sm-10">
+        <dd id="rating" class="col-sm-10">
             <p>@(Model.Rating!=0?Model.Rating.ToString("F1"):"No rates yet.")</p>
         </dd>
     </dl>

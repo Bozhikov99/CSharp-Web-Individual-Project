@@ -13,10 +13,10 @@ buttonElements.forEach(b => b.addEventListener('click', () => {
 
     inputElement.value = value;
     console.log(inputElement.value);
-    rateButtonElement.disabled = false;
+/*    rateButtonElement.classList.remove('disabled');*/
     rateButtonElement.classList.add('btn-warning');
 }))
 
 rateButtonElement.addEventListener('click', () => {
-    rateDivElement.hidden='true';
+    rateDivElement.hidden = 'true';
 })

@@ -148,7 +148,7 @@ namespace Core.Services
             if (hasRating)
             {
                 Rating rating = repository.All<Rating>()
-                    .First(r => r.MovieId == movieId);
+                    .First(r => r.MovieId == movieId&&r.UserId==user.Id);
 
                 value = rating.Value;
             }
