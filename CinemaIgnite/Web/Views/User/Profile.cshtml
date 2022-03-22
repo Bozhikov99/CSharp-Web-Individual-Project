@@ -8,3 +8,11 @@
 
 <p>Name: @Model.FirstName @Model.LastName</p>
 <p>Email: @Model.Email</p>
+
+<div class="wrapper" style="color: lightblue">
+    <h3>Upcoming tickets</h3>
+    @foreach (var t in ViewBag.Tickets)
+    {
+        <p>@t.MovieTitle @t.Date.ToString("dd.MM") @t.Seat</p>
+    }
+</div>

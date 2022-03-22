@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Core.Services.Contracts;
+using Core.ViewModels.Ticket;
 using Core.ViewModels.User;
 using Infrastructure.Common;
 using Infrastructure.Models;
@@ -148,7 +150,7 @@ namespace Core.Services
             if (hasRating)
             {
                 Rating rating = repository.All<Rating>()
-                    .First(r => r.MovieId == movieId&&r.UserId==user.Id);
+                    .First(r => r.MovieId == movieId && r.UserId == user.Id);
 
                 value = rating.Value;
             }
@@ -210,5 +212,16 @@ namespace Core.Services
 
             return userId != null;
         }
+
+        public async Task<IEnumerable<ListTicketModel>> GetUpcomingTickets()
+        {
+            string userId = GetUserId();
+            IEnumerable<ListTicketModel> upcomingTickets = await repository.All<Ticket>(t => t.Projection.Date > DateTime.Now)
+                .ProjectTo<ListTicketModel>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
+
+            return upcomingTickets;
+        }
+
     }
 }

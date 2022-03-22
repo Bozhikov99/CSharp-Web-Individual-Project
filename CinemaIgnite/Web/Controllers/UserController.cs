@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Services.Contracts;
+using Core.ViewModels.Ticket;
 using Core.ViewModels.User;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -31,6 +32,8 @@ namespace Web.Controllers
         public async Task<IActionResult> Profile()
         {
             UserProfileModel model = await userService.GetUserProfile();
+            IEnumerable<ListTicketModel> tickets = await userService.GetUpcomingTickets();
+            ViewBag.Tickets = tickets;
 
             return View(model);
         }

@@ -9,6 +9,10 @@ namespace Core.Mapping
         public TicketProfile()
         {
             CreateMap<CreateTicketModel, Ticket>();
+
+            CreateMap<Ticket, ListTicketModel>()
+                .ForMember(d => d.Date, s => s.MapFrom(p => p.Projection.Date))
+                .ForMember(d => d.MovieTitle, s => s.MapFrom(p => p.Projection.Movie.Title));
         }
     }
 }

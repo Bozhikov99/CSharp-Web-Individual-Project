@@ -1,4 +1,5 @@
-﻿using Core.ViewModels.User;
+﻿using Core.ViewModels.Ticket;
+using Core.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace Core.Services.Contracts
         Task<bool> RemoveMovieFromFavourites(string movieId);
 
         Task<bool> RateMovie(string movieId, int value);
+
+        Task<IEnumerable<ListTicketModel>> GetUpcomingTickets();
 
         bool HasFavouriteMovie(string movieId);
 
