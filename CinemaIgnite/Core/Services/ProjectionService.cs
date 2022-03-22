@@ -63,6 +63,7 @@ namespace Core.Services.Contracts
             try
             {
                 date = await GetDate(id);
+                await NotifyUsersOnDeletion(id, date);
                 await repository.DeleteAsync<Projection>(id);
                 await repository.SaveChangesAsync();
                 isDeleted = true;
@@ -155,6 +156,36 @@ namespace Core.Services.Contracts
             {
                 Title = NotificationTemplateConstants.MovieProjectionTitle,
                 Text = string.Format(NotificationTemplateConstants.MovieProjectionMessage, title, day, hour),
+                Date = DateTime.Now,
+                IsChecked = false
+            };
+
+            foreach (User u in users)
+            {
+                u.Notifications.Add(notification);
+            }
+
+            repository.UpdateRange(users);
+            await repository.SaveChangesAsync();
+        }
+
+        private async Task NotifyUsersOnDeletion(string projectionId, DateTime date)
+        {
+            User[] users = await repository.All<User>(u => u.Tickets.Any(t => t.ProjectionId == projectionId))
+                .ToArrayAsync();
+
+            Projection projection = await repository.GetByIdAsync<Projection>(projectionId);
+            string movieId = projection.MovieId;
+            Movie movie = await repository.GetByIdAsync<Movie>(movieId);
+
+            string title = movie.Title;
+            string day = date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+            string hour = date.ToString("HH:mm", CultureInfo.InvariantCulture);
+
+            Notification notification = new Notification()
+            {
+                Title = NotificationTemplateConstants.ProjectionCancelledTitle,
+                Text = string.Format(NotificationTemplateConstants.ProjectionCancelledMessage, title, day, hour),
                 Date = DateTime.Now,
                 IsChecked = false
             };
