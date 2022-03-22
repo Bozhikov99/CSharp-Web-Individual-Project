@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Common.TemplateConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.Ticket;
 using Infrastructure.Common;
 using Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace Core.Services
 {
@@ -23,7 +26,7 @@ namespace Core.Services
             string error = string.Empty;
 
             Ticket ticket = mapper.Map<Ticket>(model);
-            
+
             if (IsSeatTaken(model.Seat))
             {
                 error = $"A ticket for seat {model.Seat} is already bought";
@@ -39,6 +42,7 @@ namespace Core.Services
 
                     await repository.AddAsync(ticket);
                     await repository.SaveChangesAsync();
+                    await NotifyUserOnCreation(model);
                     isCreated = true;
                 }
                 catch (Exception)
@@ -57,6 +61,34 @@ namespace Core.Services
                 .Any(t => t.Seat == seat);
 
             return isTaken;
+        }
+
+        private async Task NotifyUserOnCreation(CreateTicketModel model)
+        {
+            Projection projection = await repository.GetByIdAsync<Projection>(model.ProjectionId);
+            User user = await repository.GetByIdAsync<User>(model.UserId);
+
+            string movieId = projection.MovieId;
+            Movie movie = await repository.GetByIdAsync<Movie>(movieId);
+            string title = movie.Title;
+
+            DateTime date = projection.Date;
+
+            string day = date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+            string hour = date.ToString("HH:mm", CultureInfo.InvariantCulture);
+
+            Notification notification = new Notification()
+            {
+                Title = NotificationTemplateConstants.TicketBoughtTitle,
+                Text = string.Format(NotificationTemplateConstants.TicketBoughtMessage, title, day, hour),
+                Date = DateTime.Now,
+                IsChecked = false
+            };
+
+            user.Notifications.Add(notification);
+
+            repository.Update(user);
+            await repository.SaveChangesAsync();
         }
     }
 }
