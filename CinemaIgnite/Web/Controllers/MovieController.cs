@@ -29,6 +29,9 @@ namespace Web.Controllers
         public async Task<IActionResult> All()
         {
             IEnumerable<ListMovieModel> movies = await movieService.GetAll();
+            IEnumerable<ListGenreModel> genres = await genreService.GetAll();
+            ViewBag.Genres = genres;
+
             return View(movies);
         }
 
@@ -39,6 +42,15 @@ namespace Web.Controllers
             ViewBag.Genres = genres;
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Search(List<string> genresSearch)
+        {
+            IEnumerable<ListMovieModel> movies = await movieService.GetAll(m => m.Genres.Any(g => genresSearch.Contains(g.Id)));
+            IEnumerable<ListGenreModel> genres = await genreService.GetAll();
+            ViewBag.Genres = genres;
+
+            return View(nameof(All), movies);
         }
 
         public async Task<IActionResult> Delete(string id)
