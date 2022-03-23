@@ -127,10 +127,11 @@ namespace Core.Services
             }
         }
 
+
         public async Task<MovieDetailsModel> GetMovieDetails(string id)
         {
-            Movie movie = repository.All<Movie>(m=>m.Id==id)
-                .Include(m=>m.Ratings)
+            Movie movie = repository.All<Movie>(m => m.Id == id)
+                .Include(m => m.Ratings)
                 .First();
 
             MovieDetailsModel model = mapper.Map<MovieDetailsModel>(movie);
@@ -142,6 +143,19 @@ namespace Core.Services
             string rating = $"{model.Rating:F2}";
 
             return model;
+        }
+        public async Task<string> GetRating(string id)
+        {
+            //Movie movie = await repository.GetByIdAsync<Movie>(id);
+            //MovieDetailsModel model = mapper.Map<MovieDetailsModel>(movie);
+            Movie movie = repository.All<Movie>(m => m.Id == id)
+               .Include(m => m.Ratings)
+               .First();
+
+            MovieDetailsModel model = mapper.Map<MovieDetailsModel>(movie);
+            string rating = $"{model.Rating:F1}";
+
+            return rating;
         }
     }
 }

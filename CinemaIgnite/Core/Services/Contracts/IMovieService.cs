@@ -20,6 +20,8 @@ namespace Core.Services.Contracts
 
         Task<MovieDetailsModel> GetMovieDetails(string id);
 
+        Task<string> GetRating(string id);
+
         //Task<MovieDetailsModel> GetById(string id);
     }
 }
