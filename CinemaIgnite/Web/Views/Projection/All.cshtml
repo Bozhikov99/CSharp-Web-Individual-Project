@@ -43,6 +43,14 @@
                                 </button>
                             }
                         }
+                        else
+                        {
+                            <button class="btn btn-danger disabled">
+                                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+                                    <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
+                                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
+                                </button>
+                        }
                     }
                 </div>
             </div>

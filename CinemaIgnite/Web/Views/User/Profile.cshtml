@@ -15,8 +15,9 @@
         @foreach (var f in ViewBag.Favourites)
         {
             <li>@f.Title</li>
-            <li>@f.Rating</li>
+            <li>@f.Rating.ToString("F1")</li>
             <li>@f.Duration</li>
+            <li>@string.Join(", ",f.Genres)</li>
         }
     </ul>
 </div>

@@ -27,7 +27,7 @@ namespace Core.Services
 
             Ticket ticket = mapper.Map<Ticket>(model);
 
-            if (IsSeatTaken(model.Seat))
+            if (IsSeatTaken(model.Seat, model.ProjectionId))
             {
                 error = $"A ticket for seat {model.Seat} is already bought";
             }
@@ -39,9 +39,11 @@ namespace Core.Services
                     user.Tickets.Add(ticket);
 
                     ticket.User = user;
-
+                    Projection projection = await repository.GetByIdAsync<Projection>(model.ProjectionId);
                     await repository.AddAsync(ticket);
                     await repository.SaveChangesAsync();
+
+                    projection.TicketsAvailable--;
                     await NotifyUserOnCreation(model);
                     isCreated = true;
                 }
@@ -55,10 +57,10 @@ namespace Core.Services
             return (isCreated, error);
         }
 
-        private bool IsSeatTaken(int seat)
+        private bool IsSeatTaken(int seat, string projectionId)
         {
             bool isTaken = repository.AllReadonly<Ticket>()
-                .Any(t => t.Seat == seat);
+                .Any(t => t.Seat == seat && t.ProjectionId == projectionId);
 
             return isTaken;
         }

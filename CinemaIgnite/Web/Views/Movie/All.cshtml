@@ -11,7 +11,7 @@
     <a asp-action="Create">Create New</a>
 </p>
 <div class="container genre-box">
-    <form asp-action="Search">
+    <form asp-action="SearchByGenre">
     @foreach (var genre in ViewBag.Genres)
     {
         <div >
@@ -19,7 +19,7 @@
             <input name="genresSearch" type="checkbox" value=@genre.Id>
         </div>
     }
-    <button type="submit" value="Search">Search</button>
+    <button type="submit" value="SearchByGenre">Search</button>
     </form>
 </div>
 <table class="table">

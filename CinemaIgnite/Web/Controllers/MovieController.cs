@@ -44,7 +44,7 @@ namespace Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Search(List<string> genresSearch)
+        public async Task<IActionResult> SearchByGenre(List<string> genresSearch)
         {
             IEnumerable<ListMovieModel> movies = await movieService.GetAll(m => m.Genres.Any(g => genresSearch.Contains(g.Id)));
             IEnumerable<ListGenreModel> genres = await genreService.GetAll();
