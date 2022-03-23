@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Services.Contracts;
+using Core.ViewModels.Movie;
 using Core.ViewModels.Ticket;
 using Core.ViewModels.User;
 using Infrastructure.Models;
@@ -33,7 +34,9 @@ namespace Web.Controllers
         {
             UserProfileModel model = await userService.GetUserProfile();
             IEnumerable<ListTicketModel> tickets = await userService.GetUpcomingTickets();
+            IEnumerable<ListMovieModel> favouriteMovies = await userService.GetFavouriteMovies();
             ViewBag.Tickets = tickets;
+            ViewBag.Favourites = favouriteMovies;
 
             return View(model);
         }

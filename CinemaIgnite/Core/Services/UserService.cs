@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Core.Services.Contracts;
+using Core.ViewModels.Movie;
 using Core.ViewModels.Ticket;
 using Core.ViewModels.User;
 using Infrastructure.Common;
@@ -221,6 +222,18 @@ namespace Core.Services
                 .ToArrayAsync();
 
             return upcomingTickets;
+        }
+
+        public async Task<IEnumerable<ListMovieModel>> GetFavouriteMovies()
+        {
+            string userId = GetUserId();
+            User user = await repository.GetByIdAsync<User>(userId);
+
+            IEnumerable<ListMovieModel> favouriteMovies = await repository.All<Movie>(m => m.UsersFavourited.Contains(user))
+                .ProjectTo<ListMovieModel>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
+
+            return favouriteMovies;
         }
 
     }

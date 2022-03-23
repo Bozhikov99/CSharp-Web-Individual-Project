@@ -11,7 +11,9 @@ namespace Core.Mapping
             CreateMap<CreateMovieModel, Movie>();
 
             CreateMap<Movie, ListMovieModel>()
-                .ForMember(d => d.Genres, s => s.MapFrom(m => m.Genres.Select(g => g.Name)));
+                .ForMember(d => d.Genres, s => s.MapFrom(m => m.Genres.Select(g => g.Name)))
+                .ForMember(d => d.Rating, s => s.MapFrom(m => m.Ratings.Count == 0 ? 0 :
+                                          (double)m.Ratings.Select(r => r.Value).Sum() / (double)m.Ratings.Count));
 
             CreateMap<Movie, EditMovieModel>()
                 .ReverseMap();
