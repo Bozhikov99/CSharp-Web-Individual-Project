@@ -83,23 +83,6 @@ namespace Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize(Roles = RoleConstants.Administrator)]
-        public async Task<IActionResult> ManageUsers()
-        {
-            IEnumerable<UserListModel> users = await userService.GetUsers();
 
-            return Ok(users);
-        }
-
-        public async Task<IActionResult> CreateRole()
-        {
-            //Uncomment to create a new role
-            //await roleManager.CreateAsync(new IdentityRole()
-            //{
-            //    Name = "Administrator"
-            //});
-
-            return Ok();
-        }
     }
 }

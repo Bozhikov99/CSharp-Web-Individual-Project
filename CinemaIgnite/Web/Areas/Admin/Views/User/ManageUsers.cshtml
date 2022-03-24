@@ -1,0 +1,26 @@
+﻿@using Core.ViewModels.User
+@model IEnumerable<UserListModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.FullName</td>
+                <td>@u.Email</td>
+                <td>
+                    <a asp-area="Admin" asp-action="Edit" asp-controller="User" asp-route-id="@u.Id" class="btn btn-block btn-outline-info btn-xs">Edit</a>
+                    <a asp-area="Admin" asp-action="Roles" asp-controller="User" asp-route-id="@u.Id" class="btn btn-block btn-outline-warning btn-xs">Roles</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

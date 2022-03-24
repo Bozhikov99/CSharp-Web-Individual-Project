@@ -2,11 +2,6 @@
 using Core.ViewModels.Ticket;
 using Core.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Services.Contracts
 {
@@ -17,6 +12,10 @@ namespace Core.Services.Contracts
         Task<IdentityResult?> Register(RegisterUserModel model);
 
         Task<(bool isLoggedIn, string error)> Login(LoginUserModel model);
+
+        Task<EditUserModel> GetEditModel(string id);
+
+        Task<bool> Edit(EditUserModel model);
 
         Task<UserProfileModel> GetUserProfile();
 
@@ -37,5 +36,7 @@ namespace Core.Services.Contracts
         bool IsLoggedIn();
 
         string GetUserId();
+
+        Task<bool> IsAdmin();
     }
 }

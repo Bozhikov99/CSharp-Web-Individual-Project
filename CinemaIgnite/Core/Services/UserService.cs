@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.Ticket;
@@ -75,6 +76,32 @@ namespace Core.Services
             IdentityResult? result = await userManager.CreateAsync(user, model.Password);
 
             return result;
+        }
+
+        public async Task<EditUserModel> GetEditModel(string userId)
+        {
+            User user = await repository.GetByIdAsync<User>(userId);
+            EditUserModel model = mapper.Map<EditUserModel>(user);
+
+            return model;
+        }
+
+        public async Task<bool> Edit(EditUserModel model)
+        {
+            User user = await repository.GetByIdAsync<User>(model.Id); /*mapper.Map<User>(model)*/;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            try
+            {
+                repository.Update(user);
+                await repository.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> AddMovieToFavourites(string movieId)
@@ -251,6 +278,16 @@ namespace Core.Services
                 .ToArrayAsync();
 
             return favouriteMovies;
+        }
+
+        public async Task<bool> IsAdmin()
+        {
+            string userId = GetUserId();
+            User user = await repository.GetByIdAsync<User>(userId);
+
+            bool isAdmin = await userManager.IsInRoleAsync(user, RoleConstants.Administrator);
+
+            return isAdmin;
         }
 
     }
