@@ -88,7 +88,8 @@ namespace Core.Services
 
         public async Task<bool> Edit(EditUserModel model)
         {
-            User user = await repository.GetByIdAsync<User>(model.Id); /*mapper.Map<User>(model)*/;
+            bool isEdited = false;
+            User user = await repository.GetByIdAsync<User>(model.Id);
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
 
@@ -96,12 +97,30 @@ namespace Core.Services
             {
                 repository.Update(user);
                 await repository.SaveChangesAsync();
-                return true;
+                isEdited = true;
             }
             catch (Exception)
             {
-                return false;
             }
+
+            return isEdited;
+        }
+
+        public async Task<bool> Delete(string id)
+        {
+            bool isDeleted = false;
+
+            try
+            {
+                await repository.DeleteAsync<User>(id);
+                await repository.SaveChangesAsync();
+                isDeleted = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return isDeleted;
         }
 
         public async Task<bool> AddMovieToFavourites(string movieId)

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.ValidationConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
@@ -46,6 +47,18 @@ namespace Web.Areas.Admin.Controllers
             if (!isEdited)
             {
 
+            }
+
+            return RedirectToAction(nameof(ManageUsers));
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool isDeleted = await userService.Delete(id);
+
+            if (!isDeleted)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorDeletingUser);
             }
 
             return RedirectToAction(nameof(ManageUsers));

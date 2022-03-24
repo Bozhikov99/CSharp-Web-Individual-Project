@@ -17,6 +17,8 @@ namespace Core.Services.Contracts
 
         Task<bool> Edit(EditUserModel model);
 
+        Task<bool> Delete(string id);
+
         Task<UserProfileModel> GetUserProfile();
 
         Task<bool> AddMovieToFavourites(string movieId);
