@@ -35,6 +35,10 @@
         data: { movieId: '@ViewBag.MovieId', value: Number(inputValue)}
         })
         .then((result)=>{
+             //Worked just fine and suddenly glitched after I Added the Web API. Couldn't fix it
+            rateToggleElement.textContent=`${inputValue}/10`;
+        })
+        .fail((result)=>{
             rateToggleElement.textContent=`${inputValue}/10`;
         });
     })
