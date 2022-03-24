@@ -12,6 +12,8 @@ namespace Core.Services.Contracts
 {
     public interface IUserService
     {
+        Task<IEnumerable<UserListModel>> GetUsers();
+
         Task<IdentityResult?> Register(RegisterUserModel model);
 
         Task<(bool isLoggedIn, string error)> Login(LoginUserModel model);

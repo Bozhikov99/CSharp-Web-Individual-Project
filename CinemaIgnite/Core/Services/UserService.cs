@@ -18,17 +18,25 @@ namespace Core.Services
         private const string logInErrorMessage = "Invalid data";
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IMapper mapper;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IRepository repository;
 
-        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IRepository repository)
+        public UserService(
+            IMapper mapper,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            IHttpContextAccessor httpContextAccessor,
+            IRepository repository,
+            RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.mapper = mapper;
             this.httpContextAccessor = httpContextAccessor;
             this.repository = repository;
+            this.roleManager = roleManager;
         }
 
         public async Task<(bool isLoggedIn, string error)> Login(LoginUserModel model)
@@ -115,6 +123,15 @@ namespace Core.Services
             }
 
             return isRemoved;
+        }
+
+        public async Task<IEnumerable<UserListModel>> GetUsers()
+        {
+            IEnumerable<UserListModel> users = await repository.All<User>()
+                .ProjectTo<UserListModel>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
+
+            return users;
         }
 
         public async Task<UserProfileModel> GetUserProfile()

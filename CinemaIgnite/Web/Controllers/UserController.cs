@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.Ticket;
@@ -13,10 +14,12 @@ namespace Web.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService userService;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public UserController(IUserService userService)
+        public UserController(RoleManager<IdentityRole> roleManager, IUserService userService)
         {
             this.userService = userService;
+            this.roleManager = roleManager;
         }
 
         public IActionResult Register()
@@ -78,6 +81,25 @@ namespace Web.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize(Roles = RoleConstants.Administrator)]
+        public async Task<IActionResult> ManageUsers()
+        {
+            IEnumerable<UserListModel> users = await userService.GetUsers();
+
+            return Ok(users);
+        }
+
+        public async Task<IActionResult> CreateRole()
+        {
+            //Uncomment to create a new role
+            //await roleManager.CreateAsync(new IdentityRole()
+            //{
+            //    Name = "Administrator"
+            //});
+
+            return Ok();
         }
     }
 }

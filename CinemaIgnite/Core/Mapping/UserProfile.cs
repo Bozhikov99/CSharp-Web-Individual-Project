@@ -11,6 +11,9 @@ namespace Core.Mapping
             CreateMap<RegisterUserModel, User>();
 
             CreateMap<User, UserProfileModel>();
+
+            CreateMap<User, UserListModel>()
+                .ForMember(d => d.FullName, s => s.MapFrom(u => $"{u.FirstName} {u.LastName}"));
         }
     }
 }
