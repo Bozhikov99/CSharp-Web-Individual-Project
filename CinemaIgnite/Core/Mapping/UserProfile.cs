@@ -17,6 +17,11 @@ namespace Core.Mapping
 
             CreateMap<User, UserListModel>()
                 .ForMember(d => d.FullName, s => s.MapFrom(u => $"{u.FirstName} {u.LastName}"));
+
+            CreateMap<User, UserRoleModel>()
+                .ForMember(d => d.Name, s => s.MapFrom(u => $"{u.FirstName} {u.LastName}"))
+                .ReverseMap();
+
         }
     }
 }

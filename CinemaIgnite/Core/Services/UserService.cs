@@ -9,6 +9,7 @@ using Infrastructure.Common;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -309,5 +310,46 @@ namespace Core.Services
             return isAdmin;
         }
 
+        public async Task<(UserRoleModel user, IEnumerable<SelectListItem> roles)> GetUserWithRoles(string id)
+        {
+            User user = await repository.GetByIdAsync<User>(id);
+            UserRoleModel model = mapper.Map<UserRoleModel>(user);
+
+            IEnumerable<SelectListItem> roles = roleManager.Roles
+                .ToList()
+                .Select(r => new SelectListItem()
+                {
+                    Text = r.Name,
+                    Value = r.Name,
+                    Selected = userManager.IsInRoleAsync(user, r.Name).Result
+                })
+                .ToArray();
+
+            return (model, roles);
+        }
+
+        public async Task<bool> EditRoles(UserRoleModel model)
+        {
+            bool isEdited = false;
+
+            User user = await repository.GetByIdAsync<User>(model.Id);
+            IEnumerable<string> userRoles = await userManager.GetRolesAsync(user);
+
+            try
+            {
+                await userManager.RemoveFromRolesAsync(user, userRoles);
+
+                if (model.RoleNames.Length > 0)
+                {
+                    await userManager.AddToRolesAsync(user, model.RoleNames);
+                }
+                isEdited = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return isEdited;
+        }
     }
 }

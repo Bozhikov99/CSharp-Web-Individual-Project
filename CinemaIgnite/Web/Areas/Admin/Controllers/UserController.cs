@@ -5,18 +5,17 @@ using Core.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Web.Areas.Admin.Controllers
 {
     public class UserController : BaseController
     {
         private readonly IUserService userService;
-        private readonly RoleManager<IdentityRole> roleManager;
 
         public UserController(RoleManager<IdentityRole> roleManager, IUserService userService)
         {
             this.userService = userService;
-            this.roleManager = roleManager;
         }
 
         public async Task<IActionResult> ManageUsers()
@@ -60,6 +59,36 @@ namespace Web.Areas.Admin.Controllers
             {
                 return View("UserError", ErrorMessagesConstants.ErrorDeletingUser);
             }
+
+            return RedirectToAction(nameof(ManageUsers));
+        }
+
+        public async Task<IActionResult> Roles(string id)
+        {
+            (UserRoleModel user, IEnumerable<SelectListItem> roles) = await userService.GetUserWithRoles(id);
+            ViewBag.Roles = roles;
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Roles(UserRoleModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                (UserRoleModel userModel, IEnumerable<SelectListItem> roles) = await userService.GetUserWithRoles(model.Id);
+                ViewBag.Roles = roles;
+
+                return View(userModel);
+            }
+
+            bool isEdited = await userService.EditRoles(model);
+
+            if (!isEdited)
+            {
+                return View("UserError", "X");
+            }
+
 
             return RedirectToAction(nameof(ManageUsers));
         }

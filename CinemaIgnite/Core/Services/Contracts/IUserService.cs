@@ -2,6 +2,7 @@
 using Core.ViewModels.Ticket;
 using Core.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Core.Services.Contracts
 {
@@ -31,6 +32,10 @@ namespace Core.Services.Contracts
 
         Task<IEnumerable<ListMovieModel>> GetFavouriteMovies();
 
+        Task<(UserRoleModel user, IEnumerable<SelectListItem> roles)> GetUserWithRoles(string id);
+
+        Task<bool> EditRoles(UserRoleModel model);
+
         bool HasFavouriteMovie(string movieId);
 
         (bool hasRating, int? value) GetRating(string movieId);
@@ -40,5 +45,6 @@ namespace Core.Services.Contracts
         string GetUserId();
 
         Task<bool> IsAdmin();
+
     }
 }
