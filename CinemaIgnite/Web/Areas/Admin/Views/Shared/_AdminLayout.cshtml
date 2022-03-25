@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Web</title>
+    <title>@ViewData["Title"] - Admin panel</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
@@ -19,17 +19,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="ManageUsers">Manage Users</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="genreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Genres
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="genreDropdown">
+                            <li><a class="dropdown-item" asp-controller="Genre" asp-action="Create">Create</a></li>
                             <li><a class="dropdown-item" asp-controller="Genre" asp-action="All">All</a></li>
                         </ul>
                     </li>
@@ -38,43 +36,31 @@
                             Movies
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="movieDropdown">
+                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create">Create</a></li>
                             <li><a class="dropdown-item" asp-controller="Movie" asp-action="All">All</a></li>
                             @await Component.InvokeAsync("Genres")
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Projection" asp-action="All" asp-route-date=@DateTime.Today>All</a>
-                    </li>
                     <li class="nav-item dropdown">
-                        @*EXAMPLE*@
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
+                        <a class="nav-link dropdown-toggle" href="#" id="projectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Projection
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="projectionDropdown">
+                            <li><a class="dropdown-item" asp-controller="Projection" asp-action="Create">Create</a></li>
+                            <li><a class="dropdown-item" asp-controller="Projection" asp-action="All" asp-route-date=@DateTime.Today>All</a></li>
                         </ul>
                     </li>
 
                 </ul>
-                @await Component.InvokeAsync("UnreadNotifications")
                 <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
-    <div class="container">
+        <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

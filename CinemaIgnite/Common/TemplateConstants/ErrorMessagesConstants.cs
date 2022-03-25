@@ -9,5 +9,7 @@
         public const string ErrorEditingMovie= "Error editing a movie";
 
         public const string ErrorDeletingUser= "Unexpected error deleting an user";
+
+        public const string ErrorEditingRoles= "Error editing user roles";
     }
 }

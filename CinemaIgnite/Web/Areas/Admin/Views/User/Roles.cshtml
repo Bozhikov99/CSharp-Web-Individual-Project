@@ -6,6 +6,10 @@
     SelectListItem[] items = (SelectListItem[])ViewBag.Roles;
 }
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
+
 <div class="row">
     <div class="col-4">
         <form id="roles" method="post">
@@ -18,7 +22,7 @@
             <div class="form-floating">
                 <div class="form-group">
                     <label>User Roles</label>
-                    <select asp-for="RoleNames" asp-items=@items class="form-control">
+                    <select id="choices-multiple-remove-button" asp-for="RoleNames" asp-items=@items class="form-control">
                     </select>
                 </div>
             </div>
@@ -31,3 +35,17 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+
+    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true,
+    maxItemCount:5,
+    searchResultLimit:5,
+    renderChoiceLimit:5
+    });
+
+
+    });
+</script>
