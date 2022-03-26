@@ -93,6 +93,13 @@ footer {
     font-family: 'Gill Sans', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.unsigned {
+    right: 315px;
+    position: fixed;
+    display: flex;
+    top: 10px;
+}
+
 .nav-headline {
     padding-left: 30px;
     font-size: 26px;
