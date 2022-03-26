@@ -8,6 +8,16 @@ html {
     }
 }
 
+a {
+    text-decoration: none;
+}
+
+    a:hover {
+        color: white;
+        border-bottom: 2px solid #a4272d;
+        text-decoration: none;
+    }
+
 html {
     position: relative;
     min-height: 100%;
@@ -20,3 +30,127 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
+footer {
+    background-color: #050505;
+    color: #a4272d;
+    font-size: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+}
+
+.site-content {
+    background-color: #0d0d0d;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-left: 298px;
+    position: absolute;
+    height: 85%;
+    width: 90%;
+    z-index: -1;
+}
+
+.navbar-logo {
+    width: 200px;
+    height: 70px;
+}
+
+.navbar {
+    background-color: black;
+    margin: auto;
+    border-bottom: none;
+    height: 62px;
+    /*margin-bottom: 0px;
+    padding: 0px;*/
+    /*border-bottom: solid 2px #a4272d;*/
+    /*height: 90px;*/
+}
+
+.text-standard {
+    color: #a4272d;
+    font-family: 'Gill Sans', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.nav-headline {
+    padding-left: 30px;
+    font-size: 26px;
+}
+
+.profile-icon {
+    width: 25px;
+    height: 32px;
+}
+
+.action {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+}
+
+    .action .profile {
+        position: relative;
+        width: 25px;
+        height: 32px;
+        cursor: pointer;
+    }
+
+        .action .profile img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+    .action .menu {
+        position: absolute;
+        z-index: 999;
+        top: 50px;
+        right: -20px; /*зависи колко надясно е иконката!!!*/
+        padding: 10px 20px;
+        background: #fff;
+        width: 200px;
+        border-radius: 10px;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .action .menu.active{
+        visibility: visible;
+        opacity: 1;
+    }
+
+        .action .menu h4 {
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            padding: 10px;
+            line-height: 1rem;
+        }
+
+        .action .menu ul li {
+            list-style: none;
+            padding: 5px 0;
+            align-items: center;
+        }
+
+        .action .menu::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 22px; /*зависи колко надясно е иконката!!!*/
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            transform: rotate(45deg);
+        }
+
+        .action .menu ul li a {
+            display: inline-block;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .action .menu ul li:hover a {
+            color: #a4272d;
+        }

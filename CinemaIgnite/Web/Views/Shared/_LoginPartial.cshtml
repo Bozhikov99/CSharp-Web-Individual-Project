@@ -7,14 +7,41 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
+            <div class="action">
+                <div class="profile">
+                    <img src="~/img/Untitled-6.png">
+                </div>
+                <div class="menu">
+                    <h4>Name</h4>
+                    <ul>
+                        <li><a asp-controller="User" asp-action="Profile">Profile</a></li>
+                        <li>
+                            <a href="#" id="logout-trick">
+                                Logout
+                            </a>
+                            <form id="logout" hidden class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="btn text-standard">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            @*<a class="dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="~/img/Untitled-6.png" class="profile-icon" alt="icon">
+                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" asp-controller="User" asp-action="Profile">Profile</a></li>
+                </ul>
+                </a>*@
+        </li>
+        <li class="nav-item">
+            <a class="text-text-standard" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button type="submit" class="btn btn-link text-standard">Logout</button>
             </form>
-            @await Component.InvokeAsync("AdminCheck")
         </li>
+        @await Component.InvokeAsync("AdminCheck")
     }
     else
     {
@@ -25,4 +52,32 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
         </li>
     }
+    <li>
+        <form asp-controller="Movie" asp-action="All" method="post" class="form-inline my-2 my-lg-0">
+            <div class="search">
+                <input class="form-control mr-sm-2 searchbar" type="search" name="search" placeholder="Търсене" aria-label="Search" />
+                <i class="search-icon fa fa-search"></i>
+            </div>
+        </form>
+    </li>
 </ul>
+
+<script type="text/javascript">
+    let logOutVisible=document.querySelector('#logout-trick');
+    let profileElement=document.querySelector('.profile');
+
+    logOutVisible.addEventListener('click', ()=>{
+        let logOutSubmitElement=document.querySelector('#logout');
+        console.log(logOutSubmitElement);
+        logOutSubmitElement.submit();
+    })
+
+    profileElement.addEventListener('click', menuToggle);
+
+    function menuToggle() {
+        const toggleMenu = document.querySelector('.menu');
+        toggleMenu.classList.toggle('active');
+    }
+
+
+</script>
