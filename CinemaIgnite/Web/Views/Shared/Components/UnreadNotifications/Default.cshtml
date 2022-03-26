@@ -1,6 +1,6 @@
 ﻿@model System.Int32
 
-@if (ViewBag.UserId!=null)
+@if (ViewBag.UserId != null && Model > 0)
 {
-    <button class="btn-danger"><a id="notification-counter" asp-controller="Notification" asp-action="All">@Model</a></button>
+    <div class="notification-counter">@Model</div>
 }

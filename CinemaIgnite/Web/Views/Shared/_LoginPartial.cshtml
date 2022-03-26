@@ -12,9 +12,9 @@
                     <img src="~/img/Untitled-6.png">
                 </div>
                 <div class="menu">
-                    <h4>Name</h4>
+                    @await Component.InvokeAsync("UserDropdown")
                     <ul>
-                        <li><a asp-controller="User" asp-action="Profile">Profile</a></li>
+                        <li class="user-menu"><a asp-controller="User" asp-action="Profile">Profile</a></li>
                         <li>
                             <a href="#" id="logout-trick">
                                 Logout
@@ -34,14 +34,11 @@
                 </a>*@
         </li>
         <li class="nav-item">
-            <a class="text-text-standard" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
+            <a asp-area="" asp-controller="Notification" asp-action="All">
+                <img class="notification-icon" src="~/img/Untitled-7.png">
+            </a>
         </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="btn btn-link text-standard">Logout</button>
-            </form>
-        </li>
-        @await Component.InvokeAsync("AdminCheck")
+                @await Component.InvokeAsync("AdminCheck");
     }
     else
     {
@@ -53,10 +50,10 @@
         </li>
     }
     <li>
-        <form asp-controller="Movie" asp-action="All" method="post" class="form-inline my-2 my-lg-0">
+        <form id="search-form" asp-controller="Movie" asp-action="All" method="post" class="form-inline my-2 my-lg-0">
             <div class="search">
                 <input class="form-control mr-sm-2 searchbar" type="search" name="search" placeholder="Търсене" aria-label="Search" />
-                <i class="search-icon fa fa-search"></i>
+                <i class="search-icon fa fa-search text-standard" style="font-size: 22px"></i>
             </div>
         </form>
     </li>
@@ -65,6 +62,12 @@
 <script type="text/javascript">
     let logOutVisible=document.querySelector('#logout-trick');
     let profileElement=document.querySelector('.profile');
+    let searchElement=document.querySelector('.search-icon');
+
+    searchElement.addEventListener('click',()=>{
+        let formElement=document.querySelector('#search-form');
+        formElement.submit();
+    })
 
     logOutVisible.addEventListener('click', ()=>{
         let logOutSubmitElement=document.querySelector('#logout');

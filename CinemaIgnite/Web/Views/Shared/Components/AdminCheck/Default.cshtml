@@ -2,5 +2,9 @@
 
 @if (Model)
 {
-    <a class="btn-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
+    <li class="nav-item">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                <img class="admin-icon" src="~/img/admin-icon.png">
+            </a>
+        </li>
 }

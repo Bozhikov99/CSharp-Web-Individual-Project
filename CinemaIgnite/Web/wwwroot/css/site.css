@@ -56,6 +56,27 @@ footer {
     height: 70px;
 }
 
+.searchbar {
+    position: fixed;
+    background: #dedede;
+    border: 2px solid #a4272d;
+    border-radius: 10px;
+    width: 14%;
+    right: 24px;
+    top: 11px;
+}
+
+.search-icon {
+    cursor: pointer;
+    right: 32px;
+    top: 20px;
+    position: fixed;
+}
+
+    .search-icon:hover {
+        color: black;
+    }
+
 .navbar {
     background-color: black;
     margin: auto;
@@ -77,15 +98,52 @@ footer {
     font-size: 26px;
 }
 
+.notification-icon {
+    height: 30px;
+    width: 45px;
+    top: 17px;
+    right: 370px;
+    position: fixed;
+}
+
+.admin-icon {
+    height: 32px;
+    width: 33px;
+    position: fixed;
+    right: 431px;
+    top: 16px;
+}
+
+.notification-counter {
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    background: #fff;
+    border: none;
+    color: #a4272d;
+    text-align: center;
+    font: 13px Arial, sans-serif;
+    position: fixed;
+    right: 364px;
+    top: 33px;
+    font-weight: 800;
+    padding: 0;
+    z-index: 1;
+}
+
 .profile-icon {
     width: 25px;
     height: 32px;
 }
 
+.user-menu {
+    padding-left: 42px;
+}
+
 .action {
     position: fixed;
-    top: 20px;
-    right: 30px;
+    top: 16px;
+    right: 325px;
 }
 
     .action .profile {
@@ -112,12 +170,14 @@ footer {
         border-radius: 10px;
         visibility: hidden;
         opacity: 0;
+        padding-left: 0;
+        align-items: center;
     }
 
-    .action .menu.active{
-        visibility: visible;
-        opacity: 1;
-    }
+        .action .menu.active {
+            visibility: visible;
+            opacity: 1;
+        }
 
         .action .menu h4 {
             width: 100%;
@@ -125,11 +185,13 @@ footer {
             font-size: 18px;
             padding: 10px;
             line-height: 1rem;
+            margin-left: 10px;
         }
 
         .action .menu ul li {
             list-style: none;
-            padding: 5px 0;
+            padding-left: 42px;
+            padding-bottom: 12px;
             align-items: center;
         }
 
