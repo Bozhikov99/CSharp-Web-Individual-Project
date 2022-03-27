@@ -37,6 +37,9 @@ footer {
     font-size: 16px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .site-content {
@@ -46,7 +49,7 @@ footer {
     margin-top: 0px;
     margin-left: 298px;
     position: absolute;
-    height: 85%;
+    height: 90%;
     width: 90%;
     z-index: -1;
 }
@@ -93,11 +96,40 @@ footer {
     font-family: 'Gill Sans', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.text-information {
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .unsigned {
     right: 315px;
     position: fixed;
     display: flex;
     top: 10px;
+}
+
+.headline-div {
+    background-color: black;
+    align-self: center;
+    text-align: center;
+    width: 90%;
+    position: absolute;
+    top: 80px;
+    right: 66px;
+    border-bottom: 3px solid #a4272d;
+    font-size: 30px;
+}
+
+.headline {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.headline-icon {
+    position: absolute;
+    top: 17px;
+    height: 29px;
+    right: 16px;
 }
 
 .nav-headline {
@@ -172,7 +204,7 @@ footer {
         top: 50px;
         right: -20px; /*зависи колко надясно е иконката!!!*/
         padding: 10px 20px;
-        background: #fff;
+        background: #dedede;
         width: 200px;
         border-radius: 10px;
         visibility: hidden;
@@ -209,7 +241,7 @@ footer {
             right: 22px; /*зависи колко надясно е иконката!!!*/
             width: 20px;
             height: 20px;
-            background: #fff;
+            background: #dedede;
             transform: rotate(45deg);
         }
 

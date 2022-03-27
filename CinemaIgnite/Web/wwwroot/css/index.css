@@ -1,0 +1,31 @@
+﻿.movie-container {
+    top: 165px;
+    right: 56px;
+    position: absolute;
+}
+
+.movie-info {
+    background: rgba(164,39,45,0.70);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 2px solid white;
+}
+
+    .movie-info:hover {
+        cursor: pointer;
+    }
+
+.card {
+    /*    min-width: 18rem;*/
+    max-width: 27rem;
+    border: 0px;
+    margin: 15px;
+}
+
+    .card img {
+        width: 100%;
+        height: 27.5vw;
+        max-width: inherit;
+        max-height: inherit;
+    }

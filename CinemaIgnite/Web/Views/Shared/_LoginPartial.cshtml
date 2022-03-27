@@ -14,10 +14,10 @@
                 <div class="menu">
                     @await Component.InvokeAsync("UserDropdown")
                     <ul>
-                        <li class="user-menu"><a asp-controller="User" asp-action="Profile">Profile</a></li>
+                        <li class="user-menu"><a asp-controller="User" asp-action="Profile">Профил</a></li>
                         <li>
                             <a href="#" id="logout-trick">
-                                Logout
+                                Изход
                             </a>
                             <form id="logout" hidden class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                                 <button type="submit" class="btn text-standard">Logout</button>
@@ -26,12 +26,6 @@
                     </ul>
                 </div>
             </div>
-            @*<a class="dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="~/img/Untitled-6.png" class="profile-icon" alt="icon">
-                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" asp-controller="User" asp-action="Profile">Profile</a></li>
-                </ul>
-                </a>*@
         </li>
         <li class="nav-item">
             <a asp-area="" asp-controller="Notification" asp-action="All">
