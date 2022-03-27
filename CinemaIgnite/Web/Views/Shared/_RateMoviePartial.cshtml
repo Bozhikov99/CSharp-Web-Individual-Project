@@ -39,9 +39,9 @@
             console.log(rating);
             rateToggleElement.textContent=`${inputValue}/10`;
         })
-        //.fail((result)=>{
-        //let rating=JSON.stringify(result);
-        //    console.log(rating);
-        //    rateToggleElement.textContent=`${inputValue}/10`;});
+        .fail((result)=>{
+        let rating=JSON.stringify(result);
+            console.log(rating);
+            rateToggleElement.textContent=`${inputValue}/10`;});
     })
 </script>

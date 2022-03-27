@@ -37,10 +37,44 @@ namespace Web.Controllers
             return View(nameof(All), movies);
         }
 
+        public async Task<IActionResult> Search(string search)
+        {
+            IEnumerable<ListMovieModel> movies = await movieService.GetAll(m => m.Title.ToLower()
+                .Contains(search.ToLower()) ||
+                m.Actors.ToLower()
+                .Contains(search.ToLower()) ||
+                m.Genres.Select(g => g.Name.ToLower())
+                .Any(g => g.Contains(search.ToLower()))
+            );
+
+            IEnumerable<ListGenreModel> genres = await genreService.GetAll();
+            ViewBag.Genres = genres;
+
+            return View(nameof(All), movies);
+        }
+
         public async Task<IActionResult> Details(string id)
         {
             MovieDetailsModel model = await movieService.GetMovieDetails(id);
+            bool isLoggedIn = userService.IsLoggedIn();
+
+            if (isLoggedIn)
+            {
+                bool isFavourite = userService.HasFavouriteMovie(id);
+                (bool hasRating, int? value) = userService.GetRating(id);
+
+                ViewBag.UserId = userService.GetUserId();
+                ViewBag.IsFavourite = isFavourite;
+                ViewBag.HasRating = hasRating;
+
+                if (hasRating)
+                {
+                    ViewBag.Rating = value;
+                }
+            }
+
             ViewBag.MovieId = id;
+            ViewBag.IsLoggedIn = isLoggedIn;
 
             return View(model);
         }
