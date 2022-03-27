@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Core.ViewModels.Movie
+@model IEnumerable<ListMovieModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -10,15 +13,18 @@
 </div>
 
 <div id="movie-container" class="card-deck d-flex justify-content-center movie-container">
-    @for (int i = 0; i < 3; i++)
+    @foreach (var m in Model)
     {
         <div class="card mb-4 movie">
-            <img class="movie-poster" src="~/img/sample-poster.jpg" />
+            <img class="movie-poster" src=@m.ImageUrl />
             <div class="movie-info" hidden>
-                <h3 class="text-info">Заглавие</h3>
-                <p class="text-info">2015</p>
-                <p class="text-info">137 мин.</p>
-                <p class="text-info">Драма, фентъзи</p>
+                <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@m.Id>@m.Title</a></h2>
+                <div class="info-subdiv">
+                    <p class="text-information movie-text">Година: @m.ReleaseYear</p>
+                    <p class="text-information movie-text">Времетраене: @Math.Floor(m.Duration.TotalMinutes) мин.</p>
+                    <p class="text-information movie-text">Жанр: @string.Join(", ", m.Genres)</p>
+                </div>
+                <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{m.Rating:f1}")/10</h3>
             </div>
         </div>
     }
@@ -27,13 +33,11 @@
 <script type="text/javascript">
     let movieInfoElements=document.querySelectorAll('.card');
     movieInfoElements.forEach(mi=>mi.addEventListener('mouseover', ()=>{
-        console.log('success');
         let infoElement=mi.querySelector('.movie-info');
         infoElement.removeAttribute('hidden');
     }));
 
     movieInfoElements.forEach(mi=>mi.addEventListener('mouseout', ()=>{
-        console.log('success');
         let infoElement=mi.querySelector('.movie-info');
         infoElement.setAttribute('hidden', true);
     }));

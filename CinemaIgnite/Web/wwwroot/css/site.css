@@ -55,8 +55,8 @@ footer {
 }
 
 .navbar-logo {
-    width: 200px;
-    height: 70px;
+    width: 10.417vw;
+    height: 3.646vw;
 }
 
 .searchbar {
@@ -64,16 +64,18 @@ footer {
     background: #dedede;
     border: 2px solid #a4272d;
     border-radius: 10px;
-    width: 14%;
-    right: 24px;
-    top: 11px;
+    width: 14.063vw;
+    right: 1.25vw;
+    height: 2.083vw;
+    top: 0.573vw;
 }
 
 .search-icon {
     cursor: pointer;
-    right: 32px;
-    top: 20px;
+    right: 1.667vw;
+    top: 1.02vw;
     position: fixed;
+    font-size: 1.146vw;
 }
 
     .search-icon:hover {
@@ -84,7 +86,7 @@ footer {
     background-color: black;
     margin: auto;
     border-bottom: none;
-    height: 62px;
+    height: 3.229vw;
     /*margin-bottom: 0px;
     padding: 0px;*/
     /*border-bottom: solid 2px #a4272d;*/
@@ -114,10 +116,10 @@ footer {
     text-align: center;
     width: 90%;
     position: absolute;
-    top: 80px;
-    right: 66px;
+    top: 4.167vw;
+    right: 3.438vw;
     border-bottom: 3px solid #a4272d;
-    font-size: 30px;
+    font-size: 1.563vw;
 }
 
 .headline {
@@ -127,44 +129,44 @@ footer {
 
 .headline-icon {
     position: absolute;
-    top: 17px;
-    height: 29px;
-    right: 16px;
+    top: 0.885vw;
+    height: 1.51vw;
+    right: 0.833vw;
 }
 
 .nav-headline {
-    padding-left: 30px;
-    font-size: 26px;
+    padding-left: 1.563vw;
+    font-size: 1.354vw;
 }
 
 .notification-icon {
-    height: 30px;
-    width: 45px;
-    top: 17px;
-    right: 370px;
+    height: 1.563vw;
+    width: 2.344vw;
+    top: 0.885vw;
+    right: 19.271vw;
     position: fixed;
 }
 
 .admin-icon {
-    height: 32px;
-    width: 33px;
+    height: 1.667vw;
+    width: 1.719vw;
     position: fixed;
-    right: 431px;
-    top: 16px;
+    right: 22.448vw;
+    top: 0.833vw;
 }
 
 .notification-counter {
     border-radius: 50%;
-    width: 17px;
-    height: 17px;
+    width: 0.885vw;
+    height: 0.885vw;
     background: #fff;
     border: none;
     color: #a4272d;
     text-align: center;
-    font: 13px Arial, sans-serif;
+    font: 0.677vw Arial, sans-serif;
     position: fixed;
-    right: 364px;
-    top: 33px;
+    right: 18.958vw;
+    top: 1.719vw;
     font-weight: 800;
     padding: 0;
     z-index: 1;
@@ -181,14 +183,14 @@ footer {
 
 .action {
     position: fixed;
-    top: 16px;
-    right: 325px;
+    top: 0.833vw;
+    right: 16.9vw;
 }
 
     .action .profile {
         position: relative;
-        width: 25px;
-        height: 32px;
+        width: 1.302vw;
+        height: 1.667vw;
         cursor: pointer;
     }
 

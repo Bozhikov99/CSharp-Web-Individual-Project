@@ -4,6 +4,10 @@
     position: absolute;
 }
 
+.movie-a:hover {
+    border-bottom: 2px solid white;
+}
+
 .movie-info {
     background: rgba(164,39,45,0.70);
     width: 100%;
@@ -15,6 +19,32 @@
     .movie-info:hover {
         cursor: pointer;
     }
+
+.movie-headline {
+    text-align: center;
+    padding: 0.781vw;
+    font-size: 1.563vw;
+    font-weight: bold;
+}
+
+.movie-text {
+    text-align: left;
+    font-size: 1.4vw;
+    padding-left: 0.781vw;
+    margin: 0;
+}
+
+.info-subdiv {
+    padding-top: 2.083vw;
+}
+
+.rating-info {
+    text-align: center;
+    font-size: 1.4vw;
+    position: absolute;
+    bottom: 0.583vw;
+    right: 7.042vw;
+}
 
 .card {
     /*    min-width: 18rem;*/
