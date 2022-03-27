@@ -4,22 +4,38 @@
     ViewData["Title"] = "Profile";
 }
 
-<h1>Profile</h1>
+<link rel="stylesheet" href="~/css/profile.css" />
 
-<p>Name: @Model.FirstName @Model.LastName</p>
-<p>Email: @Model.Email</p>
+<div class="headline-div">
+    <img class="headline-icon" src="~/img/Untitled-6.png" />
+    <p class="text-standard headline">ПРОФИЛ</p>
+</div>
 
-<div>
-    <h3>Favourite movie</h3>
-    <ul>
-        @foreach (var f in ViewBag.Favourites)
-        {
-            <li>@f.Title</li>
-            <li>@f.Rating.ToString("F1")</li>
-            <li>@f.Duration</li>
-            <li>@string.Join(", ",f.Genres)</li>
-        }
-    </ul>
+<div class="user-info">
+    <p class="user-names">@Model.FirstName @Model.LastName</p>
+    <p class="user-email">@Model.Email</p>
+</div>
+
+<div class="user-favourites">
+    <p class="text-standard headline">ЛЮБИМИ ФИЛМИ</p>
+</div>
+
+<div id="movie-container" class="card-deck d-flex justify-content-center movie-container">
+    @for (int i = 0; i < 5; i++)
+    {
+        <div class="card mb-4 movie">
+            <img class="movie-poster" src="~/img/sample-poster.jpg" />
+            <div class="movie-info" hidden>
+                <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details">Филмово заглавие</a></h2>
+                <div class="info-subdiv">
+                    <p class="text-information movie-text">Година: 1991</p>
+                    <p class="text-information movie-text">Времетраене: 132 мин.</p>
+                    <p class="text-information movie-text">Жанр: Драма, фантастика</p>
+                </div>
+                <h3 class="text-information rating-info"><i class="fa fa-star"></i>  8,7/10</h3>
+            </div>
+        </div>
+    }
 </div>
 
 @*<div class="wrapper" style="color: lightblue">
@@ -29,3 +45,5 @@
     <p>@t.MovieTitle @t.Date.ToString("dd.MM") @t.Seat</p>
     }
     </div>*@
+
+    <script src="~/js/movieCard.js" type="module"></script>
