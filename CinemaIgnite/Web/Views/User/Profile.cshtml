@@ -1,7 +1,10 @@
 ﻿@using Core.ViewModels.User
+@using Core.ViewModels.Movie
+@using System.Collections
 @model UserProfileModel
 @{
     ViewData["Title"] = "Profile";
+    ListMovieModel[] movies = ViewBag.Favourites;
 }
 
 <link rel="stylesheet" href="~/css/profile.css" />
@@ -21,21 +24,33 @@
 </div>
 
 <div id="movie-container" class="card-deck d-flex justify-content-center movie-container">
-    @for (int i = 0; i < 5; i++)
+    @for (int i = ViewBag.ActivePage + ViewBag.ActivePage * ViewBag.PageLimit; i < ViewBag.PageLimit * (ViewBag.ActivePage + 1) && i<movies.Length; i++)
     {
         <div class="card mb-4 movie">
-            <img class="movie-poster" src="~/img/sample-poster.jpg" />
+            <img class="movie-poster" src=@movies[i].ImageUrl />
             <div class="movie-info" hidden>
-                <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details">Филмово заглавие</a></h2>
+                <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@movies[i].Id>@movies[i].Title</a></h2>
                 <div class="info-subdiv">
-                    <p class="text-information movie-text">Година: 1991</p>
-                    <p class="text-information movie-text">Времетраене: 132 мин.</p>
-                    <p class="text-information movie-text">Жанр: Драма, фантастика</p>
+                    <p class="text-information movie-text">Година: @movies[i].ReleaseYear</p>
+                    <p class="text-information movie-text">Времетраене: @Math.Floor(movies[i].Duration.TotalMinutes) мин.</p>
+                    <p class="text-information movie-text">Жанр: @string.Join(", ", movies[i].Genres)</p>
                 </div>
-                <h3 class="text-information rating-info"><i class="fa fa-star"></i>  8,7/10</h3>
+                <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{movies[i].Rating:f1}")/10</h3>
             </div>
         </div>
     }
+</div>
+
+<div class="pagination-container">
+    <ul class="pagination">
+        <li class="disabled nonactive-page"><span>&laquo;</span></li>
+        <li class="active-page">1</li>
+        <li class="nonactive-page">2</li>
+        <li class="nonactive-page">3</li>
+        <li class="nonactive-page">4</li>
+        <li class="nonactive-page">5</li>
+        <li class="disabled nonactive-page"><span>&raquo;</span></li>
+    </ul>
 </div>
 
 @*<div class="wrapper" style="color: lightblue">
@@ -46,4 +61,4 @@
     }
     </div>*@
 
-    <script src="~/js/movieCard.js" type="module"></script>
+<script src="~/js/movieCard.js" type="module"></script>

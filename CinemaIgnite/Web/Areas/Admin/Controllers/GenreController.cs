@@ -46,6 +46,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateGenreModel model)
         {
             if (!ModelState.IsValid)
@@ -65,6 +66,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditGenreModel model)
         {
             try

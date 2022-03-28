@@ -33,6 +33,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditUserModel model)
         {
             if (!ModelState.IsValid)
@@ -72,6 +73,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Roles(UserRoleModel model)
         {
             if (!ModelState.IsValid)

@@ -92,6 +92,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateMovieModel model)
         {
             if (!ModelState.IsValid)
@@ -111,6 +112,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditMovieModel model)
         {
             if (!ModelState.IsValid)

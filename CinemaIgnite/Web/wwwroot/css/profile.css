@@ -34,7 +34,25 @@
 }
 
 .movie-a:hover {
-    border-bottom: 2px solid white;
+    border-bottom: 0.104vw solid white;
+}
+
+.info-subdiv {
+    padding-top: 1.083vw;
+}
+
+.movie-headline {
+    text-align: center;
+    font-weight: bold;
+    padding: 7px;
+    font-size: 1.042vw;
+}
+
+.movie-text {
+    text-align: left;
+    font-size: 0.938vw;
+    padding-left: 0.581vw;
+    margin: 0;
 }
 
 .movie-info {
@@ -49,6 +67,13 @@
         cursor: pointer;
     }
 
+.rating-info {
+    text-align: center;
+    font-size: 0.95vw;
+    position: absolute;
+    bottom: 0.583vw;
+    right: 3.65vw;
+}
 
 .card {
     /*    min-width: 18rem;*/

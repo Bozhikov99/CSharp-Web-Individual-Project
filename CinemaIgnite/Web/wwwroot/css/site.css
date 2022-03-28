@@ -257,3 +257,23 @@ footer {
         .action .menu ul li:hover a {
             color: #a4272d;
         }
+
+.pagination li {
+    font-family: 'Gill Sans', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 5px;
+    font-size: 1.154vw
+}
+
+.pagination-container {
+    position: absolute;
+    top: 39.323vw;
+    right: 32.135vw;
+}
+
+.active-page {
+    color: white;
+}
+
+.nonactive-page{
+    color: #a4272d;
+}

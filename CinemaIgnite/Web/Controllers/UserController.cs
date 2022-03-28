@@ -33,13 +33,24 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Profile()
+        public async Task<IActionResult> Profile(int activePage = 0)
         {
             UserProfileModel model = await userService.GetUserProfile();
             IEnumerable<ListTicketModel> tickets = await userService.GetUpcomingTickets();
             IEnumerable<ListMovieModel> favouriteMovies = await userService.GetFavouriteMovies();
             ViewBag.Tickets = tickets;
             ViewBag.Favourites = favouriteMovies;
+
+            int favPages = favouriteMovies.Count() <= 5 ? 1 : favouriteMovies.Count() / 5;
+
+            if (favouriteMovies.Count() % 5 != 0)
+            {
+                favPages++;
+            }
+
+            ViewBag.PagesCount = favPages;
+            ViewBag.PageLimit = 5;
+            ViewBag.ActivePage = activePage;
 
             return View(model);
         }

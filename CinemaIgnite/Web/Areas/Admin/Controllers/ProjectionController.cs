@@ -60,7 +60,8 @@ namespace Web.Areas.Admin.Controllers
             return Redirect(url);       //I know this is gross, yet I did not think of another way...
         }
 
-        [HttpPost] //TODO: Create notifications for all users favouring the movie
+        [HttpPost] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateProjectionModel model)
         {
             if (!ModelState.IsValid)
