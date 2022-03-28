@@ -41,12 +41,22 @@ namespace Web.Controllers
             ViewBag.Tickets = tickets;
             ViewBag.Favourites = favouriteMovies;
 
-            int favPages = favouriteMovies.Count() <= 5 ? 1 : favouriteMovies.Count() / 5;
+            int favPages = 0;
 
-            if (favouriteMovies.Count() % 5 != 0)
+            if (favouriteMovies.Count() <= 5)
             {
                 favPages++;
             }
+            else
+            {
+                favPages = favouriteMovies.Count() / 5;
+
+                if (favouriteMovies.Count() % 5 != 0)
+                {
+                    favPages++;
+                }
+            }
+
 
             ViewBag.PagesCount = favPages;
             ViewBag.PageLimit = 5;
