@@ -4,7 +4,8 @@
 @{
     ViewData["Title"] = "All";
 }
-
+<link rel="stylesheet" href="~/css/movies.css" />
+<link rel="stylesheet" href="~/css/profile.css" />
 <h1>All</h1>
 
 <p>
@@ -12,50 +13,38 @@
 </p>
 <div class="container genre-box">
     <form asp-action="SearchByGenre">
-    @foreach (var genre in ViewBag.Genres)
-    {
-        <div >
-            <p>@genre.Name</p>
-            <input name="genresSearch" type="checkbox" value=@genre.Id>
-        </div>
-    }
-    <button type="submit" value="SearchByGenre">Search</button>
+        <ul class="genre-list">
+            @foreach (var genre in ViewBag.Genres)
+            {
+                <li>
+
+                    <div class="genre-div">
+                        <input name="genresSearch" class="genre-check" type="checkbox" value=@genre.Id>
+                        <p>@genre.Name.ToUpper()</p>
+                    </div>
+                </li>
+            }
+            <button type="submit" value="SearchByGenre">Търсене</button>
+        </ul>
     </form>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageUrl)
-                </td>
-                @foreach (string g in item.Genres)
-                {
-                    <td>
-                        @g
-                    </td>
-                }
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div id="movie-container" class="card-deck d-flex justify-content-center movie-container">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-4 movie">
+            <img class="movie-poster" src=@item.ImageUrl />
+            <div class="movie-info" hidden>
+                <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@item.Id>@item.Title</a></h2>
+                <div class="info-subdiv">
+                    <p class="text-information movie-text">Година: @item.ReleaseYear</p>
+                    <p class="text-information movie-text">Времетраене: @Math.Floor(item.Duration.TotalMinutes) мин.</p>
+                    <p class="text-information movie-text">Жанр: @string.Join(", ", item.Genres)</p>
+                </div>
+                <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{item.Rating:f1}")/10</h3>
+            </div>
+        </div>
+    }
+</div>
+
+<script src="~/js/movieCard.js" type="module"></script>

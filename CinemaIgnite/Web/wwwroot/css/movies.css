@@ -1,0 +1,52 @@
+﻿.genre-box {
+    background-color: black;
+    border-bottom: 0.104vw solid #a4272d;
+    position: absolute;
+    color: #a4272d;
+    max-width: 67.533vw;
+}
+
+
+    .genre-box form {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+.genre-div {
+    display: flex;
+}
+
+    .genre-div p {
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+    }
+
+.genre-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+    list-style: none;
+    padding-top: 0.521vw;
+}
+
+    .genre-list li {
+        display: inline-block;
+        margin: 5px;
+        flex: 1 0 25%;
+    }
+
+    .genre-list button {
+        position: absolute;
+        bottom: 0.26vw;
+        right: 0.26vw;
+        color: white;
+        background-color: #a4272d;
+        border-radius: 0.26vw;
+        border: none;
+    }
+
+.genre-check {
+    margin-top: 0.4rem;
+}
