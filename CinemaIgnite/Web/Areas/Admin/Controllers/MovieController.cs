@@ -25,7 +25,7 @@ namespace Web.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page = 0)
         {
             IEnumerable<ListMovieModel> movies = await movieService.GetAll();
             IEnumerable<ListGenreModel> genres = await genreService.GetAll();

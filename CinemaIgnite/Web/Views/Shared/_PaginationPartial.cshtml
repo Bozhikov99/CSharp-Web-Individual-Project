@@ -1,0 +1,88 @@
+﻿<div class="pagination-container">
+    <ul class="pagination">
+        <li class="disabled nonactive-page"><span>&laquo;</span></li>
+        @if (ViewBag.PagesCount <= 5)
+        {
+            @for (int i = 0; i < ViewBag.PagesCount; i++)
+            {
+                <li class="active-page">
+                    @if (ViewBag.ActivePage == i)
+                    {
+                        <p class="active-page">@(i+1)</p>
+                    }
+                    else
+                    {
+                        <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                    }
+                </li>
+            }
+        }
+        else
+        {
+            if (ViewBag.ActivePage >= 5)
+            {
+                <li class="active-page"><a class="nonactive-page" asp-action="Profile">1</a></li>
+                <li class="nonactive-page">...</li>
+                @for (int i = ViewBag.ActivePage - 2; i <= ViewBag.ActivePage; i++)
+                {
+                    <li class="active-page">
+                        @if (ViewBag.ActivePage == i)
+                        {
+                            <p class="active-page">@(i+1)</p>
+                        }
+                        else
+                        {
+                            <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                        }
+                    </li>
+                }
+                
+            }
+            else
+            {
+                @for (int i = 0; i <= ViewBag.ActivePage; i++)
+                {
+                    <li class="active-page">
+                        @if (ViewBag.ActivePage == i)
+                        {
+                            <p class="active-page">@(i+1)</p>
+                        }
+                        else
+                        {
+                            <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                        }
+                    </li>
+                }
+            }
+            if (ViewBag.PagesCount - ViewBag.ActivePage > 5) //right side...
+            {
+                @for (int i = ViewBag.ActivePage + 1; i <= ViewBag.ActivePage + 2; i++)
+                {
+                    <li class="active-page">
+                        @if (ViewBag.ActivePage == i)
+                        {
+                            <p class="active-page">@(i+1)</p>
+                        }
+                        else
+                        {
+                            <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                        }
+                    </li>
+                }
+                <li class="nonactive-page">...</li>
+                <li class="nonactive-page"><a class="nonactive-page" asp-action="Profile" asp-route-activePage=@(ViewBag.PagesCount-1)>@ViewBag.PagesCount</a></li>
+            }
+            else
+            {
+                @for (int i = ViewBag.ActivePage + 1; i < ViewBag.PagesCount; i++)
+                {
+                    <li class="nonactive-page">
+                        <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                    </li>
+                }
+
+            }
+        }
+        <li class="disabled nonactive-page"><span>&raquo;</span></li>
+    </ul>
+</div>

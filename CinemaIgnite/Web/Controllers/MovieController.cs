@@ -19,11 +19,31 @@ namespace Web.Controllers
             this.userService = userService;
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page = 0)
         {
             IEnumerable<ListMovieModel> movies = await movieService.GetAll();
             IEnumerable<ListGenreModel> genres = await genreService.GetAll();
             ViewBag.Genres = genres;
+
+            int pages = 0;
+
+            if (movies.Count() <= 5)
+            {
+                pages++;
+            }
+            else
+            {
+                pages = movies.Count() / 5;
+
+                if (movies.Count() % 5 != 0)
+                {
+                    pages++;
+                }
+            }
+
+            ViewBag.PagesCount = pages;
+            ViewBag.PageLimit = 5;
+            ViewBag.ActivePage = page;
 
             return View(movies);
         }

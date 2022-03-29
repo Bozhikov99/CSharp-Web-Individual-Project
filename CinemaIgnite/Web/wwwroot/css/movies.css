@@ -52,3 +52,15 @@
 .genre-check {
     margin-top: 0.4rem;
 }
+
+.movie-card {
+    display: inline-block;
+}
+
+.site-content {
+    height: 1000px;
+}
+
+.card{
+    padding:0;
+}
