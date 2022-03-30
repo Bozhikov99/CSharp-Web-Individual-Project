@@ -61,6 +61,8 @@ namespace Web.Controllers
             ViewBag.PagesCount = favPages;
             ViewBag.PageLimit = 5;
             ViewBag.ActivePage = activePage;
+            ViewBag.Controller = "User";
+            ViewBag.Action = "Profile";
 
             return View(model);
         }

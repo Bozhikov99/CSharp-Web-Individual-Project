@@ -60,7 +60,7 @@ footer {
 }
 
 .searchbar {
-    position: fixed;
+    position: absolute;
     background: #dedede;
     border: 2px solid #a4272d;
     border-radius: 10px;
@@ -74,7 +74,7 @@ footer {
     cursor: pointer;
     right: 1.667vw;
     top: 1.02vw;
-    position: fixed;
+    position: absolute;
     font-size: 1.146vw;
 }
 
@@ -144,13 +144,13 @@ footer {
     width: 2.344vw;
     top: 0.885vw;
     right: 19.271vw;
-    position: fixed;
+    position: absolute;
 }
 
 .admin-icon {
     height: 1.667vw;
     width: 1.719vw;
-    position: fixed;
+    position: absolute;
     right: 22.448vw;
     top: 0.833vw;
 }
@@ -164,7 +164,7 @@ footer {
     color: #a4272d;
     text-align: center;
     font: 0.677vw Arial, sans-serif;
-    position: fixed;
+    position: absolute;
     right: 18.958vw;
     top: 1.719vw;
     font-weight: 800;
@@ -182,7 +182,7 @@ footer {
 }
 
 .action {
-    position: fixed;
+    position: absolute;
     top: 0.833vw;
     right: 16.9vw;
 }

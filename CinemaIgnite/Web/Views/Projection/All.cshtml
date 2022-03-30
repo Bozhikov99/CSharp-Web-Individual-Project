@@ -1,57 +1,141 @@
 ﻿@using Core.ViewModels.Projection
+@using Core.ViewModels.Movie
 @model IEnumerable<ListProjectionModel>
 
 @{
     ViewData["Title"] = "List";
+    DateTime date = ViewBag.Date;
+    ListMovieModel[] movies = ViewBag.Movies;
 }
 
-<h1>List</h1>
-<script src="~/js/Program.js" type="module"></script>
+<link rel="stylesheet" href="~/css/program.css" />
+
+<div class="headline-div">
+    <img class="headline-icon" src="~/img/headline.png" />
+    @if (ViewBag.Date == @DateTime.Today)
+    {
+
+        <p class="text-standard headline">ПРОГРАМА ЗА ДНЕС</p>
+    }
+    else
+    {
+        <p class="text-standard headline">ПРОГРАМА ЗА @date.ToString("dd.MM")</p>
+    }
+</div>
+
 <form class="date-input" style="display:inline" asp-controller="Projection" asp-action="All">
-    <input type="date" id="projectionDate" name="date">
+    <input type="date" id="projectionDate" value=@date.ToString("yyyy-MM-dd") name="date">
 </form>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
-        @foreach (var m in ViewBag.Movies)
-        {
-            <div class="col-md-12 movie-row">
-                <p>@m.Title</p>
-                <div class="btn-group projection-group" role="group">
-                    @foreach (var projection in Model.Where(p => p.MovieId == m.Id).OrderByDescending(p => p.Date))
-                    {
-                        if (projection.TicketsAvailable > 0)
-                        {
-                            @using (Html.BeginForm("Create", "Ticket", new { id = projection.Id }))
-                            {
-                                <button class="btn btn-danger">
-                                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
-                                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
-                                </button>
-                            }
-                        }
-                        else
-                        {
-                            <button class="btn btn-danger disabled">
-                                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
-                                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
-                                </button>
-                        }
-                    }
+        <div class="movie-div">
+            @for (int i = ViewBag.ActivePage * ViewBag.PageLimit; i < ViewBag.PageLimit * (ViewBag.ActivePage + 1) && i < movies.Length; i++)
+            {
+                <div class="col-md-12 movie-row text-standard">
+                    <img class="movie-poster" src=@ViewBag.Movies[i].ImageUrl />
+                    <div class="projection-info">
+                        <p class="projection-title"><a class="text-standard" asp-controller="Movie" asp-action="Details" asp-route-id=@movies[i].Id>@movies[i].Title</a><p>
+                            <br>
+                        <p class="movie-text">@string.Join(", ", movies[i].Genres)</p>
+                        <br>
+                        <p class="movie-text">@Math.Floor(movies[i].Duration.TotalMinutes) минути</p>
+                        <br>
+                                @if (movies[i].Rating > 0)
+                                {
+                                    <p class="movie-text"><i class="fa fa-star"></i> @($"{movies[i].Rating:f1}")/10</p>
+                                }
+                        <br>
+                        <div class="btn-group projection-group" role="group">
+                                    <ul>
+                                        @foreach (var projection in Model.Where(p => p.MovieId == movies[i].Id).OrderByDescending(p => p.Date))
+                                        {
+                                            <li>
+                                                @if (projection.TicketsAvailable > 0)
+                                                {
+                                                    @using (Html.BeginForm("Create", "Ticket", new { id = projection.Id }))
+                                                    {
+                                                        <div class="format-wrapper">
+                                                            <p class="projection-format">@projection.Format</p>
+                                                        </div>
+                                                        <button class="btn btn-danger tooltipC">
+                                                                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+                                                                    <p class="tooltiptext">@projection.Price лв.</p>
+                                                        </button>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <p class="projection-format">@projection.Format</p>
+                                                    <button class="btn btn-danger disabled tooltipC">
+                                                                @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+                                                                <p class="tooltiptext">Билетите са изчерпани</p>
+                                                    </button>
+                                                }
+                                           </li>
+                                        }
+                                    </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </tbody>
 </table>
+
+<partial name="_PaginationPartial" />
+
+@*<table class="table">
+    <tbody>
+    @foreach (var movie in ViewBag.Movies)
+    {
+
+    <div class="col-md-12 movie-row">
+    <div class="image-container">
+    <img class="img-fluid poster" src=@movie.ImageUrl alt="..." />
+    </div>
+    <h3 class="text-standard headline"><a class="text-standard" asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></h3>
+    <br>
+    <p class="movie-text">@string.Join(", ", movie.Genres)</p>
+    <br>
+    <h3 class="text-standard movie-row-text">@Math.Floor(movie.Duration.TotalMinutes) минути</h3>
+    <br />
+    <span class="fa fa-star checked text-standard rating-text">
+    @movie.Rating/10
+    </span>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="btn-group projection-group" role="group">
+    @foreach (var projection in Model.Where(p => p.MovieId == movie.Id).OrderByDescending(p => p.Date))
+    {
+    if (projection.TicketsAvailable > 0)
+    {
+    @using (Html.BeginForm("Buy", "Ticket", new { projectionId = projection.Id }))
+    {
+    <button class="btn btn-danger projection tooltip2">
+    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+    <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
+    <p class="tooltiptext">@projection.Price лв.</p>
+    </button>
+    }
+    }
+    else
+    {
+    <button class="btn btn-danger projection disabled">
+    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+    <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
+    </button>
+    }
+
+    }
+    </div>
+    </div>
+    }
+    </tbody>
+    </table>*@
+
+<script src="~/js/Program.js" type="module" />

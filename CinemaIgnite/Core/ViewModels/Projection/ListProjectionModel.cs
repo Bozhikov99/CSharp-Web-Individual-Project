@@ -24,5 +24,7 @@ namespace Core.ViewModels.Projection
 
         public int TicketsAvailable { get; set; }
 
+        public string Format { get; set; }
+
     }
 }

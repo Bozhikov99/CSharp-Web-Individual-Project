@@ -16,7 +16,7 @@ namespace Web.Controllers
             this.movieService = movieService;
         }
 
-        public async Task<IActionResult> All(DateTime date)
+        public async Task<IActionResult> All(DateTime date, int activePage = 0)
         {
             IEnumerable<ListProjectionModel> projections = await projectionService.GetAllForDate(date);
 
@@ -26,6 +26,29 @@ namespace Web.Controllers
                 p.Date.Day == date.Day));
 
             ViewBag.Movies = movies;
+            ViewBag.Date = date;
+
+            int pages = 0;
+
+            if (movies.Count() <= 2)
+            {
+                pages++;
+            }
+            else
+            {
+                pages = movies.Count() / 2;
+
+                if (movies.Count() % 2 != 0)
+                {
+                    pages++;
+                }
+            }
+
+            ViewBag.PagesCount = pages;
+            ViewBag.PageLimit = 2;
+            ViewBag.ActivePage = activePage;
+            ViewBag.Controller = "Projection";
+            ViewBag.Action = "All";
 
             return View(projections);
         }

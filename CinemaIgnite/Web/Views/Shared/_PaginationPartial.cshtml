@@ -1,4 +1,9 @@
-﻿<div class="pagination-container">
+﻿@{
+    string searchWord = ViewBag.Search;
+    DateTime? date = ViewBag.Date;
+}
+
+<div class="pagination-container">
     <ul class="pagination">
         <li class="disabled nonactive-page"><span>&laquo;</span></li>
         @if (ViewBag.PagesCount <= 5)
@@ -12,7 +17,7 @@
                     }
                     else
                     {
-                        <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                        <a class="nonactive-page" asp-controller=@ViewBag.Controller asp-action=@ViewBag.Action asp-route-date=@date asp-route-search=@searchWord asp-route-activePage=@i>@(i+1)</a>
                     }
                 </li>
             }
@@ -21,7 +26,7 @@
         {
             if (ViewBag.ActivePage >= 5)
             {
-                <li class="active-page"><a class="nonactive-page" asp-action="Profile">1</a></li>
+                <li class="active-page"><a class="nonactive-page" asp-controller=@ViewBag.Controller asp-action=@ViewBag.Action>1</a></li>
                 <li class="nonactive-page">...</li>
                 @for (int i = ViewBag.ActivePage - 2; i <= ViewBag.ActivePage; i++)
                 {
@@ -32,11 +37,11 @@
                         }
                         else
                         {
-                            <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                            <a class="nonactive-page" asp-controller=@ViewBag.Controller asp-action=@ViewBag.Action asp-route-activePage=@i>@(i+1)</a>
                         }
                     </li>
                 }
-                
+
             }
             else
             {
@@ -49,7 +54,7 @@
                         }
                         else
                         {
-                            <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                            <a class="nonactive-page" asp-controller=@ViewBag.Controller asp-action=@ViewBag.Action asp-route-activePage=@i>@(i+1)</a>
                         }
                     </li>
                 }
@@ -65,19 +70,19 @@
                         }
                         else
                         {
-                            <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                            <a class="nonactive-page" asp-controller=@ViewBag.Controller asp-action=@ViewBag.Action asp-route-activePage=@i>@(i+1)</a>
                         }
                     </li>
                 }
                 <li class="nonactive-page">...</li>
-                <li class="nonactive-page"><a class="nonactive-page" asp-action="Profile" asp-route-activePage=@(ViewBag.PagesCount-1)>@ViewBag.PagesCount</a></li>
+                <li class="nonactive-page"><a class="nonactive-page" asp-controller=@ViewBag.Controller asp-action=@ViewBag.Action asp-route-activePage=@(ViewBag.PagesCount-1)>@ViewBag.PagesCount</a></li>
             }
             else
             {
                 @for (int i = ViewBag.ActivePage + 1; i < ViewBag.PagesCount; i++)
                 {
                     <li class="nonactive-page">
-                        <a class="nonactive-page" asp-action="Profile" asp-route-activePage=@i>@(i+1)</a>
+                        <a class="nonactive-page" asp-controller=@ViewBag.Controller asp-action=@ViewBag.Action asp-route-activePage=@i>@(i+1)</a>
                     </li>
                 }
 

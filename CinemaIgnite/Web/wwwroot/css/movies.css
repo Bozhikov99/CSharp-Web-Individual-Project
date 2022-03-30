@@ -35,7 +35,7 @@
 
     .genre-list li {
         display: inline-block;
-        margin: 5px;
+        margin: 0.052vw;
         flex: 1 0 25%;
     }
 
@@ -58,9 +58,19 @@
 }
 
 .site-content {
-    height: 1000px;
+    height: 1100px;
 }
 
-.card{
-    padding:0;
+.movie-wrapper {
+    position: absolute;
+    top: 15.625vw;
+    margin-left: 1.458vw;
+}
+
+.footer{
+    margin-bottom: -229px;
+}
+
+.pagination-container {
+    margin-top: 11.979vw;
 }

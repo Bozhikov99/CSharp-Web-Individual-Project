@@ -19,58 +19,59 @@ namespace Web.Controllers
             this.userService = userService;
         }
 
-        public async Task<IActionResult> All(int page = 0)
+        public async Task<IActionResult> All(int activePage = 0, List<string> genresSearch = null, string search = null)
         {
-            IEnumerable<ListMovieModel> movies = await movieService.GetAll();
+            IEnumerable<ListMovieModel> movies;
+
+            if (search == null)
+            {
+
+                if (genresSearch.Count == 0)
+                {
+                    movies = await movieService.GetAll();
+                }
+                else
+                {
+                    movies = await movieService.GetAll(m => m.Genres.Any(g => genresSearch.Contains(g.Id)));
+                }
+            }
+            else
+            {
+                movies = await movieService.GetAll(m => m.Title.ToLower()
+                .Contains(search.ToLower()) ||
+                m.Actors.ToLower()
+                .Contains(search.ToLower()) ||
+                m.Genres.Select(g => g.Name.ToLower())
+                .Any(g => g.Contains(search.ToLower())));
+            }
+
             IEnumerable<ListGenreModel> genres = await genreService.GetAll();
             ViewBag.Genres = genres;
 
             int pages = 0;
 
-            if (movies.Count() <= 5)
+            if (movies.Count() <= 10)
             {
                 pages++;
             }
             else
             {
-                pages = movies.Count() / 5;
+                pages = movies.Count() / 10;
 
-                if (movies.Count() % 5 != 0)
+                if (movies.Count() % 10 != 0)
                 {
                     pages++;
                 }
             }
 
             ViewBag.PagesCount = pages;
-            ViewBag.PageLimit = 5;
-            ViewBag.ActivePage = page;
+            ViewBag.PageLimit = 10;
+            ViewBag.ActivePage = activePage;
+            ViewBag.Controller = "Movie";
+            ViewBag.Action = "All";
+            ViewBag.Search= search;
 
             return View(movies);
-        }
-
-        public async Task<IActionResult> SearchByGenre(List<string> genresSearch)
-        {
-            IEnumerable<ListMovieModel> movies = await movieService.GetAll(m => m.Genres.Any(g => genresSearch.Contains(g.Id)));
-            IEnumerable<ListGenreModel> genres = await genreService.GetAll();
-            ViewBag.Genres = genres;
-
-            return View(nameof(All), movies);
-        }
-
-        public async Task<IActionResult> Search(string search)
-        {
-            IEnumerable<ListMovieModel> movies = await movieService.GetAll(m => m.Title.ToLower()
-                .Contains(search.ToLower()) ||
-                m.Actors.ToLower()
-                .Contains(search.ToLower()) ||
-                m.Genres.Select(g => g.Name.ToLower())
-                .Any(g => g.Contains(search.ToLower()))
-            );
-
-            IEnumerable<ListGenreModel> genres = await genreService.GetAll();
-            ViewBag.Genres = genres;
-
-            return View(nameof(All), movies);
         }
 
         public async Task<IActionResult> Details(string id)

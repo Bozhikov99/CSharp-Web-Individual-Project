@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="~/css/profile.css" />
 
 <div class="container genre-box">
-    <form asp-action="SearchByGenre">
+    <form asp-action="All">
         <ul class="genre-list">
             @foreach (var genre in ViewBag.Genres)
             {
@@ -26,42 +26,46 @@
     </form>
 </div>
 
-<div id="movie-container" class="card-deck d-flex justify-content-center movie-container">
+@*<div id="movie-container" class="card-deck d-flex justify-content-center movie-container">
     @for (int i = 0; i < ViewBag.RowCount; i++)
     {
-        <div class="row">
-        @for (int j = i * 5; j < i*5 + 5 && j<movies.Length; j++)
-        {
-            <div class="card mb-4 movie">
-                <img class="movie-poster" src=@movies[j].ImageUrl />
-                <div class="movie-info" hidden>
-                    <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@movies[j].Id>@movies[j].Title</a></h2>
-                    <div class="info-subdiv">
-                        <p class="text-information movie-text">Година: @movies[j].ReleaseYear</p>
-                        <p class="text-information movie-text">Времетраене: @Math.Floor(movies[j].Duration.TotalMinutes) мин.</p>
-                        <p class="text-information movie-text">Жанр: @string.Join(", ", movies[j].Genres)</p>
-                    </div>
-                    <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{movies[j].Rating:f1}")/10</h3>
+    <div class="row">
+    @for (int j = i * 5; j < i*5 + 5 && j<movies.Length; j++)
+    {
+    <div class="card mb-4 movie">
+    <img class="movie-poster" src=@movies[j].ImageUrl />
+    <div class="movie-info" hidden>
+    <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@movies[j].Id>@movies[j].Title</a></h2>
+    <div class="info-subdiv">
+    <p class="text-information movie-text">Година: @movies[j].ReleaseYear</p>
+    <p class="text-information movie-text">Времетраене: @Math.Floor(movies[j].Duration.TotalMinutes) мин.</p>
+    <p class="text-information movie-text">Жанр: @string.Join(", ", movies[j].Genres)</p>
+    </div>
+    <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{movies[j].Rating:f1}")/10</h3>
+    </div>
+    </div>
+    }
+    </div>
+    }*@
+<div class="movie-wrapper">
+    @for (int i = ViewBag.ActivePage * ViewBag.PageLimit; i < ViewBag.PageLimit * (ViewBag.ActivePage + 1) && i < movies.Length; i++)
+    {
+        <div class="card mb-4 movie" style="display: inline-grid">
+            <img class="movie-poster" src=@movies[i].ImageUrl />
+            <div class="movie-info" hidden>
+                <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@movies[i].Id>@movies[i].Title</a></h2>
+                <div class="info-subdiv">
+                    <p class="text-information movie-text">Година: @movies[i].ReleaseYear</p>
+                    <p class="text-information movie-text">Времетраене: @Math.Floor(movies[i].Duration.TotalMinutes) мин.</p>
+                    <p class="text-information movie-text">Жанр: @string.Join(", ", movies[i].Genres)</p>
                 </div>
+                <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{movies[i].Rating:f1}")/10</h3>
             </div>
-        }
         </div>
     }
-    @*@foreach (var item in Model)
-        {
-        <div class="card mb-4 movie">
-        <img class="movie-poster" src=@item.ImageUrl />
-        <div class="movie-info" hidden>
-        <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@item.Id>@item.Title</a></h2>
-        <div class="info-subdiv">
-        <p class="text-information movie-text">Година: @item.ReleaseYear</p>
-        <p class="text-information movie-text">Времетраене: @Math.Floor(item.Duration.TotalMinutes) мин.</p>
-        <p class="text-information movie-text">Жанр: @string.Join(", ", item.Genres)</p>
-        </div>
-        <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{item.Rating:f1}")/10</h3>
-        </div>
-        </div>
-        }*@
 </div>
+@*</div>*@
+
+<partial name="_PaginationPartial"/>
 
 <script src="~/js/movieCard.js" type="module"></script>
