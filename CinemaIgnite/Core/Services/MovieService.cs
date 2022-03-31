@@ -132,6 +132,7 @@ namespace Core.Services
         {
             Movie movie = repository.All<Movie>(m => m.Id == id)
                 .Include(m => m.Ratings)
+                .Include(m => m.Genres)
                 .First();
 
             MovieDetailsModel model = mapper.Map<MovieDetailsModel>(movie);

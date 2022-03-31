@@ -1,47 +1,75 @@
-﻿@*<script src="~/js/addMovieToFavourites.js" type="module"></script>*@
+﻿<script src="~/js/addMovieToFavourites.js" type="module"></script>
 
    @if (ViewBag.IsLoggedIn)
 {
     if (ViewBag.IsFavourite)
     {
-        <button id="fav-button" class="btn-warning">Unfav it</button>
+        <i class="fa fa-heart text-standard fav-icon" value="unfav"></i>
+        <p id="action" hidden>unfav</p>
     }
     else
     {
-        <button id="fav-button" class="btn-danger">Fav it</button>
-
+        <i class="fa fa-heart-o text-standard fav-icon" value="fav"></i>
+        <p id="action" hidden>unfav</p>
         @*<button id="fav-button" class="btn-warning">Fav it</button>*@
     }
 }
 <script type="text/javascript">
-    let favButtonElement = document.querySelector('#fav-button');
-    console.log(favButtonElement.textContent);
+    //let favButtonElement = document.querySelector('#fav-button');
+    //console.log(favButtonElement.textContent);
 
-    favButtonElement.addEventListener('click', () => {
-    let buttonText=favButtonElement.textContent;
+    let favIconElement=document.querySelector('.fav-icon');
+    favIconElement.addEventListener('click',()=>{
+        let navigatorElement=document.querySelector('#action');
+        let value=navigatorElement
+            .textContent;
 
-    if(buttonText=='Fav it'){
-        $.ajax({
-        type: "POST",
-        url: "@Url.Action("AddMovieToFavourites")",
-        data: { id: '@ViewBag.MovieId'}
-        })
-        .then((result)=>{
-            favButtonElement.textContent='Unfav it';
-            favButtonElement.classList.remove('btn-danger');
-            favButtonElement.classList.add('btn-warning');
-        });
-    } else {
-        $.ajax({
-        type: "POST",
-        url: "@Url.Action("RemoveMovieFromFavourites")",
-        data: { id: '@ViewBag.MovieId'}
-        })
-        .then((result)=>{
-            favButtonElement.textContent='Fav it';
-            favButtonElement.classList.remove('btn-warning');
-            favButtonElement.classList.add('btn-danger');
-        });
-    }
+        if(value=='fav'){
+            $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddMovieToFavourites")",
+            data: { id: '@ViewBag.MovieId'}
+            })
+            .then((result)=>{
+                navigatorElement.textContent='unfav';
+            });
+        } else {
+            $.ajax({
+            type: "POST",
+            url: "@Url.Action("RemoveMovieFromFavourites")",
+            data: { id: '@ViewBag.MovieId'}
+            })
+            .then((result)=>{
+                navigatorElement.textContent='fav';
+            });
+        }
+    })
 
-    });</script>
+    //favButtonElement.addEventListener('click', () => {
+    //let buttonText=favButtonElement.textContent;
+
+    //if(buttonText=='Fav it'){
+    //    $.ajax({
+    //    type: "POST",
+    //    url: "@Url.Action("AddMovieToFavourites")",
+    //    data: { id: '@ViewBag.MovieId'}
+    //    })
+    //    .then((result)=>{
+    //        favButtonElement.textContent='Unfav it';
+    //        favButtonElement.classList.remove('btn-danger');
+    //        favButtonElement.classList.add('btn-warning');
+    //    });
+    //} else {
+    //    $.ajax({
+    //    type: "POST",
+    //    url: "@Url.Action("RemoveMovieFromFavourites")",
+    //    data: { id: '@ViewBag.MovieId'}
+    //    })
+    //    .then((result)=>{
+    //        favButtonElement.textContent='Fav it';
+    //        favButtonElement.classList.remove('btn-warning');
+    //        favButtonElement.classList.add('btn-danger');
+    //    });
+    //}
+
+    //});</script>

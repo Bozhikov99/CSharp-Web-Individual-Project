@@ -27,5 +27,7 @@ namespace Core.ViewModels.Movie
         public string Country { get; set; }
 
         public double Rating { get; set; }
+
+        public IEnumerable<string> Genres { get; set; }
     }
 }
