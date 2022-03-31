@@ -18,6 +18,6 @@ namespace Core.Services.Contracts
 
         Task<IEnumerable<NotificationDetailsModel>> GetAll(string userId);
 
-        Task Delete(string id);
+        Task Delete(string[] ids);
     }
 }

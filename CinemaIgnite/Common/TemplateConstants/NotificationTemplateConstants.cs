@@ -8,12 +8,12 @@ namespace Common.TemplateConstants
 {
     public class NotificationTemplateConstants
     {
-        public const string MovieProjectionTitle = "Coming soon";
-        public const string TicketBoughtTitle = "Ticket bought";
-        public const string ProjectionCancelledTitle = "Projection cancelled";
+        public const string MovieProjectionTitle = "Очаквайте скоро";
+        public const string TicketBoughtTitle = "Закупен билет";
+        public const string ProjectionCancelledTitle = "Отменена проекция";
 
-        public const string MovieProjectionMessage = "A projection for the {0} is available on {1} at {2}";
-        public const string TicketBoughtMessage = "You've successfully bought a ticket for {0} on {1} at {2}";
-        public const string ProjectionCancelledMessage = "Unfortunately, the projection of {0} on {1} at {2} has been cancelled. You will get your ticket refunded in a few days";
+        public const string MovieProjectionMessage = "Очаквайте {0} на {1} от {2} часа в Cinema Ignite";
+        public const string TicketBoughtMessage = "Информираме ви, че успешно закупихте билет за филма {0} на {1} в {2} часа. Също така и че ще направим този текст ненужно дълъг с цел тестване на известията. :)";
+        public const string ProjectionCancelledMessage = "За съжаление, проекцията на {0} с дата {1} в {2} часа бе отменена. Парите, които сте платили за билети, ще ви бъдат възстановени до няколко работни дни.";
     }
 }

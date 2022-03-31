@@ -1,48 +1,66 @@
 ﻿@using Core.ViewModels.Notification
+@using System.Globalization
 @model IEnumerable<NotificationDetailsModel>
 
 @{
     ViewData["Title"] = "All";
+    NotificationDetailsModel[] notifications = Model.ToArray();
 }
 
 <script src="~/js/notifications.js" type="module"></script>
+<link rel="stylesheet" href="~/css/notifications.css" />
 
-<h1>All</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div class="container">
-
-    @foreach (var item in Model)
-    {
-        <div class="notification-div">
-            @if (item.IsChecked)
-            {
-                <p class="notification-title">@item.Title</p>
-            }
-            else
-            {
-                <p class="notification-title" style="font-weight: bold">@item.Title</p>
-            }
-            <div class="notification-text" hidden>
-                @Html.DisplayFor(modelItem => item.Text)
-                @Html.DisplayFor(modelItem => item.Date)
-                <p id="user-id" hidden>@item.Id</p>
-                <button class="delete-notification">Delete</button>
-            </div>
-        </div>
-
-
-    }
+<div class="headline-div">
+    <img class="headline-icon" src="~/img/Untitled-7.png" />
+    <p class="text-standard headline">ИЗВЕСТИЯ</p>
 </div>
+@if (notifications.Length != 0)
+{
+    <input id="check-all" type="checkbox">
+    <span class="fa fa-trash"></span>
+    <div class="notification-container">
+        <form id="delete-form" asp-action="Delete">
+            @for (int i = ViewBag.ActivePage * ViewBag.PageLimit; i < ViewBag.PageLimit * (ViewBag.ActivePage + 1) && i < notifications.Length; i++)
+            {
+                <div class="notification-div text-information">
+                    <div class="headline-wrapper">
+                        <input name="ids" type="checkbox" value=@notifications[i].Id>
+                        @if (notifications[i].IsChecked)
+                        {
+                            <p class="notification-title">@notifications[i].Title</p>
+                        }
+                        else
+                        {
+                            <p class="notification-title" style="font-weight: bold">@notifications[i].Title</p>
+                        }
+                        <p class="text-part" style="margin-left: 15.885vw">@(notifications[i].Text.Length<=70?notifications[i].Text:$"{notifications[i].Text.Substring(0, 67).TrimEnd()}...")</p>
+                        <p class="notification-date">@(notifications[i].Date.Day==DateTime.Today.Day?notifications[i].Date.ToString("HH:mm"):notifications[i].Date.ToString("dd/MM/yy", CultureInfo.InvariantCulture))</p>
+                    </div>
+                    <div class="notification-text" hidden>
+                        @Html.DisplayFor(modelItem => notifications[i].Text)
+                        <p id="user-id" hidden>@notifications[i].Id</p>
+                        @*<button class="delete-notification">Delete</button>*@
+                    </div>
+
+                </div>
+            }
+            <button hidden type="submit" value="Delete">Delete</button>
+        </form>
+    </div>
+
+    <partial name="_PaginationPartial" />
+}
+else
+{
+    <h1 class="text-information empty-inbox">Няма известия</h1>
+}
 
 <script type="text/javascript">
     let titleElements=document.querySelectorAll('.notification-title');
     let delElements=document.querySelectorAll('.delete-notification');
 
     titleElements.forEach(te=>te.addEventListener('click', (e)=>{
-        let parent=te.parentElement;
+        let parent=te.parentElement.parentElement;
         let userId=parent.querySelector('#user-id')
             .textContent;
 

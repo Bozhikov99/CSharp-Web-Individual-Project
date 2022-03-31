@@ -18,6 +18,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Read(string id)
         {
             await notificationService.Read(id);
@@ -27,18 +28,41 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string[] ids)
         {
-            await notificationService.Delete(id);
+            await notificationService.Delete(ids);
 
-            return new EmptyResult();
+            return RedirectToAction(nameof(All));
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int activePage = 0)
         {
             string userId = userService.GetUserId();
             IEnumerable<NotificationDetailsModel> notifications = await notificationService
                 .GetAll(userId);
+
+            int pages = 0;
+
+            if (notifications.Count() <= 5)
+            {
+                pages++;
+            }
+            else
+            {
+                pages = notifications.Count() / 5;
+
+                if (notifications.Count() % 5 != 0)
+                {
+                    pages++;
+                }
+            }
+
+            ViewBag.PagesCount = pages;
+            ViewBag.PageLimit = 5;
+            ViewBag.ActivePage = activePage;
+            ViewBag.Controller = "Notification";
+            ViewBag.Action = "All";
 
             return View(notifications);
         }

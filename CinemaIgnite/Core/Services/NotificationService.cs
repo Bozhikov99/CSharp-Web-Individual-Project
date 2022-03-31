@@ -43,15 +43,16 @@ namespace Core.Services
         public async Task<IEnumerable<NotificationDetailsModel>> GetAll(string userId)
         {
             IEnumerable<NotificationDetailsModel> notifications = await repository.All<Notification>(n => n.UserId == userId)
+                .OrderByDescending(n => n.Date)
                 .ProjectTo<NotificationDetailsModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 
             return notifications;
         }
 
-        public async Task Delete(string id)
+        public async Task Delete(string[] ids)
         {
-            await repository.DeleteAsync<Notification>(id);
+            repository.DeleteRange<Notification>(n => ids.Contains(n.Id));
             await repository.SaveChangesAsync();
         }
     }

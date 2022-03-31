@@ -1,0 +1,70 @@
+﻿.notification-container {
+    position: absolute;
+    top: 11.458vw;
+    right: 3.438vw;
+    width: 61.926vw;
+    font-size: 1vw;
+}
+
+.notification-div {
+    background-color: #333333;
+    margin-bottom: 0.521vw;
+}
+
+.headline-wrapper {
+    display: inline-flex;
+}
+
+    .headline-wrapper p {
+        margin: 0.365vw;
+    }
+
+    .headline-wrapper input {
+        margin: 0.781vw;
+    }
+
+.text-part {
+    position: absolute;
+}
+
+.notification-date {
+    position: absolute;
+    right: 0;
+}
+
+.notification-text {
+    margin: 0.26vw 2.67vw;
+}
+
+.notification-title {
+    cursor: pointer;
+}
+
+    .notification-title:hover {
+        color: #a4272d;
+    }
+
+.fa-trash {
+    color: #a4272d;
+    position: absolute;
+    top: 9.896vw;
+    left: 5.729vw;
+    font-size: 1.042vw;
+}
+
+.fa-trash:hover{
+    color: white;
+    cursor: pointer;
+}
+
+#check-all {
+    position: absolute;
+    top: 10.15vw;
+    left: 4.141vw;
+}
+
+.empty-inbox {
+    position: absolute;
+    bottom: 27.135vw;
+    right: 28.333vw;
+}
