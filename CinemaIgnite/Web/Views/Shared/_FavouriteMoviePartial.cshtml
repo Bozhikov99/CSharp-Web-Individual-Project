@@ -2,17 +2,24 @@
 
    @if (ViewBag.IsLoggedIn)
 {
-    if (ViewBag.IsFavourite)
-    {
-        <i class="fa fa-heart text-standard fav-icon" value="unfav"></i>
-        <p id="action" hidden>unfav</p>
-    }
-    else
-    {
-        <i class="fa fa-heart-o text-standard fav-icon" value="fav"></i>
-        <p id="action" hidden>unfav</p>
-        @*<button id="fav-button" class="btn-warning">Fav it</button>*@
-    }
+    
+        @if (ViewBag.IsFavourite)
+        {
+            <div id="action-div" class="unfav-wrapper">
+            <i class="fa fa-heart text-standard fav-icon" value="unfav"></i>
+            <p class="text-standard fav-text">Премахни от любими</p>
+            <p id="action" hidden>unfav</p>
+            </div>
+        }
+        else
+        {
+            <div id="action-div" class="fav-wrapper">
+            <i class="fa fa-heart-o text-standard fav-icon" value="fav"></i>
+            <p class="text-standard fav-text">Добави в любими</p>
+            <p id="action" hidden>fav</p>
+            @*<button id="fav-button" class="btn-warning">Fav it</button>*@
+    </div>
+        }
 }
 <script type="text/javascript">
     //let favButtonElement = document.querySelector('#fav-button');
@@ -32,6 +39,11 @@
             })
             .then((result)=>{
                 navigatorElement.textContent='unfav';
+                let wrapperElement=document.querySelector('#action-div');
+                let favTextElemen=document.querySelector('.fav-text'); 
+                wrapperElement.classList.remove('fav-wrapper');
+                wrapperElement.classList.add('unfav-wrapper');
+                favTextElemen.textContent='Премахни от любими';
             });
         } else {
             $.ajax({
@@ -41,6 +53,11 @@
             })
             .then((result)=>{
                 navigatorElement.textContent='fav';
+                let wrapperElement=document.querySelector('#action-div');
+                let favTextElemen=document.querySelector('.fav-text');
+                wrapperElement.classList.remove('unfav-wrapper');
+                wrapperElement.classList.add('fav-wrapper');
+                favTextElemen.textContent='Добави в любими';
             });
         }
     })

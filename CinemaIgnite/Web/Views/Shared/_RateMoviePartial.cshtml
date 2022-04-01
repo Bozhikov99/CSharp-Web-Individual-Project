@@ -1,14 +1,20 @@
 ﻿@if (ViewBag.IsLoggedIn)
 {
 
-    @if (ViewBag.HasRating)
-    {
-        <button id="rate-toggle" class="btn-danger rated">@ViewBag.Rating/10</button>
-    }
-    else
-    {
-        <button id="rate-toggle" class="btn-danger unrated">Rate</button>
-    }
+    <div class="rate-wrapper">
+        @if (ViewBag.HasRating)
+        {
+            <i class="fa fa-star text-standard rate-icon"></i>
+            <p class="text-standard">@ViewBag.Rating/10</p>
+            <button id="rate-toggle" class="btn-danger rated" hidden>8/10</button>
+        }
+        else
+        {
+                <i class="fa fa-star-o text-standard rate-icon"></i>
+                <p class="text-standard">Оцени</p>
+            <button id="rate-toggle" class="btn-danger unrated" hidden>Rate</button>
+        }
+    </div>
 
 
     <div class="rate-div" hidden>
@@ -16,8 +22,9 @@
         {
             <button class=btn-primary value=@(i+1)>@(i+1)</button>
         }
-        <input id="rating-input" disabled="true" value="">
-        <button id="rate" class="btn-warning">Rate</button>
+        <input id="rating-input" class="disabled" value="">
+        <button id="rate" disabled>Оцени</button>
+        <button class="close-button">X</button>
     </div>
 }
 
@@ -26,7 +33,7 @@
     let rateButtonElement=document.querySelector('#rate');
 
     let rateToggleElement=document.querySelector('#rate-toggle');
-    
+
     rateButtonElement.addEventListener('click', ()=>{
         let inputValue=inputElement.value;
         $.ajax({

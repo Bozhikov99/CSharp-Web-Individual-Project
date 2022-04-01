@@ -56,8 +56,54 @@
 
 .fav-icon {
     cursor: pointer;
-    left: 5.4vw;
+    /*left: 5.4vw;
     position: absolute;
-    top: 25.260vw;
+    top: 25.260vw;*/
     font-size: 1.3vw;
+}
+
+.rate-icon {
+    font-size: 1.3vw;
+    cursor: pointer;
+}
+
+.rate-div {
+    z-index: 2;
+    position: absolute;
+    bottom: 14.844vw;
+}
+
+.rate-wrapper {
+    display: flex;
+    left: 7.6vw;
+    position: absolute;
+    top: 27.26vw;
+}
+
+    .rate-wrapper p {
+        font-size: 1.242vw;
+        position: relative;
+        top: -0.3vw;
+        margin-left: 0.365vw;
+    }
+
+.unfav-wrapper {
+    display: flex;
+    left: 3.4vw;
+    position: absolute;
+    top: 25.26vw;
+}
+
+.fav-wrapper {
+    display: flex;
+    left: 4.4vw;
+    position: absolute;
+    top: 25.26vw;
+}
+
+.fav-text {
+    font-size: 1.242vw;
+    position: relative;
+    top: -0.3vw;
+    margin-left: 0.365vw;
 }
