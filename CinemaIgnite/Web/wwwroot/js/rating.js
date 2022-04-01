@@ -1,34 +1,58 @@
-﻿let buttonElements = document.querySelectorAll('button');
-let inputElement = document.querySelector('#rating-input');
-let rateButtonElement = document.querySelector('#rate');
-let rateDivElement = document.querySelector('.rate-div');
-let rateToggleElement = document.querySelector('#rate-toggle');
+﻿let modalContainerElement = document.querySelector('#modal-div');
+let modalCloseElement = document.querySelector('#close');
 let rateIconElement = document.querySelector('.rate-icon');
-let closeButtonElement = document.querySelector('.close-button');
+let starInputElements = document.querySelectorAll('.star-input');
+let ratingVisualizerElement = document.querySelector('#rating-visualizer');
+let rateElement = document.querySelector('#modal-rate');
+let actualVisualizer = document.querySelector('#rating-visualizer');
 
 rateIconElement.addEventListener('mouseover', toggleClass);
 rateIconElement.addEventListener('mouseout', toggleClass);
 
+//open modal
 rateIconElement.addEventListener('click', () => {
-    rateDivElement.removeAttribute('hidden');
+    modalContainerElement.removeAttribute('hidden');
 })
 
-buttonElements.forEach(b => b.addEventListener('click', () => {
-    let value = b.value;
-
-    inputElement.value = value;
-    console.log(inputElement.value);
-    rateButtonElement.removeAttribute('disabled');
-    rateButtonElement.classList.add('btn-warning');
-}))
-
-rateButtonElement.addEventListener('click', () => {
-    rateDivElement.hidden = 'true';
+//close modal
+modalCloseElement.addEventListener('click', () => {
+    modalContainerElement.hidden = 'true';
 })
 
-closeButtonElement.addEventListener('click', () => {
-    rateDivElement.hidden = 'true';
-})
+//get rating value
+starInputElements.forEach(si => si.addEventListener('click', () => {
+    let value = Number(si.dataset.rating);
+    let allInputs = Array.from(starInputElements);
+
+    allInputs.forEach((i) => {
+        i.classList.remove('fa-star');
+        i.classList.add('fa-star-o');
+    });
+
+    for (var i = 0; i < value; i++) {
+        allInputs[i].classList
+            .remove('fa-star-o');
+
+        allInputs[i].classList
+            .add('fa-star');
+    }
+
+    ratingVisualizerElement.value = value;
+    actualVisualizer.value = value;
+    rateElement.removeAttribute('hidden');
+
+    if (actualVisualizer.value == 10) {
+        actualVisualizer.style.right = '23.9vw';
+    } else {
+        actualVisualizer.style.right = '23.3vw';
+    }
+
+}));
+
+//rate
+rateElement.addEventListener('click', () => {
+    modalContainerElement.hidden = 'true';
+});
 
 function toggleClass(e) {
     let icon = e.target;

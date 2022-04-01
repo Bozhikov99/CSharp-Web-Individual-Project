@@ -10,32 +10,66 @@
         }
         else
         {
-                <i class="fa fa-star-o text-standard rate-icon"></i>
-                <p class="text-standard">Оцени</p>
+            <i class="fa fa-star-o text-standard rate-icon"></i>
+            <p class="text-standard">Оцени</p>
             <button id="rate-toggle" class="btn-danger unrated" hidden>Rate</button>
         }
     </div>
 
+    <div id="modal-div" class="modal-container" hidden>
+        <div class="modal">
+            <div class="star-div">
+                @for (int i = 0; i < 10; i++)
+                {
+                    <i class="fa fa-star-o text-standard star-input" data-rating=@(i+1)></i>
+                }
+            </div>
+            <i id="star-visualizer" class="fa fa-star text-standard"></i>
+            <input id="rating-visualizer" disabled />
+            <button id="modal-rate" hidden>Оцени</button>
+            <button id="close">X</button>
+        </div>
+    </div>
 
-    <div class="rate-div" hidden>
+    @*<div class="rate-div" hidden>
         @for (int i = 0; i < 10; i++)
         {
-            <button class=btn-primary value=@(i+1)>@(i+1)</button>
+        <button class=btn-primary value=@(i+1)>@(i+1)</button>
         }
         <input id="rating-input" class="disabled" value="">
         <button id="rate" disabled>Оцени</button>
         <button class="close-button">X</button>
-    </div>
+        </div>*@
 }
 
 <script type="text/javascript">
     let inputElement=document.querySelector('#rating-input');
-    let rateButtonElement=document.querySelector('#rate');
+    //let rateButtonElement=document.querySelector('#rate');
+    //let rateToggleElement=document.querySelector('#rate-toggle');
 
-    let rateToggleElement=document.querySelector('#rate-toggle');
+    let rateElement=document.querySelector('#modal-rate');
+    let ratingVisualizerElement=document.querySelector('#rating-visualizer');
 
-    rateButtonElement.addEventListener('click', ()=>{
-        let inputValue=inputElement.value;
+    //rateButtonElement.addEventListener('click', ()=>{
+    //    let inputValue=inputElement.value;
+    //    $.ajax({
+    //    type: "POST",
+    //    url: "@Url.Action("RateMovie")",
+    //    data: { movieId: '@ViewBag.MovieId', value: Number(inputValue)}
+    //    })
+    //    .then((result)=>{
+    //        let rating=JSON.stringify(result);
+    //        console.log(rating);
+    //        rateToggleElement.textContent=`${inputValue}/10`;
+    //    })
+    //    .fail((result)=>{
+    //    let rating=JSON.stringify(result);
+    //        console.log(rating);
+    //        rateToggleElement.textContent=`${inputValue}/10`;});
+    //});
+
+    rateElement.addEventListener('click', ()=>{
+        let inputValue=ratingVisualizerElement.value;
         $.ajax({
         type: "POST",
         url: "@Url.Action("RateMovie")",
@@ -48,7 +82,8 @@
         })
         .fail((result)=>{
         let rating=JSON.stringify(result);
-            console.log(rating);
-            rateToggleElement.textContent=`${inputValue}/10`;});
+        let ratingElement=document.querySelector('.rate-wrapper p');
+        ratingElement.textContent=`${inputValue}/10`;
+        })
     })
 </script>
