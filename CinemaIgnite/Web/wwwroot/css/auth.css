@@ -1,0 +1,38 @@
+﻿#image-container {
+    width: 15vw;
+}
+
+    #image-container img {
+        width: 100%;
+    }
+
+#auth-container {
+    position: absolute;
+    right: 26.81vw;
+    top: 10vw;
+}
+
+.auth-input {
+    border: 0.208vw solid #a4272d;
+    margin-bottom: 0.521vw;
+    border-radius: 0.6vw;
+}
+
+#auth-form {
+    padding-top: 1.042vw;
+}
+
+#submit-button {
+    background-color: #a4272d;
+    color: whitesmoke;
+    border: none;
+    border-radius: 0.26vw;
+    position: absolute;
+    right: 6.5vw;
+    font-size: 0.938vw;
+    cursor: pointer;
+}
+
+#submit-button:hover{
+    background-color: #404040;
+}
