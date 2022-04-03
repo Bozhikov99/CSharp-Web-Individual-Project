@@ -19,7 +19,6 @@ namespace Infrastructure.Models
 
         public DateTime Date { get; set; }
 
-        [Range(ProjectionConstants.TicketsAvailableMin, ProjectionConstants.TicketsAvailableMax)]
         public int TicketsAvailable { get; set; }
 
         public bool Subtitles { get; set; }

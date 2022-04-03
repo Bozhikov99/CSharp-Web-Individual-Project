@@ -1,4 +1,6 @@
 ﻿using Core.Services.Contracts;
+using Core.ViewModels.Movie;
+using Core.ViewModels.Projection;
 using Core.ViewModels.Ticket;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -19,30 +21,30 @@ namespace Web.Controllers
             this.userService = userService;
         }
 
-        public IActionResult Create(string id)
+        public async Task<IActionResult> Create(string id)
         {
             string userId = userService.GetUserId();
+            IEnumerable<int> seatsTaken = await ticketService.GetTakenSeats(id);
+
+            (ListMovieModel movieModel, ListProjectionModel projectionModel) = await ticketService.GetInfo(id);
+
             ViewBag.UserId = userId;
             ViewBag.ProjectionId = id;
+            ViewBag.SeatsTaken = seatsTaken;
+            ViewBag.Movie = movieModel;
+            ViewBag.Projection = projectionModel;
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ActionName("CreateForm")]
-        public async Task<IActionResult> Create(CreateTicketModel model)
+        public async Task<IActionResult> Buy(int[] seats, string projectionId, string userId)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(nameof(Create));
-            }
 
-            string userId = userService.GetUserId();
+            (bool isSuccesful, string error) = await ticketService.BuyTickets(seats, projectionId, userId);
 
-            (bool isCreated, string error) = await ticketService.Create(model, userId);
-
-            if (!isCreated)
+            if (!isSuccesful)
             {
                 return View("UserError", error);
             }

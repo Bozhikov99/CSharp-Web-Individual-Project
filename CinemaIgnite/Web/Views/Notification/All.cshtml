@@ -7,7 +7,7 @@
     NotificationDetailsModel[] notifications = Model.ToArray();
 }
 
-<script src="~/js/notifications.js" type="module"></script>
+
 <link rel="stylesheet" href="~/css/notifications.css" />
 
 <div class="headline-div">
@@ -53,6 +53,8 @@ else
 {
     <h1 class="text-information empty-inbox">Няма известия</h1>
 }
+
+<script src="~/js/notifications.js" type="module"></script>
 
 <script type="text/javascript">
     let titleElements=document.querySelectorAll('.notification-title');

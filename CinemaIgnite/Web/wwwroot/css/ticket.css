@@ -1,0 +1,174 @@
+﻿.movie-container {
+    margin: 20px 0;
+}
+
+.seats-container {
+    perspective: 52.083vw;
+    margin-bottom: 1.563vw;
+    width: 26.042vw;
+}
+
+.seats-wrapper {
+    position: absolute;
+    right: 6.510vw;
+}
+
+.seat {
+    background-color: whitesmoke;
+    height: 0.981vw;
+    width: 0.781vw;
+    margin: 0.156vw;
+    border-top-left-radius: 0.521vw;
+    border-top-right-radius: 0.521vw;
+}
+
+    .seat.selected {
+        background-color: green;
+    }
+
+        .seat.selected small {
+            position: relative;
+            top: -0.156vw;
+            right: -0.938vw;
+        }
+
+    .seat.sold {
+        background-color: rgba(164, 39, 45, 1);
+    }
+
+    .seat:nth-of-type(2) {
+        margin-right: 18px;
+    }
+
+    .seat:nth-last-of-type(2) {
+        margin-left: 18px;
+    }
+
+    .seat:not(.sold):hover {
+        cursor: pointer;
+        transform: scale(1.2);
+    }
+
+.showcase .seat:not(.sold):hover {
+    cursor: default;
+    transform: scale(1);
+}
+
+.showcase {
+    background-color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #777;
+    list-style-type: none;
+    display: flex;
+}
+
+    .showcase .seat.seat:not(.sold):hover {
+        cursor: default;
+        transform: scale(1);
+    }
+
+.showcase {
+    background-color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #777;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .showcase li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+    }
+
+        .showcase li small {
+            margin-left: 2px;
+        }
+
+.row {
+    display: flex;
+}
+
+.screen {
+    background-color: rgb(255, 255, 255);
+    height: 100px;
+    width: 100%;
+    margin: 15px 0;
+    transform: rotateX(-45deg);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+}
+
+p.text {
+    margin: 5px 0;
+}
+
+    p.text span {
+        color: #3db500;
+    }
+
+
+.ticket-container {
+    position: absolute;
+    top: 21vw;
+    right: 21.354vw;
+}
+
+    .ticket-container p {
+        position: relative;
+        top: -2.175vw;
+        right: -7vw;
+    }
+
+        .ticket-container p span {
+            color: #3db500
+        }
+
+.projection-wrapper {
+    background-color: black;
+    width: 26.042vw;
+    position: absolute;
+    top: 9vw;
+    right: 21.354vw;
+    height: 10vw;
+}
+
+.img-wrapper {
+    position: absolute;
+    width: 7vw;
+}
+
+    .img-wrapper img {
+        width: 100%;
+        padding: 0.313vw;
+    }
+
+.info-div {
+    position: relative;
+    left: 7.2vw;
+    top: 0.2vw;
+    font-size: 1.1vw;
+}
+
+.info-div p{
+    margin-bottom: 0.15vw;
+}
+
+#buy-button {
+    background-color: #a4272d;
+    color: whitesmoke;
+    border: none;
+    border-radius: 0.26vw;
+    cursor: pointer;
+    position: relative;
+    top: 0.781vw;
+    left: 5.1vw;
+    display: none;
+}
+
+    #buy-button:hover {
+        background-color: #404040;
+    }

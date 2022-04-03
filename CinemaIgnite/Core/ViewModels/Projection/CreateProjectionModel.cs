@@ -12,7 +12,6 @@ namespace Core.ViewModels.Projection
     {
         public DateTime Date { get; set; }
 
-        [Range(ProjectionConstants.TicketsAvailableMin, ProjectionConstants.TicketsAvailableMax)]
         public int TicketsAvailable { get; set; }
 
         public bool Subtitles { get; set; }

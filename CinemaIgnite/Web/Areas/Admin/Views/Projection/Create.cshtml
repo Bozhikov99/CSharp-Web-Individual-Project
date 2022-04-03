@@ -13,15 +13,11 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="TicketsAvailable" hidden class="form-control" value=@ViewBag.TicketsAvailable />
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TicketsAvailable" class="control-label"></label>
-                <input asp-for="TicketsAvailable" class="form-control" />
-                <span asp-validation-for="TicketsAvailable" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -56,7 +52,7 @@
                     }
                 </select>
             </div>
-            
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

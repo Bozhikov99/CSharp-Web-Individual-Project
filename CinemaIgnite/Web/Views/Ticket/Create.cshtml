@@ -1,35 +1,157 @@
 ﻿@using Core.ViewModels.Ticket
-@model CreateTicketModel
+@using Core.ViewModels.Movie;
+@using Core.ViewModels.Projection;
 
 @{
     ViewData["Title"] = "Create";
+    int[] seatsTaken = ViewBag.SeatsTaken;
+    ListMovieModel movie = ViewBag.Movie;
+    ListProjectionModel projection = ViewBag.Projection;
 }
 
-<h1>Create</h1>
+<link rel="stylesheet" href="~/css/ticket.css" />
 
-<h4>Ticket</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Seat" class="control-label"></label>
-                <input asp-for="Seat" class="form-control" />
-                <span asp-validation-for="Seat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="UserId" class="form-control" type="hidden" value=@ViewBag.UserId />
-                <input asp-for="ProjectionId" class="form-control" type="hidden" value=@ViewBag.ProjectionId />
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="headline-div">
+    <img class="headline-icon" src="~/img/headline.png" />
+    <p class="text-standard headline">КУПУВАНЕ НА БИЛЕТ</p>
+</div>
+
+<div class="projection-wrapper">
+    <div class="img-wrapper">
+        <img src=@movie.ImageUrl />
+    </div>
+    <div class="info-div">
+        <p class="text-standard">@movie.Title</p>
+        <p class="text-standard">Дата: @projection.Date.ToString("dd.MM")</p>
+        <p class="text-standard">Час: @projection.Date.ToString("HH:mm")</p>
+        <p class="text-standard">Цена: @projection.Price.ToString("F2") лв.</p>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+@*<div class="row">
+    <div class="col-md-4">
+    <form asp-action="CreateForm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+    <label asp-for="Seat" class="control-label"></label>
+    <input asp-for="Seat" class="form-control" />
+    <span asp-validation-for="Seat" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input asp-for="UserId" class="form-control" type="hidden" value=@ViewBag.UserId />
+    <input asp-for="ProjectionId" class="form-control" type="hidden" value=@ViewBag.ProjectionId />
+    <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+    </form>
+    </div>
+    </div>*@
+
+<div class="ticket-container">
+    <ul class="showcase">
+        <li>
+            <div class="seat"></div>
+            <small>Свободно</small>
+        </li>
+        <li>
+            <div class="seat selected">
+                <small>Избрано</small>
+            </div>
+        </li>
+        <li>
+            <div class="seat sold"></div>
+            <small>Продадено</small>
+        </li>
+    </ul>
+    <div class="seats-container">
+        <div class="screen"></div>
+        <div class="seats-wrapper">
+            <form asp-action="Buy">
+                @for (int i = 0; i < 8; i++)
+                {
+                    <div class="row">
+                        @for (int j = 0; j < 8; j++)
+                        {
+                            int currentValue = (i * 8 + j) + 1;
+
+                            if (seatsTaken.Contains(currentValue))
+                            {
+                                <div class="seat sold"></div>
+                            }
+                            else
+                            {
+                                <div class="seat free"><input hidden name="seats" type="checkbox" value=@currentValue /></div>
+                            }
+                        }
+                    </div>
+                }
+                <input type="hidden" name="projectionId" value=@ViewBag.ProjectionId />
+                <input type="hidden" name="userId" value=@ViewBag.UserId />
+                <button id="buy-button" type="submit" value="Buy">Купи</button>
+            </form>
+            @*<div class="row">
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                </div>
+
+                <div class="row">
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat sold"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                </div>
+
+                <div class="row">
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat sold"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                </div>
+
+                <div class="row">
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat sold"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                </div>
+
+                <div class="row">
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat sold"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                <div class="seat"></div>
+                </div>*@
+
+        </div>
+    </div>
+    <p id="info" class="text-information">
+        Избрали сте <span id="count">0</span> места за цена <span id="total">0</span> лв.
+    </p>
+    <p id="price" hidden>@((double)projection.Price)</p>
 </div>
+
+<script src="~/js/ticket.js" type="module"></script>
 
 @section Scripts {
     @{

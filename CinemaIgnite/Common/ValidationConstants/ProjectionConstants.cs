@@ -2,9 +2,8 @@
 {
     public class ProjectionConstants
     {
-        public const int TicketsAvailableMin = 2;
 
-        public const int TicketsAvailableMax = 300;
+        public const int TicketsAvailable = 64;
 
         public const decimal TicketPriceMin = 1m;
 

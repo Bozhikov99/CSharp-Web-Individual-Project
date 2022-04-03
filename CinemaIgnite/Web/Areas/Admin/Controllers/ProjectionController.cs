@@ -1,4 +1,5 @@
-﻿using Core.Services.Contracts;
+﻿using Common;
+using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.Projection;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ namespace Web.Areas.Admin.Controllers
         {
             IEnumerable<ListMovieModel> movies = await movieService.GetAll();
             ViewBag.Movies = movies;
+            ViewBag.TicketsAvailable = ProjectionConstants.TicketsAvailable;
 
             return View();
         }
@@ -60,7 +62,7 @@ namespace Web.Areas.Admin.Controllers
             return Redirect(url);       //I know this is gross, yet I did not think of another way...
         }
 
-        [HttpPost] 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateProjectionModel model)
         {

@@ -51,7 +51,7 @@
                                         @foreach (var projection in Model.Where(p => p.MovieId == movies[i].Id).OrderByDescending(p => p.Date))
                                         {
                                             <li>
-                                                @if (projection.TicketsAvailable > 0)
+                                                @if (projection.TicketsAvailable > 0 && projection.Date>DateTime.Today)
                                                 {
                                                     @using (Html.BeginForm("Create", "Ticket", new { id = projection.Id }))
                                                     {

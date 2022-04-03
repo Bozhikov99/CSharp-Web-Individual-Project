@@ -4,6 +4,6 @@
     {
         public const int SeatMin = 1;
 
-        public const int SeatMax = 300;
+        public const int SeatMax = 64;
     }
 }
