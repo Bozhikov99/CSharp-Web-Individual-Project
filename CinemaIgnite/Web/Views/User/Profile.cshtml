@@ -35,7 +35,10 @@
                     <p class="text-information movie-text">Времетраене: @Math.Floor(movies[i].Duration.TotalMinutes) мин.</p>
                     <p class="text-information movie-text">Жанр: @string.Join(", ", movies[i].Genres)</p>
                 </div>
-                <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{movies[i].Rating:f1}")/10</h3>
+                @if (@movies[i].Rating > 0)
+                {
+                    <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{movies[i].Rating:f1}")/10</h3>
+                }
             </div>
         </div>
     }

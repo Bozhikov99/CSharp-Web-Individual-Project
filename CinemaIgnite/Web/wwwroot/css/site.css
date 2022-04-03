@@ -49,6 +49,7 @@ footer {
     margin-top: 0px;
     margin-left: 298px;
     position: absolute;
+    box-shadow: 0 3px 10px rgb(255 0 0 / 70%);
     height: 90%;
     width: 90%;
     z-index: -1;
