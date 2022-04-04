@@ -61,8 +61,7 @@ else
     let delElements=document.querySelectorAll('.delete-notification');
 
     titleElements.forEach(te=>te.addEventListener('click', (e)=>{
-        let parent=te.parentElement.parentElement;
-        let userId=parent.querySelector('#user-id')
+        let userId=document.querySelector('#user-id')
             .textContent;
 
         $.ajax({
@@ -73,20 +72,6 @@ else
         .then((result)=>{
         });
     }))
-
-    delElements.forEach(de=>de.addEventListener('click', ()=>{
-        let divElement=de.parentElement.parentElement;
-        let userId=divElement.querySelector('#user-id')
-            .textContent;
-
-        $.ajax({
-        type: "POST",
-        url: "@Url.Action("Delete")",
-        data: { id: userId}
-        })
-        .then((result)=>{
-            divElement.remove();
-        });
-    }))
+  
 
 </script>

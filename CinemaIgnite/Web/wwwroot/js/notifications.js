@@ -39,5 +39,6 @@ titleElements.forEach(te => te.addEventListener('click', (e) => {
     document.querySelectorAll('.notification-text')
         .forEach(nt => nt.setAttribute('hidden', true));
 
+
     notificationTextElement.removeAttribute('hidden');
 }))

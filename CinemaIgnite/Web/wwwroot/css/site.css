@@ -55,6 +55,17 @@ footer {
     z-index: -1;
 }
 
+.site-admin {
+    background-color: whitesmoke;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-left: 298px;
+    height: 90%;
+    width: 90%;
+    position: absolute;
+}
+
 .navbar-logo {
     width: 10.417vw;
     height: 3.646vw;

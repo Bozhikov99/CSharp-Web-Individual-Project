@@ -18,7 +18,6 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Read(string id)
         {
             await notificationService.Read(id);

@@ -17,14 +17,10 @@
             <i class="fa fa-heart-o text-standard fav-icon" value="fav"></i>
             <p class="text-standard fav-text">Добави в любими</p>
             <p id="action" hidden>fav</p>
-            @*<button id="fav-button" class="btn-warning">Fav it</button>*@
     </div>
         }
 }
 <script type="text/javascript">
-    //let favButtonElement = document.querySelector('#fav-button');
-    //console.log(favButtonElement.textContent);
-
     let favIconElement=document.querySelector('.fav-icon');
     favIconElement.addEventListener('click',()=>{
         let navigatorElement=document.querySelector('#action');
@@ -61,32 +57,4 @@
             });
         }
     })
-
-    //favButtonElement.addEventListener('click', () => {
-    //let buttonText=favButtonElement.textContent;
-
-    //if(buttonText=='Fav it'){
-    //    $.ajax({
-    //    type: "POST",
-    //    url: "@Url.Action("AddMovieToFavourites")",
-    //    data: { id: '@ViewBag.MovieId'}
-    //    })
-    //    .then((result)=>{
-    //        favButtonElement.textContent='Unfav it';
-    //        favButtonElement.classList.remove('btn-danger');
-    //        favButtonElement.classList.add('btn-warning');
-    //    });
-    //} else {
-    //    $.ajax({
-    //    type: "POST",
-    //    url: "@Url.Action("RemoveMovieFromFavourites")",
-    //    data: { id: '@ViewBag.MovieId'}
-    //    })
-    //    .then((result)=>{
-    //        favButtonElement.textContent='Fav it';
-    //        favButtonElement.classList.remove('btn-warning');
-    //        favButtonElement.classList.add('btn-danger');
-    //    });
-    //}
-
-    //});</script>
+</script>
