@@ -48,7 +48,7 @@ namespace Test
         {
             ListGenreModel testModel = new ListGenreModel()
             {
-                Name = "Test genre"
+                Name = "Test genre2"
             };
 
 
@@ -72,7 +72,7 @@ namespace Test
         [Test]
         public async Task Create_AddsGenre()
         {
-            int count = 2;
+            int count = 3;
 
             CreateGenreModel genre = new CreateGenreModel()
             {
@@ -96,7 +96,7 @@ namespace Test
         [Test]
         public async Task Delete_RemovesSuccesfully()
         {
-            int expectedCount = 0;
+            int expectedCount = 1;
 
             ListGenreModel[] initialGenres = await service.GetAll() as ListGenreModel[];
             string testId = initialGenres[0].Id;
