@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common.ValidationConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.Genre;
 using Infrastructure.Common;
@@ -24,20 +25,21 @@ namespace Core.Services
             this.mapper = mapper;
         }
 
-        public async Task<bool> Create(CreateGenreModel model)
+        public async Task Create(CreateGenreModel model)
         {
+            Genre checkExisting = await repository.All<Genre>(g => g.Name == model.Name)
+                .FirstOrDefaultAsync();
+
             Genre genre = mapper.Map<Genre>(model);
 
-            try
+            if (checkExisting != null)
             {
-                await repository.AddAsync(genre);
-                await repository.SaveChangesAsync();
-                return true;
+                string error = string.Format(ErrorMessagesConstants.GenreNameException, model.Name);
+                throw new ArgumentException(error);
             }
-            catch (Exception)
-            {
-                return false;
-            }
+
+            await repository.AddAsync(genre);
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> Delete(string id)

@@ -27,13 +27,6 @@ builder.Services.AddDefaultIdentity<User>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CinemaDbContext>();
 
-//builder.Services.AddAuthentication()
-//    .AddFacebook(options =>
-//    {
-//        options.AppId = "701770074573039";
-//        options.AppSecret = "05976741c42d3c2da3318a08f1b673c7";
-//    });
-
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<ProjectionProfile>());

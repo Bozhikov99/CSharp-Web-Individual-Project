@@ -1,4 +1,5 @@
-﻿using Core.Services.Contracts;
+﻿using Common.ValidationConstants;
+using Core.Services.Contracts;
 using Core.ViewModels.Genre;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,12 +55,17 @@ namespace Web.Areas.Admin.Controllers
                 return View();
             }
 
-            bool isCreated = await genreService.Create(model);
-
-            if (!isCreated)
+            try
             {
-                string error = "Error creating a genre";
-                return View("UserError", error);
+                await genreService.Create(model);
+            }
+            catch (ArgumentException ae)
+            {
+                return View("UserError", ae.Message);
+            }
+            catch (Exception)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorCreatingGenre);
             }
 
             return RedirectToAction(nameof(All));

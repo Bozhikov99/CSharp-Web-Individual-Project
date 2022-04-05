@@ -4,7 +4,7 @@ namespace Core.Services.Contracts
 {
     public interface IGenreService
     {
-        Task<bool> Create(CreateGenreModel model);
+        Task Create(CreateGenreModel model);
 
         Task<bool> Edit(EditGenreModel model);
 
