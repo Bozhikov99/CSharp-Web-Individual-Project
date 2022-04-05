@@ -6,11 +6,11 @@ namespace Core.Services.Contracts
 {
     public interface IMovieService
     {
-        Task<bool> Create(CreateMovieModel model);
+        Task Create(CreateMovieModel model);
 
         Task<bool> Edit(EditMovieModel model);
 
-        Task<bool> Delete(string id);
+        Task Delete(string id);
 
         Task<IEnumerable<ListMovieModel>> GetAll();
 

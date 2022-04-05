@@ -31,7 +31,6 @@ namespace Test
             serviceProvider = serviceCollection
                 .AddSingleton(sp => dbContext.CreateContext())
                 .AddSingleton<IRepository, Repository>()
-                .AddSingleton<IRepository, Repository>()
                 .AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>())
                 .AddSingleton<IGenreService, GenreService>()
                 .BuildServiceProvider();
@@ -46,16 +45,13 @@ namespace Test
         [Test]
         public async Task GetAll_ReturnsCorrectly()
         {
-            ListGenreModel testModel = new ListGenreModel()
-            {
-                Name = "Test genre2"
-            };
+            string name = "Test genre";
 
 
             ListGenreModel[] genresFromDb = await service.GetAll() as ListGenreModel[];
             ListGenreModel dbModel = genresFromDb[0];
 
-            Assert.AreEqual(dbModel.Name, testModel.Name);
+            Assert.AreEqual(dbModel.Name, name);
         }
 
         [Test]

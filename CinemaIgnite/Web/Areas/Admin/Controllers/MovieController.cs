@@ -1,4 +1,5 @@
-﻿using Core.Services.Contracts;
+﻿using Common.ValidationConstants;
+using Core.Services.Contracts;
 using Core.ViewModels.Genre;
 using Core.ViewModels.Movie;
 using Microsoft.AspNetCore.Mvc;
@@ -54,12 +55,18 @@ namespace Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            bool isDeleted = await movieService.Delete(id);
-
-            if (!isDeleted)
+            try
             {
-                string error = "Error deleting a movie";
-                return View("UserError", error);
+                await movieService.Delete(id);
+            }
+            catch (ArgumentException ae)
+            {
+                return View("UserError", ErrorMessagesConstants.MovieDoesNotExist);
+            }
+            catch (Exception)
+            {
+
+                return View("UserError", ErrorMessagesConstants.ErrorDeletingMovie);
             }
 
             return RedirectToAction(nameof(All));
@@ -100,13 +107,20 @@ namespace Web.Areas.Admin.Controllers
                 return View();
             }
 
-            bool isCreated = await movieService.Create(model);
-
-            if (!isCreated)
+            try
             {
-                string error = "Error creating a movie";
-                return View("UserError", error);
+                await movieService.Create(model);
             }
+            catch (ArgumentException ae)
+            {
+                string error = string.Format(ae.Message, model.Title);
+                return View("UserError", ae.Message);
+            }
+            catch (Exception)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorCreatingMovie);
+            }
+
 
             return RedirectToAction(nameof(All));
         }

@@ -50,7 +50,12 @@
       "ProjectGuid": "f382cae7-7cf7-4f7b-ac9e-6205a6fca938",
       "DisplayName": "Api",
       "ColorIndex": 8
+    },
+    "abd92b9b-f2e8-4467-99fe-3fafa55fdde1": {
+      "ProjectGuid": "abd92b9b-f2e8-4467-99fe-3fafa55fdde1",
+      "DisplayName": "Test",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 9
+  "NextColorIndex": 10
 }

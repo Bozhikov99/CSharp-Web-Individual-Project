@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Common.ValidationConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Infrastructure.Common;
@@ -43,8 +44,15 @@ namespace Core.Services
             return movies;
         }
 
-        public async Task<bool> Create(CreateMovieModel model)
+        public async Task Create(CreateMovieModel model)
         {
+            bool exists = await Exists(model.Title);
+
+            if (exists)
+            {
+                throw new ArgumentException(ErrorMessagesConstants.MovieNameException);
+            }
+
             Movie movie = mapper.Map<Movie>(model);
 
             foreach (string id in model.GenreIds)
@@ -55,31 +63,22 @@ namespace Core.Services
                     .Add(currentGenre);
             }
 
-            try
-            {
-                await repository.AddAsync(movie);
-                await repository.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            await repository.AddAsync(movie);
+            await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> Delete(string id)
+        public async Task Delete(string id)
         {
-            try
-            {
-                await repository.DeleteAsync<Movie>(id);
-                await repository.SaveChangesAsync();
+            Movie movie = await repository.GetByIdAsync<Movie>(id);
 
-                return true;
-            }
-            catch (Exception)
+            if (movie == null)
             {
-                return false;
+                throw new ArgumentException(ErrorMessagesConstants.MovieDoesNotExist);
             }
+
+            await repository.DeleteAsync<Movie>(id);
+            await repository.SaveChangesAsync();
+
         }
 
         public async Task<EditMovieModel> GetEditModel(string id)
@@ -157,6 +156,14 @@ namespace Core.Services
             string rating = $"{model.Rating:F1}";
 
             return rating;
+        }
+
+        private async Task<bool> Exists(string name)
+        {
+            Movie movie = await repository.All<Movie>(m => m.Title == name)
+                .FirstOrDefaultAsync();
+
+            return movie != null;
         }
     }
 }
