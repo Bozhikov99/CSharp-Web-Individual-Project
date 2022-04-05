@@ -27,49 +27,47 @@ namespace Core.Services
 
         public async Task Create(CreateGenreModel model)
         {
-            Genre checkExisting = await repository.All<Genre>(g => g.Name == model.Name)
-                .FirstOrDefaultAsync();
+            bool exists = await Exists(model.Name);
 
-            Genre genre = mapper.Map<Genre>(model);
-
-            if (checkExisting != null)
+            if (exists)
             {
                 string error = string.Format(ErrorMessagesConstants.GenreNameException, model.Name);
                 throw new ArgumentException(error);
             }
 
+            Genre genre = mapper.Map<Genre>(model);
+
             await repository.AddAsync(genre);
             await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> Delete(string id)
+        public async Task Delete(string id)
         {
-            try
+            Genre genre = await repository.GetByIdAsync<Genre>(id);
+
+            if (genre == null)
             {
-                await repository.DeleteAsync<Genre>(id);
-                await repository.SaveChangesAsync();
-                return true;
+                throw new ArgumentException(ErrorMessagesConstants.GenreDoesNotExist);
             }
-            catch (Exception)
-            {
-                return false;
-            }
+
+            await repository.DeleteAsync<Genre>(id);
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> Edit(EditGenreModel model)
         {
+            bool exists = await Exists(model.Name);
+
+            if (exists)
+            {
+                throw new ArgumentException(ErrorMessagesConstants.GenreNameException);
+            }
+
             Genre genre = mapper.Map<Genre>(model);
 
-            try
-            {
-                repository.Update(genre);
-                await repository.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            repository.Update(genre);
+            await repository.SaveChangesAsync();
+            return true;
         }
 
         public async Task<ICollection<ListGenreModel>> GetAll()
@@ -84,9 +82,23 @@ namespace Core.Services
         public async Task<ListGenreModel> GetById(string id)
         {
             Genre genre = await repository.GetByIdAsync<Genre>(id);
+
+            if (genre == null)
+            {
+                throw new ArgumentException(ErrorMessagesConstants.GenreDoesNotExist);
+            }
+
             ListGenreModel model = mapper.Map<ListGenreModel>(genre);
 
             return model;
+        }
+
+        private async Task<bool> Exists(string name)
+        {
+            Genre checkExisting = await repository.All<Genre>(g => g.Name == name)
+                .FirstOrDefaultAsync();
+
+            return checkExisting != null;
         }
     }
 }

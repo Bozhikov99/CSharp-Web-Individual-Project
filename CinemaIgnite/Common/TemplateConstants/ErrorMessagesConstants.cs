@@ -6,6 +6,9 @@
         public const string PasswordsNotMatchingMessage = "Passwords should match";
 
         public const string ErrorCreatingGenre = "Error creating a genre";
+        public const string ErrorEditingGenre = "Error editing a genre";
+        public const string ErrorDeletingGenre = "Error deleting a genre";
+        public const string GenreDoesNotExist = "Such genre does not exist";
 
         public const string ErrorDeletingMovie= "Error deleting a movie";
         public const string ErrorEditingMovie= "Error editing a movie";

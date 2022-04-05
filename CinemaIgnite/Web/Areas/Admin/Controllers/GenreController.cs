@@ -37,10 +37,13 @@ namespace Web.Areas.Admin.Controllers
             {
                 await genreService.Delete(id);
             }
+            catch (ArgumentException ae)
+            {
+                return View("UserError", ae.Message);
+            }
             catch (Exception)
             {
-                string error = "Error deleting genre";
-                return View("UserError", error);
+                return View("UserError", ErrorMessagesConstants.ErrorDeletingGenre);
             }
 
             return RedirectToAction(nameof(All));
@@ -79,10 +82,13 @@ namespace Web.Areas.Admin.Controllers
             {
                 await genreService.Edit(model);
             }
+            catch (ArgumentException ae)
+            {
+                return View("UserError", ae.Message);
+            }
             catch (Exception)
             {
-                string error = "Error editing genre";
-                return View("UserError", error);
+                return View("UserError", ErrorMessagesConstants.ErrorEditingGenre);
             }
 
             return RedirectToAction(nameof(All));
