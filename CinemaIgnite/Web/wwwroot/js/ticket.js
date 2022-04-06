@@ -32,9 +32,10 @@ function toggleClass(element) {
 
 function updateInfo() {
     let seatsSelectedArray = seatWrapperElement.querySelectorAll('.selected');
+    let priceNum = Number(priceElement.textContent.replace(',', '.'));
 
     let seatsSelectedCount = seatsSelectedArray.length;
-    let sum = seatsSelectedCount * Number(priceElement.textContent);
+    let sum = seatsSelectedCount * priceNum;
 
     if (sum!=0) {
         sum = sum.toFixed(2)
@@ -46,6 +47,7 @@ function updateInfo() {
 
 function checkButton() {
     let seatsSelectedArray = seatWrapperElement.querySelectorAll('.selected');
+
 
     if (seatsSelectedArray.length > 0) {
         submitButtonElement.style.display = 'block';

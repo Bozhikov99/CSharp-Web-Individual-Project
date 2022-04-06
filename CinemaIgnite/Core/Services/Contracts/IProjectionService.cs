@@ -8,14 +8,9 @@ namespace Core.Services.Contracts
 
         Task<(bool isDeleted, DateTime date)> Delete(string id);
 
-        Task<IEnumerable<ListProjectionModel>> GetAllForMovie(string movieId);
-
         Task<IEnumerable<ListProjectionModel>> GetAllForDate(DateTime date);
 
         Task<ProjectionDetails> GetProjectionDetails(string id);
 
-        bool IsPlaceTaken(int seat);
-
-        Task<bool> DeleteAllForMovie(string movieId);
     }
 }

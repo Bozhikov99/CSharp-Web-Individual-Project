@@ -26,5 +26,6 @@ namespace Core.ViewModels.Projection
 
         public string Format { get; set; }
 
+        public string Sound { get; set; }
     }
 }
