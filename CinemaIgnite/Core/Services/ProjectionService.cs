@@ -76,34 +76,10 @@ namespace Core.Services.Contracts
             return (isDeleted, date);
         }
 
-        public async Task<bool> DeleteAllForMovie(string movieId)
-        {
-            try
-            {
-                repository.DeleteRange<Projection>(p => p.MovieId == movieId);
-                await repository.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
         public async Task<IEnumerable<ListProjectionModel>> GetAllForDate(DateTime date)
         {
             IEnumerable<ListProjectionModel> projections = await repository.All<Projection>()
                 .Where(p => p.Date.Year == date.Year && p.Date.Month == date.Month && p.Date.Day == date.Day)
-                .ProjectTo<ListProjectionModel>(mapper.ConfigurationProvider)
-                .ToArrayAsync();
-
-            return projections;
-        }
-
-        public async Task<IEnumerable<ListProjectionModel>> GetAllForMovie(string movieId)
-        {
-            IEnumerable<ListProjectionModel> projections = await repository.All<Projection>()
-                .Where(p => p.MovieId == movieId)
                 .ProjectTo<ListProjectionModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 
@@ -116,14 +92,6 @@ namespace Core.Services.Contracts
             ProjectionDetails details = mapper.Map<ProjectionDetails>(projection);
 
             return details;
-        }
-
-        public bool IsPlaceTaken(int seat)
-        {
-            bool isTaken = repository.AllReadonly<Ticket>()
-                .Any(t => t.Seat == seat);
-
-            return isTaken;
         }
 
         private async Task<Projection> GetById(string id)

@@ -45,7 +45,7 @@ namespace Test
         [Test]
         public async Task GetAll_ReturnsCorrectly()
         {
-            string name = "Test genre";
+            string name = "Test genre2";
 
 
             ListGenreModel[] genresFromDb = await service.GetAll() as ListGenreModel[];
