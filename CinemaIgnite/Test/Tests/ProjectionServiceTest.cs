@@ -10,10 +10,9 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Test
+namespace Test.Tests
 {
     public class ProjectionServiceTest
     {
@@ -22,9 +21,7 @@ namespace Test
         private IProjectionService service;
         private IMapper mapper;
         private string firstId;
-        private string secondId;
         private string movieId;
-        private string genreId;
 
         [SetUp]
         public async Task Setup()
@@ -161,9 +158,7 @@ namespace Test
                 .First();
 
             firstId = firstFromDb.Id;
-            secondId = secondFromDb.Id;
             movieId = movieFromDb.Id;
-            genreId = genreFromDb.Id;
         }
     }
 }

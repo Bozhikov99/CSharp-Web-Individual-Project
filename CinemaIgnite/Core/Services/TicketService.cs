@@ -49,11 +49,11 @@ namespace Core.Services
             }
 
             Projection projection = await repository.GetByIdAsync<Projection>(projectionId);
+            User user = await repository.GetByIdAsync<User>(userId);
             List<Ticket> tickets = new List<Ticket>();
 
             foreach (int s in seats)
             {
-                User user = await repository.GetByIdAsync<User>(userId);
 
                 Ticket ticket = new Ticket()
                 {
@@ -93,13 +93,13 @@ namespace Core.Services
             return seatsTaken;
         }
 
-        private bool IsSeatTaken(int seat, string projectionId)
-        {
-            bool isTaken = repository.AllReadonly<Ticket>()
-                .Any(t => t.Seat == seat && t.ProjectionId == projectionId);
+        //private bool IsSeatTaken(int seat, string projectionId)
+        //{
+        //    bool isTaken = repository.AllReadonly<Ticket>()
+        //        .Any(t => t.Seat == seat && t.ProjectionId == projectionId);
 
-            return isTaken;
-        }
+        //    return isTaken;
+        //}
 
         private async Task<bool> IsAnyTaken(int[] seats, string projectionId)
         {

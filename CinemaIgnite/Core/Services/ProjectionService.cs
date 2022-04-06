@@ -86,7 +86,7 @@ namespace Core.Services.Contracts
             return projections;
         }
 
-        public async Task<ProjectionDetails> GetProjectionDetails(string id)
+        public async Task<ProjectionDetails> GetProjectionDetails(string id)        //for deleting
         {
             Projection projection = await GetById(id);
             ProjectionDetails details = mapper.Map<ProjectionDetails>(projection);

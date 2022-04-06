@@ -10,10 +10,9 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Test
+namespace Test.Tests
 {
     public class GenreServiceTest
     {
@@ -49,7 +48,7 @@ namespace Test
 
 
             ListGenreModel[] genresFromDb = await service.GetAll() as ListGenreModel[];
-            ListGenreModel dbModel = genresFromDb[0];
+            ListGenreModel dbModel = genresFromDb.First(g=>g.Name=="Test genre2");
 
             Assert.AreEqual(dbModel.Name, name);
         }
