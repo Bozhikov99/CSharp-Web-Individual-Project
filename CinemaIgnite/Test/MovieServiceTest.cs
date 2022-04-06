@@ -22,6 +22,7 @@ namespace Test
         private IMovieService service;
         private IMapper mapper;
         private string testGenreId;
+        private string testMovieId;
 
         [SetUp]
         public async Task Setup()
@@ -121,6 +122,115 @@ namespace Test
             Assert.ThrowsAsync<ArgumentException>(async () => await service.Delete(id));
         }
 
+        [Test]
+        [TestCase("TeSt")]
+        [TestCase("GeNrE")]
+        [TestCase("aUstria-")]
+        public async Task Search_FindsMoviesCorrectly(string search)
+        {
+            int expected = 2;
+            string lowerCaseSearch = search.ToLower();
+
+            ListMovieModel[] movies = await service
+                .GetAll(
+                    m => m.Title.ToLower().Contains(lowerCaseSearch) ||
+                    m.Genres.Select(g => g.Name).Any(g => g.ToLower().Contains(lowerCaseSearch)) ||
+                    m.Country.ToLower().Contains(lowerCaseSearch))
+                as ListMovieModel[];
+
+            Assert.AreEqual(expected, movies.Length);
+        }
+
+        [Test]
+        [TestCase("Arn")]
+        [TestCase("Kimmich")]
+        public async Task Search_FiltersCorrectly(string search)
+        {
+            int expected = 1;
+            string lowerCaseSearch = search.ToLower();
+
+            ListMovieModel[] movies = await service
+                .GetAll(m => m.Actors.ToLower().Contains(lowerCaseSearch))
+                as ListMovieModel[];
+
+            Assert.AreEqual(expected, movies.Length);
+        }
+
+        [Test]
+        public async Task GetEditModel_ReturnsCorrectly()
+        {
+            string title = "Test";
+            string imageUrl = "SomeUrl";
+            string description = "Simple description about a test movie";
+            TimeSpan duration = new TimeSpan(1, 45, 2);
+            int releaseYear = 1991;
+            string actors = "Arnold Weissneger";
+
+            string director = "Some Director";
+            string country = "Austria-Hungary";
+
+            EditMovieModel movie = await service.GetEditModel(testMovieId);
+
+            Assert.AreEqual(title, movie.Title);
+            Assert.AreEqual(imageUrl, movie.ImageUrl);
+            Assert.AreEqual(description, movie.Description);
+            Assert.AreEqual(duration, movie.Duration);
+            Assert.AreEqual(releaseYear, movie.ReleaseYear);
+            Assert.AreEqual(actors, movie.Actors);
+            Assert.AreEqual(director, movie.Director);
+            Assert.AreEqual(country, movie.Country);
+        }
+
+        [Test]
+        public async Task Edit_Succesfully()
+        {
+            string newTitle = "Another Title";
+
+            EditMovieModel movie = await service.GetEditModel(testMovieId);
+            movie.GenreIds = new string[] { testGenreId };
+            movie.Title = newTitle;
+
+            await service.Edit(movie);
+
+            EditMovieModel movie2 = await service.GetEditModel(testMovieId);
+
+            Assert.AreEqual(movie.Title, movie2.Title);
+        }
+
+        [Test]
+        public async Task GetDetails_ReturnsCorrectly()
+        {
+            string title = "Test";
+            string imageUrl = "SomeUrl";
+            string description = "Simple description about a test movie";
+            TimeSpan duration = new TimeSpan(1, 45, 2);
+            int releaseYear = 1991;
+            string actors = "Arnold Weissneger";
+            string director = "Some Director";
+            string country = "Austria-Hungary";
+
+            MovieDetailsModel detailsModel = await service.GetMovieDetails(testMovieId);
+
+            Assert.AreEqual(title, detailsModel.Title);
+            Assert.AreEqual(imageUrl, detailsModel.ImageUrl);
+            Assert.AreEqual(description, detailsModel.Description);
+            Assert.AreEqual(duration, detailsModel.Duration);
+            Assert.AreEqual(releaseYear, detailsModel.ReleaseYear);
+            Assert.AreEqual(actors, detailsModel.Actors);
+            Assert.AreEqual(director, detailsModel.Director);
+            Assert.AreEqual(country, detailsModel.Country);
+        }
+
+        [Test]
+        public async Task GetRating_ReturnsSuccessfully()
+        {
+            string expected = "4,0";
+
+            string actual = await service.GetRating(testMovieId);
+
+            Assert.AreEqual(expected, actual);
+        }
+
         [TearDown]
         public async Task TearDown()
         {
@@ -160,12 +270,55 @@ namespace Test
                 Genres = new List<Genre>() { testGenre }
             };
 
+            User firstUser = new User()
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Email = "test@abv.bg"
+            };
+
+            User secondUser = new User()
+            {
+                FirstName = "Test",
+                LastName = "User2",
+                Email = "test2@abv.bg"
+            };
+
             await repository.AddAsync(testGenre);
+            await repository.AddAsync(firstUser);
+            await repository.AddAsync(secondUser);
             await repository.AddAsync(firstTestMovie);
             await repository.AddAsync(secondTestMovie);
             await repository.SaveChangesAsync();
 
-            testGenreId = repository.All<Genre>().First().Id;
+            Movie movie = repository.All<Movie>().First(m => m.Title == "Test");
+            testMovieId = movie.Id;
+
+            Genre genre = repository.All<Genre>().First();
+            testGenreId = genre.Id;
+
+            User firstUserFromDb = repository.All<User>().First(u=>u.Email=="test@abv.bg");
+            User secondUserFromDb = repository.All<User>().First(u=>u.Email=="test2@abv.bg");
+
+            Rating firstRating = new Rating()
+            {
+                Value = 2,
+                UserId = firstUserFromDb.Id,
+                User = firstUserFromDb,
+                Movie = movie
+            };
+
+            Rating secondRating = new Rating()
+            {
+                Value = 6,
+                UserId = secondUserFromDb.Id,
+                User = secondUserFromDb,
+                Movie = movie
+            };
+
+            await repository.AddAsync(firstRating);
+            await repository.AddAsync(secondRating);
+            await repository.SaveChangesAsync();
         }
     }
 }

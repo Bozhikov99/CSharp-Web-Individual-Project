@@ -91,6 +91,7 @@ namespace Core.Services
 
         public async Task<bool> Edit(EditMovieModel model)
         {
+
             var movie = repository.All<Movie>()
                 .Include(m => m.Genres)
                 .First(m => m.Id == model.Id);
@@ -136,18 +137,12 @@ namespace Core.Services
 
             MovieDetailsModel model = mapper.Map<MovieDetailsModel>(movie);
 
-            //model.Rating = movie.Ratings
-            //    .Select(r => r.Value)
-            //    .Sum() / movie.Ratings.Count;
-
             string rating = $"{model.Rating:F2}";
 
             return model;
         }
         public async Task<string> GetRating(string id)
         {
-            //Movie movie = await repository.GetByIdAsync<Movie>(id);
-            //MovieDetailsModel model = mapper.Map<MovieDetailsModel>(movie);
             Movie movie = repository.All<Movie>(m => m.Id == id)
                .Include(m => m.Ratings)
                .First();
