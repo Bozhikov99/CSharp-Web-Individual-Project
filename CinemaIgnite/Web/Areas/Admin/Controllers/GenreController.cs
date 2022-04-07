@@ -21,7 +21,7 @@ namespace Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            ListGenreModel genre = await genreService.GetById(id);
+            EditGenreModel genre = await genreService.GetEditModel(id);
             return View(genre);
         }
 

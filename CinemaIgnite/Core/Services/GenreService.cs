@@ -63,11 +63,21 @@ namespace Core.Services
                 throw new ArgumentException(ErrorMessagesConstants.GenreNameException);
             }
 
-            Genre genre = mapper.Map<Genre>(model);
+            //Genre genre = mapper.Map<Genre>(model);
+            Genre genre=await repository.GetByIdAsync<Genre>(model.Id);
+            genre.Name = model.Name;
 
             repository.Update(genre);
             await repository.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<EditGenreModel> GetEditModel(string id)
+        {
+            Genre movie = await repository.GetByIdAsync<Genre>(id);
+            EditGenreModel model = mapper.Map<EditGenreModel>(movie);
+
+            return model;
         }
 
         public async Task<ICollection<ListGenreModel>> GetAll()

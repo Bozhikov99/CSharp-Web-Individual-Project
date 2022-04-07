@@ -58,6 +58,7 @@ namespace Test.Tests
         public async Task Create_AddsProjection()
         {
             int expected = 1;
+
             DateTime date = new DateTime(2022, 1, 15, 10, 15, 0);
 
             CreateProjectionModel model = new CreateProjectionModel()
@@ -90,7 +91,7 @@ namespace Test.Tests
 
             Assert.AreEqual(expected, projections.Length);
         }
-      
+
         [TearDown]
         public async Task TearDown()
         {
@@ -139,7 +140,16 @@ namespace Test.Tests
                 Movie = testMovie
             };
 
+            User firstUser = new User()
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Email = "test@abv.bg",
+                FavouriteMovies = { }
+            };
+
             await repository.AddAsync(testGenre);
+            await repository.AddAsync(testMovie);
             await repository.AddAsync(testMovie);
             await repository.AddAsync(firstProjection);
             await repository.AddAsync(secondProjection);

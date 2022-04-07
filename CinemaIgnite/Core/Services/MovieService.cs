@@ -89,7 +89,7 @@ namespace Core.Services
             return model;
         }
 
-        public async Task<bool> Edit(EditMovieModel model)
+        public async Task Edit(EditMovieModel model)
         {
 
             var movie = repository.All<Movie>()
@@ -116,15 +116,7 @@ namespace Core.Services
             movie.ImageUrl = model.ImageUrl;
             movie.ReleaseYear = model.ReleaseYear;
 
-            try
-            {
-                await repository.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            await repository.SaveChangesAsync();
         }
 
 

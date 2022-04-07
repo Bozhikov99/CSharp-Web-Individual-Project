@@ -2,7 +2,6 @@
 using Common;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
-using Core.ViewModels.Ticket;
 using Core.ViewModels.User;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -36,9 +35,7 @@ namespace Web.Controllers
         public async Task<IActionResult> Profile(int activePage = 0)
         {
             UserProfileModel model = await userService.GetUserProfile();
-            IEnumerable<ListTicketModel> tickets = await userService.GetUpcomingTickets();
             IEnumerable<ListMovieModel> favouriteMovies = await userService.GetFavouriteMovies();
-            ViewBag.Tickets = tickets;
             ViewBag.Favourites = favouriteMovies;
 
             int favPages = 0;

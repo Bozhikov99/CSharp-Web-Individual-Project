@@ -34,7 +34,6 @@ namespace Test.Tests
             serviceProvider = serviceCollection
                 .AddSingleton(sp => dbContext.CreateContext())
                 .AddSingleton<IRepository, Repository>()
-                .AddAutoMapper(cfg => cfg.AddProfile<TicketProfile>())
                 .AddAutoMapper(cfg => cfg.AddProfile<ProjectionProfile>())
                 .AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>())
                 .AddSingleton<ITicketService, TicketService>()
@@ -64,12 +63,36 @@ namespace Test.Tests
         }
 
         [Test]
+        public async Task BuyTickets_AddsTicketCorectly_WhenSingle()
+        {
+            int expected = 2;
+            IRepository repository = serviceProvider.GetService<IRepository>();
+
+            int[] testSeats = { 1 };
+
+            await service.BuyTickets(testSeats, projectionId, userId);
+
+            int actual = repository.All<Ticket>()
+                .Count();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
         public async Task GetTakenSeats_ReturnsCorrectly()
         {
             int[] expected = { 5 };
             int[] actual = await service.GetTakenSeats(projectionId) as int[];
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public async Task BuyTickets_ThrowsWhenInvalidSeats()
+        {
+            int[] seats = { 1, 2, 5 };
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.BuyTickets(seats, projectionId, userId));
         }
 
         [Test]

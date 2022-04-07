@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.ValidationConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.Projection;
@@ -40,13 +41,6 @@ namespace Web.Areas.Admin.Controllers
             return View(projections);
         }
 
-        public async Task<IActionResult> Details(string id)
-        {
-            ProjectionDetails model = await projectionService.GetProjectionDetails(id);
-
-            return View(model);
-        }
-
         public async Task<IActionResult> Delete(string id)
         {
             (bool isDeleted, DateTime date) = await projectionService.Delete(id);
@@ -78,9 +72,9 @@ namespace Web.Areas.Admin.Controllers
 
             if (!isCreated)
             {
-                string error = "Unexpected error creating projection";
-                return View("UserError", error);
+                return View("UserError", ErrorMessagesConstants.ErrorCreatingProjection);
             }
+
             string dateString = date.ToString("yyyy-MM-dd");
             string url = $"https://localhost:44395/Projection/All?date={dateString}";
 

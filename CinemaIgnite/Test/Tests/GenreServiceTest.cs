@@ -20,6 +20,7 @@ namespace Test.Tests
         private InMemoryDbContext dbContext;
         private IGenreService service;
         private IMapper mapper;
+        private string genreId;
 
         [SetUp]
         public async Task Setup()
@@ -48,7 +49,7 @@ namespace Test.Tests
 
 
             ListGenreModel[] genresFromDb = await service.GetAll() as ListGenreModel[];
-            ListGenreModel dbModel = genresFromDb.First(g=>g.Name=="Test genre2");
+            ListGenreModel dbModel = genresFromDb.First(g => g.Name == "Test genre2");
 
             Assert.AreEqual(dbModel.Name, name);
         }
@@ -137,6 +138,22 @@ namespace Test.Tests
             Assert.ThrowsAsync<ArgumentException>(async () => await service.Edit(editModel));
         }
 
+        [Test]
+        public async Task Edit_Successfully()
+        {
+            string name = "New name";
+            IRepository repository = serviceProvider.GetService<IRepository>();
+
+            EditGenreModel model = await service.GetEditModel(genreId);
+            model.Name = name;
+
+            await service.Edit(model);
+
+            Genre genre = await repository.GetByIdAsync<Genre>(genreId);
+
+            Assert.AreEqual(name, genre.Name);
+        }
+
         [TearDown]
         public async Task TearDown()
         {
@@ -172,6 +189,11 @@ namespace Test.Tests
             await repository.AddAsync(secondGenre);
             //await repository.AddAsync(movie);
             await repository.SaveChangesAsync();
+
+            Genre firstFromDb = repository.All<Genre>(g => g.Name == "Test genre")
+                .First();
+
+            genreId = firstFromDb.Id;
         }
     }
 }

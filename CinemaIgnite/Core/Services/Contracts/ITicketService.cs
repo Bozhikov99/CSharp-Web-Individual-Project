@@ -1,6 +1,6 @@
 ﻿using Core.ViewModels.Movie;
 using Core.ViewModels.Projection;
-using Core.ViewModels.Ticket;
+using Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Core.Services.Contracts
 {
     public interface ITicketService
     {
-        Task<(bool isSuccessful, string error)> BuyTickets(int[] seats, string projectionId, string userId);
+        Task BuyTickets(int[] seats, string projectionId, string userId);
 
         Task<IEnumerable<int>> GetTakenSeats(string projectionId);
 

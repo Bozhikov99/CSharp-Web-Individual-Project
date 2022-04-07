@@ -1,5 +1,4 @@
 ﻿using Core.ViewModels.Movie;
-using Core.ViewModels.Ticket;
 using Core.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -28,8 +27,6 @@ namespace Core.Services.Contracts
 
         Task<bool> RateMovie(string movieId, int value);
 
-        Task<IEnumerable<ListTicketModel>> GetUpcomingTickets();
-
         Task<IEnumerable<ListMovieModel>> GetFavouriteMovies();
 
         Task<(UserRoleModel user, IEnumerable<SelectListItem> roles)> GetUserWithRoles(string id);
@@ -39,8 +36,6 @@ namespace Core.Services.Contracts
         bool HasFavouriteMovie(string movieId);
 
         (bool hasRating, int? value) GetRating(string movieId);
-
-        bool IsLoggedIn();
 
         string GetUserId();
 

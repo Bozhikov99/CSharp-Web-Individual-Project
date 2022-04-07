@@ -14,7 +14,8 @@ namespace Core.Mapping
 
             CreateMap<CreateGenreModel, Genre>();
 
-            CreateMap<EditGenreModel, Genre>();
+            CreateMap<EditGenreModel, Genre>()
+                .ReverseMap();
 
             //for testing
             CreateMap<ListGenreModel, EditGenreModel>();

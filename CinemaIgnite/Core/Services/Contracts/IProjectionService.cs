@@ -9,8 +9,5 @@ namespace Core.Services.Contracts
         Task<(bool isDeleted, DateTime date)> Delete(string id);
 
         Task<IEnumerable<ListProjectionModel>> GetAllForDate(DateTime date);
-
-        Task<ProjectionDetails> GetProjectionDetails(string id);
-
     }
 }

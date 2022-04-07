@@ -12,6 +12,8 @@ namespace Core.Services.Contracts
 
         Task<ICollection<ListGenreModel>> GetAll();
 
+        Task<EditGenreModel> GetEditModel(string id);
+
         Task Delete(string id);
     }
 }

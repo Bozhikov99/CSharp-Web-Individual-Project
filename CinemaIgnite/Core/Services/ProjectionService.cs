@@ -86,21 +86,6 @@ namespace Core.Services.Contracts
             return projections;
         }
 
-        public async Task<ProjectionDetails> GetProjectionDetails(string id)        //for deleting
-        {
-            Projection projection = await GetById(id);
-            ProjectionDetails details = mapper.Map<ProjectionDetails>(projection);
-
-            return details;
-        }
-
-        private async Task<Projection> GetById(string id)
-        {
-            Projection projection = await repository.GetByIdAsync<Projection>(id);
-
-            return projection;
-        }
-
         private async Task<DateTime> GetDate(string id)
         {
             Projection projection = await repository.GetByIdAsync<Projection>(id);

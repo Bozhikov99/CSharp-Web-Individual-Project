@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Common.TemplateConstants;
+using Common.ValidationConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.Projection;
-using Core.ViewModels.Ticket;
 using Infrastructure.Common;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,6 @@ namespace Core.Services
     {
         private readonly IRepository repository;
         private readonly IMapper mapper;
-        private const string seatTakenMessage = "Едно или повече от местата, които сте посочили вече е заето";
         private const string unexpectedError = "Неочаквана грешка";
 
         public TicketService(IMapper mapper, IRepository repository)
@@ -35,7 +34,7 @@ namespace Core.Services
             return (listMovieModel, projectionModel);
         }
 
-        public async Task<(bool isSuccessful, string error)> BuyTickets(int[] seats, string projectionId, string userId)
+        public async Task BuyTickets(int[] seats, string projectionId, string userId)
         {
             bool isSuccessful = false;
             string error = string.Empty;
@@ -44,8 +43,7 @@ namespace Core.Services
 
             if (isAnyTaken)
             {
-                error = seatTakenMessage;
-                return (isSuccessful, error);
+                throw new ArgumentException(ErrorMessagesConstants.SeatTaken);
             }
 
             Projection projection = await repository.GetByIdAsync<Projection>(projectionId);
@@ -69,19 +67,11 @@ namespace Core.Services
 
             await NotifyUserOnCreation(userId, projectionId, tickets.Count);
 
-            try
-            {
-                await repository.AddRangeAsync(tickets);
-                projection.TicketsAvailable -= tickets.Count;
-                await repository.SaveChangesAsync();
-                isSuccessful = true;
-            }
-            catch (Exception)
-            {
-                error = unexpectedError;
-            }
+            await repository.AddRangeAsync(tickets);
+            projection.TicketsAvailable -= tickets.Count;
+            await repository.SaveChangesAsync();
+            isSuccessful = true;
 
-            return (isSuccessful, error);
         }
 
         public async Task<IEnumerable<int>> GetTakenSeats(string projectionId)

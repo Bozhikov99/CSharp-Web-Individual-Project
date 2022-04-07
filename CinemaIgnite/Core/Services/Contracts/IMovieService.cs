@@ -8,7 +8,7 @@ namespace Core.Services.Contracts
     {
         Task Create(CreateMovieModel model);
 
-        Task<bool> Edit(EditMovieModel model);
+        Task Edit(EditMovieModel model);
 
         Task Delete(string id);
 

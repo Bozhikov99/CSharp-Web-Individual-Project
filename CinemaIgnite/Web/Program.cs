@@ -30,7 +30,6 @@ builder.Services.AddDefaultIdentity<User>(options =>
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<ProjectionProfile>());
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<TicketProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<UserProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<NotificationProfile>());
 

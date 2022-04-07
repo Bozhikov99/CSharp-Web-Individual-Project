@@ -1,7 +1,7 @@
-﻿using Core.Services.Contracts;
+﻿using Common.ValidationConstants;
+using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.Projection;
-using Core.ViewModels.Ticket;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -42,11 +42,17 @@ namespace Web.Controllers
         public async Task<IActionResult> Buy(int[] seats, string projectionId, string userId)
         {
 
-            (bool isSuccesful, string error) = await ticketService.BuyTickets(seats, projectionId, userId);
-
-            if (!isSuccesful)
+            try
             {
-                return View("UserError", error);
+                await ticketService.BuyTickets(seats, projectionId, userId);
+            }
+            catch (ArgumentException ae)
+            {
+                return View("UserError", ae.Message);
+            }
+            catch (Exception)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorBuyingTicket);
             }
 
             return RedirectToAction("Index", "Home");

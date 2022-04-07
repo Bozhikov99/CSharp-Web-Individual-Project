@@ -75,9 +75,9 @@ namespace Web.Areas.Admin.Controllers
         public async Task<IActionResult> Details(string id)
         {
             MovieDetailsModel model = await movieService.GetMovieDetails(id);
-            bool isLoggedIn = userService.IsLoggedIn();
+            string userId = userService.GetUserId();
 
-            if (isLoggedIn)
+            if (userId!=null)
             {
                 bool isFavourite = userService.HasFavouriteMovie(id);
                 (bool hasRating, int? value) = userService.GetRating(id);
@@ -93,7 +93,7 @@ namespace Web.Areas.Admin.Controllers
             }
 
             ViewBag.MovieId = id;
-            ViewBag.IsLoggedIn = isLoggedIn;
+            ViewBag.IsLoggedIn = userId != null;
 
             return View(model);
         }
@@ -134,12 +134,13 @@ namespace Web.Areas.Admin.Controllers
                 return View();
             }
 
-            bool isEdited = await movieService.Edit(model);
-
-            if (!isEdited)
+            try
             {
-                string error = "Error editing a movie";
-                return View("UserError", error);
+                await movieService.Edit(model);
+            }
+            catch (Exception)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorEditingMovie);
             }
 
             return RedirectToAction(nameof(All));

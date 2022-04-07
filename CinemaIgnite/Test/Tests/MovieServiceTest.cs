@@ -33,6 +33,7 @@ namespace Test.Tests
                 .AddSingleton(sp => dbContext.CreateContext())
                 .AddSingleton<IRepository, Repository>()
                 .AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>())
+                .AddAutoMapper(cfg => cfg.AddProfile<UserProfile>())
                 .AddSingleton<IMovieService, MovieService>()
                 .BuildServiceProvider();
 

@@ -77,9 +77,9 @@ namespace Web.Controllers
         public async Task<IActionResult> Details(string id)
         {
             MovieDetailsModel model = await movieService.GetMovieDetails(id);
-            bool isLoggedIn = userService.IsLoggedIn();
+            string userId = userService.GetUserId();
 
-            if (isLoggedIn)
+            if (userId!=null)
             {
                 bool isFavourite = userService.HasFavouriteMovie(id);
                 (bool hasRating, int? value) = userService.GetRating(id);
@@ -95,7 +95,7 @@ namespace Web.Controllers
             }
 
             ViewBag.MovieId = id;
-            ViewBag.IsLoggedIn = isLoggedIn;
+            ViewBag.IsLoggedIn = userId != null;
 
             return View(model);
         }
