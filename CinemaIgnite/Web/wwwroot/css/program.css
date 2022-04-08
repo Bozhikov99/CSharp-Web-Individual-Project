@@ -9,6 +9,10 @@
         border-radius: 6px;
     }
 
+.abtn-projection {
+    margin: 5px;
+}
+
 .movie-row {
     background-color: black;
     border-bottom: 2px solid #a4272d;
@@ -54,14 +58,14 @@
             font-size: 0.885vw;
         }
 
-        .format-div {
-            position: relative;
-            right: -3.7vw;
-            bottom: 2vw;
-            width: 65px;
-            /* position: relative; */
-            text-align: center;
-        }
+.format-div {
+    position: relative;
+    right: -3.7vw;
+    bottom: 2vw;
+    width: 65px;
+    /* position: relative; */
+    text-align: center;
+}
 
 .projection-title {
     font-size: 1.242vw;
@@ -69,8 +73,8 @@
     position: relative;
 }
 
-.format-wrapper{
-width: 30px;
+.format-wrapper {
+    width: 30px;
 }
 
 .projection-format {
@@ -99,7 +103,7 @@ width: 30px;
     top: -2.083vw;
 }
 
-.site-content{
+.site-content {
     height: 1020px;
 }
 

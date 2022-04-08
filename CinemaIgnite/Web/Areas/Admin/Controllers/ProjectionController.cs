@@ -37,6 +37,7 @@ namespace Web.Areas.Admin.Controllers
                 p.Date.Day == date.Day));
 
             ViewBag.Movies = movies;
+            ViewBag.Date = date;
 
             return View(projections);
         }

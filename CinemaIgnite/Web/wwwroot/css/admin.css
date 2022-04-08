@@ -15,6 +15,13 @@
     border-radius: 0.6vw;
 }
 
+.date-input {
+    display: inline;
+    position: relative;
+    top: 4vw;
+    left: 30.5vw;
+}
+
 .form-container {
     position: absolute;
     right: 26.81vw;
@@ -54,10 +61,21 @@
         background-color: black;
     }
 
-.form-group p{
+.form-group p {
     margin-bottom: 0;
 }
 
 .active-page {
-    color: #0dcaf0;
+    color: #ffc107;
 }
+
+#movie-image {
+    position: absolute;
+    width: 15vw;
+    left: 21vw;
+}
+
+    #movie-image:hover {
+        transform: scale(1.3);
+        z-index: 2;
+    }

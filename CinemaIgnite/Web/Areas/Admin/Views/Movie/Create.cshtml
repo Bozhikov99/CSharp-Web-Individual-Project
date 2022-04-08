@@ -2,60 +2,51 @@
 @model CreateMovieModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Създай филм";
 }
 
-<h1>Create</h1>
+<h1 class="text-standard create-headline">Създай</h1>
 
-<h4>Movie</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 form-container">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <img id="movie-image" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="Title" class="form-control admin-input" placeholder="Заглавие" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
+                <input id="image-input" asp-for="ImageUrl" class="form-control admin-input" placeholder="Адрес на изображение" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <input asp-for="Description" class="form-control admin-input" placeholder="Описание" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control" />
+                <input asp-for="Duration" class="form-control admin-input" placeholder="Времетраене" />
                 <span asp-validation-for="Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ReleaseYear" class="control-label"></label>
-                <input asp-for="ReleaseYear" class="form-control" />
+                <input asp-for="ReleaseYear" class="form-control admin-input" placeholder="Година на създаване" />
                 <span asp-validation-for="ReleaseYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Actors" class="control-label"></label>
-                <input asp-for="Actors" class="form-control" />
+                <input asp-for="Actors" class="form-control admin-input" placeholder="Актьори" />
                 <span asp-validation-for="Actors" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Director" class="control-label"></label>
-                <input asp-for="Director" class="form-control" />
+                <input asp-for="Director" class="form-control admin-input" placeholder="Режисьор" />
                 <span asp-validation-for="Director" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
+                <input asp-for="Country" class="form-control admin-input" placeholder="Държава" />
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GenreIds" class="control-label"></label>
-                <select id="GenreIds" name="GenreIds" class="form-control" multiple>
+                <label asp-for="GenreIds" class="control-label text-standard" style="position: relative; left: 5.5vw;">Жанрове</label>
+                <select id="GenreIds" name="GenreIds" class="form-control admin-input" multiple>
                     @foreach (var g in ViewBag.Genres)
                     {
                         <option value="@g.Id">@g.Name</option>
@@ -63,15 +54,13 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Създай" class="form-submit create-btn" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script src="~/js/movieImage.js" type="module"></script>
 
 @section Scripts {
     @{

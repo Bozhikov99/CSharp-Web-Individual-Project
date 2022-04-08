@@ -2,55 +2,31 @@
 @model IEnumerable<ListProjectionModel>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "Проекции";
+    DateTime date = ViewBag.Date;
 }
 
-<h1>List</h1>
-<script src="~/js/Program.js" type="module"></script>
+<h1 class="text-standard edit-headline">Проекции</h1>
+
 <form class="date-input" style="display:inline" asp-controller="Projection" asp-action="All">
-    <input type="date" id="projectionDate" name="date">
+    <input type="date" id="projectionDate" value=@date.ToString("yyyy-MM-dd") name="date">
 </form>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var m in ViewBag.Movies)
-        {
-            <div class="col-md-12 movie-row">
-                <p>@m.Title</p>
-                <div class="btn-group projection-group" role="group">
-                    @foreach (var projection in Model.Where(p => p.MovieId == m.Id).OrderByDescending(p => p.Date))
-                    {
-                        if (projection.TicketsAvailable > 0)
-                        {
-                                <button class="btn btn-danger">
-                                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
-                                    <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
-                                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
-                                </button>
-                        }
-                        else
-                        {
-                            <button class="btn btn-danger disabled">
-                                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
-                                    <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
-                                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
-                                </button>
-                        }
-                    }
-                </div>
-            </div>
-        }
-    </tbody>
-</table>
+@foreach (var m in ViewBag.Movies)
+{
+    <div class="col-md-12 movie-row">
+        <p>@m.Title</p>
+        <div class="btn-group projection-group" role="group">
+            @foreach (var projection in Model.Where(p => p.MovieId == m.Id).OrderByDescending(p => p.Date))
+            {
+                <button class="btn btn-danger abtn-projection">
+                    @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+                    <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
+                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
+                </button>
+            }
+        </div>
+    </div>
+}
+
+<script src="~/js/Program.js" type="module"></script>
