@@ -5,6 +5,7 @@ using Core.Services.Contracts;
 using Infrastructure;
 using Infrastructure.Common;
 using Infrastructure.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Web.ModelBinders;
@@ -26,6 +27,17 @@ builder.Services.AddDefaultIdentity<User>(options =>
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CinemaDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.Cookie.Name = "UserAccess";
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.LoginPath = "/User/Login";
+    options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+    options.SlidingExpiration = true;
+});
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>());
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>());
