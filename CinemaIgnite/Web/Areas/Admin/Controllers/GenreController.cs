@@ -25,9 +25,32 @@ namespace Web.Areas.Admin.Controllers
             return View(genre);
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int activePage = 0)
         {
             IEnumerable<ListGenreModel> genres = await genreService.GetAll();
+
+            int pages = 0;
+
+            if (genres.Count() <= 15)
+            {
+                pages++;
+            }
+            else
+            {
+                pages = genres.Count() / 15;
+
+                if (genres.Count() % 15 != 0)
+                {
+                    pages++;
+                }
+            }
+
+            ViewBag.PagesCount = pages;
+            ViewBag.PageLimit = 15;
+            ViewBag.ActivePage = activePage;
+            ViewBag.Controller = "Genre";
+            ViewBag.Action = "All";
+
             return View(genres);
         }
 

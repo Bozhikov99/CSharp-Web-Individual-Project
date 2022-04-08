@@ -15,12 +15,13 @@
     </div>
     <div class="info-wrapper">
         <p class="movie-headline text-standard">@Model.Title</p>
-        @if (@Model.Rating>0){
-            <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Model.Rating.ToString("F1")/10 • @Math.Floor(Model.Duration.TotalHours) ч. @Math.Floor(Model.Duration.TotalMinutes) мин. • @Model.ReleaseYear</p>
+        @if (@Model.Rating > 0)
+        {
+            <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Model.Rating.ToString("F1")/10 • @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes мин. • @Model.ReleaseYear</p>
         }
         else
         {
-            <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Math.Floor(Model.Duration.TotalHours) ч. @Math.Floor(Model.Duration.TotalMinutes) мин. • @Model.ReleaseYear</p>
+            <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes мин. • @Model.ReleaseYear</p>
         }
         <ul>
             @foreach (var g in Model.Genres)
@@ -36,12 +37,10 @@
         <p class="text-standard info-line">Режисьор: @Model.Director</p>
         <p class="text-standard info-line">Държава: @Model.Country</p>
         <p class="text-standard info-line">@Model.Description</p>
-        
+
     </div>
 </div>
-
 <partial name="_FavouriteMoviePartial">
 
     <partial name="_RateMoviePartial"></partial>
-
     <script src="~/js/rating.js" type="module"></script>

@@ -3,38 +3,33 @@
 
 @{
     ViewData["Title"] = "View";
+    ListGenreModel[] genres = Model as ListGenreModel[];
 }
 
-<h1>View</h1>
+<h1 class="text-standard edit-headline">Жанрове</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table" style="position: relative; top: 3vw;">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
+            <th>Име</th>
+            <th>Брой филми</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @for (int i = ViewBag.ActivePage * ViewBag.PageLimit; i < ViewBag.PageLimit * (ViewBag.ActivePage + 1) && i < genres.Length; i++)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => genres[i].Name)
+                    <a asp-action="Edit" asp-route-id=@genres[i].Id><span class="fa fa-edit text-standard"></span></a>
+                    <a asp-action="Delete" asp-route-id=@genres[i].Id><span class="fa fa-trash text-standard"></span></a>
                 </td>
                 <td>
-                    @item.MovieCount
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @genres[i].MovieCount
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<partial name="_PaginationPartial" />

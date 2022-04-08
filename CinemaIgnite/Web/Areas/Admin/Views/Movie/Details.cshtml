@@ -3,22 +3,46 @@
 
 @{
     ViewData["Title"] = "Details";
+    string test = string.Join(", ", Model.Genres);
 }
+
 
 <link rel="stylesheet" href="~/css/details.css" />
 
 <div class="details-container">
     <div class="poster-wrapper">
-        <img src=@Model.ImageUrl alt="Poster"/>
+        <img src=@Model.ImageUrl alt="Poster" />
     </div>
     <div class="info-wrapper">
         <p class="movie-headline text-standard">@Model.Title</p>
+        <div class="movie-interaction">
+            <a asp-action="Edit" asp-route-id=@Model.Id><span class="fa fa-edit text-standard"></span></a>
+            <a asp-action="Delete" asp-route-id=@Model.Id><span class="fa fa-trash text-standard"></span></a>
+        </div>
+        @if (@Model.Rating > 0)
+        {
+                <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Model.Rating.ToString("F1")/10 • @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes мин. • @Model.ReleaseYear</p>
+        }
+        else
+        {
+                <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes мин. • @Model.ReleaseYear</p>
+        }
+        <ul>
+            @foreach (var g in Model.Genres)
+            {
+                    <li>
+                        <form asp-action="All" asp-route-search=@g method="post">
+                            <button class="genre-button text-standard" type="submit">@g</button>
+                        </form>
+                    </li>
+            }
+        </ul>
+        <p class="text-standard info-line">Актьори: @Model.Actors</p>
+        <p class="text-standard info-line">Режисьор: @Model.Director</p>
+        <p class="text-standard info-line">Държава: @Model.Country</p>
+        <p class="text-standard info-line">@Model.Description</p>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-
-<script src="~/js/rating.js" type="module"></script>
+    <script src="~/js/rating.js" type="module"></script>

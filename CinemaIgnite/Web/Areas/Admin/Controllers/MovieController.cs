@@ -26,11 +26,57 @@ namespace Web.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> All(int page = 0)
+        public async Task<IActionResult> All(int activePage = 0, List<string> genresSearch = null, string search = null)
         {
-            IEnumerable<ListMovieModel> movies = await movieService.GetAll();
+            IEnumerable<ListMovieModel> movies;
+
+            if (search == null)
+            {
+
+                if (genresSearch.Count == 0)
+                {
+                    movies = await movieService.GetAll();
+                }
+                else
+                {
+                    movies = await movieService.GetAll(m => m.Genres.Any(g => genresSearch.Contains(g.Id)));
+                }
+            }
+            else
+            {
+                movies = await movieService.GetAll(m => m.Title.ToLower()
+                .Contains(search.ToLower()) ||
+                m.Actors.ToLower()
+                .Contains(search.ToLower()) ||
+                m.Genres.Select(g => g.Name.ToLower())
+                .Any(g => g.Contains(search.ToLower())));
+            }
+
             IEnumerable<ListGenreModel> genres = await genreService.GetAll();
             ViewBag.Genres = genres;
+
+            int pages = 0;
+
+            if (movies.Count() <= 10)
+            {
+                pages++;
+            }
+            else
+            {
+                pages = movies.Count() / 10;
+
+                if (movies.Count() % 10 != 0)
+                {
+                    pages++;
+                }
+            }
+
+            ViewBag.PagesCount = pages;
+            ViewBag.PageLimit = 10;
+            ViewBag.ActivePage = activePage;
+            ViewBag.Controller = "Movie";
+            ViewBag.Action = "All";
+            ViewBag.Search = search;
 
             return View(movies);
         }
@@ -76,21 +122,6 @@ namespace Web.Areas.Admin.Controllers
         {
             MovieDetailsModel model = await movieService.GetMovieDetails(id);
             string userId = userService.GetUserId();
-
-            if (userId!=null)
-            {
-                bool isFavourite = userService.HasFavouriteMovie(id);
-                (bool hasRating, int? value) = userService.GetRating(id);
-
-                ViewBag.UserId = userService.GetUserId();
-                ViewBag.IsFavourite = isFavourite;
-                ViewBag.HasRating = hasRating;
-
-                if (hasRating)
-                {
-                    ViewBag.Rating = value;
-                }
-            }
 
             ViewBag.MovieId = id;
             ViewBag.IsLoggedIn = userId != null;
