@@ -1,0 +1,22 @@
+﻿#MovieId {
+    width: 100%;
+}
+
+#Format {
+    position: relative;
+    left: 5vw;
+}
+
+#format-input label {
+    position: relative;
+    left: 5.5vw;
+}
+
+#movie-picker label {
+    position: relative;
+    left: 5.5vw;
+}
+
+.form-check {
+    padding-left: 5.313vw;
+}

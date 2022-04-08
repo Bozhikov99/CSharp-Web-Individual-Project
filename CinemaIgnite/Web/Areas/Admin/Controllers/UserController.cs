@@ -18,9 +18,31 @@ namespace Web.Areas.Admin.Controllers
             this.userService = userService;
         }
 
-        public async Task<IActionResult> ManageUsers()
+        public async Task<IActionResult> ManageUsers(int activePage = 0)
         {
             IEnumerable<UserListModel> users = await userService.GetUsers();
+
+            int pages = 0;
+
+            if (users.Count() <= 10)
+            {
+                pages++;
+            }
+            else
+            {
+                pages = users.Count() / 10;
+
+                if (users.Count() % 10 != 0)
+                {
+                    pages++;
+                }
+            }
+
+            ViewBag.PagesCount = pages;
+            ViewBag.PageLimit = 10;
+            ViewBag.ActivePage = activePage;
+            ViewBag.Controller = "User";
+            ViewBag.Action = "ManageUsers";
 
             return View(users);
         }

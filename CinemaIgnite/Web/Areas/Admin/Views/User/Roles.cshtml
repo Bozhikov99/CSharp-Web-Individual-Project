@@ -8,20 +8,20 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-
+<link rel="stylesheet" href="~/css/roles.css" />
 
 <div class="row">
-    <div class="col-4">
+    <div class="col-4 form-container">
         <form id="roles" method="post">
             <input type="hidden" name="Id" value=@Model.Id />
             <input type="hidden" name="Name" value=@Model.Name />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
-                <h3>User: @Html.DisplayFor(m=>m.Name)</h3>
+                <h3 class="text-standard">Потребител: @Html.DisplayFor(m=>m.Name)</h3>
             </div>
             <div class="form-floating">
                 <div class="form-group">
-                    <label>User Roles</label>
+                    <label id="roles-label" class="text-standard">Роли</label>
                     <select id="choices-multiple-remove-button" asp-for="RoleNames" asp-items=@items class="form-control">
                     </select>
                 </div>
@@ -29,23 +29,9 @@
             <div class="row">&nbsp;</div>
             <div class="row">
                 <div class="col-4">
-                    <button id="login-submit" type="submit" class="btn-primary btn-block">Submit</button>
+                    <input type="submit" value="Напред" class="create-btn form-submit" />
                 </div>
             </div>
         </form>
     </div>
 </div>
-
-<script type="text/javascript">
-        $(document).ready(function(){
-
-    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-    removeItemButton: true,
-    maxItemCount:5,
-    searchResultLimit:5,
-    renderChoiceLimit:5
-    });
-
-
-    });
-</script>

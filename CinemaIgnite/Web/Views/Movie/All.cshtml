@@ -26,27 +26,6 @@
     </form>
 </div>
 
-@*<div id="movie-container" class="card-deck d-flex justify-content-center movie-container">
-    @for (int i = 0; i < ViewBag.RowCount; i++)
-    {
-    <div class="row">
-    @for (int j = i * 5; j < i*5 + 5 && j<movies.Length; j++)
-    {
-    <div class="card mb-4 movie">
-    <img class="movie-poster" src=@movies[j].ImageUrl />
-    <div class="movie-info" hidden>
-    <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@movies[j].Id>@movies[j].Title</a></h2>
-    <div class="info-subdiv">
-    <p class="text-information movie-text">Година: @movies[j].ReleaseYear</p>
-    <p class="text-information movie-text">Времетраене: @Math.Floor(movies[j].Duration.TotalMinutes) мин.</p>
-    <p class="text-information movie-text">Жанр: @string.Join(", ", movies[j].Genres)</p>
-    </div>
-    <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{movies[j].Rating:f1}")/10</h3>
-    </div>
-    </div>
-    }
-    </div>
-    }*@
 <div class="movie-wrapper">
     @for (int i = ViewBag.ActivePage * ViewBag.PageLimit; i < ViewBag.PageLimit * (ViewBag.ActivePage + 1) && i < movies.Length; i++)
     {

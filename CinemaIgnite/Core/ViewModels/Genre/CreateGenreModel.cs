@@ -6,7 +6,7 @@ namespace Core.ViewModels.Genre
     public class CreateGenreModel
     {
         [Required]
-        [StringLength(GenreConstants.NameMaxLength, MinimumLength = GenreConstants.NameMinLength, ErrorMessage = "{0} must be between {2} and {1} characters long.")]
+        [StringLength(GenreConstants.NameMaxLength, MinimumLength = GenreConstants.NameMinLength, ErrorMessage = "Името трябва да е с дължина между {2} и {1}.")]
         public string Name { get; set; }
     }
 }

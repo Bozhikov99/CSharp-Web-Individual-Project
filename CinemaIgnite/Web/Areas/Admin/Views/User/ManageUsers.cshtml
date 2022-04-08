@@ -1,6 +1,10 @@
 ﻿@using Core.ViewModels.User
 @model IEnumerable<UserListModel>
 
+@{
+    UserListModel[] users = Model as UserListModel[];
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -10,17 +14,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var u in Model)
+        @for (int i = ViewBag.ActivePage * ViewBag.PageLimit; i < ViewBag.PageLimit * (ViewBag.ActivePage + 1) && i < users.Length; i++)
         {
             <tr>
-                <td>@u.FullName</td>
-                <td>@u.Email</td>
+                <td>@users[i].FullName</td>
+                <td>@users[i].Email</td>
                 <td>
-                    <a asp-area="Admin" asp-action="Edit" asp-controller="User" asp-route-id="@u.Id" class="btn btn-block btn-outline-info btn-xs">Редактирай</a>
-                    <a asp-area="Admin" asp-action="Roles" asp-controller="User" asp-route-id="@u.Id" class="btn btn-block btn-outline-warning btn-xs">Роли</a>
-                    <a asp-area="Admin" asp-action="Delete" asp-controller="User" asp-route-id="@u.Id" class="btn btn-block btn-outline-danger btn-xs">Изтрий</a>
+                    <a asp-area="Admin" asp-action="Edit" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-info btn-xs">Редактирай</a>
+                    <a asp-area="Admin" asp-action="Roles" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-warning btn-xs">Роли</a>
+                    <a asp-area="Admin" asp-action="Delete" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-danger btn-xs">Изтрий</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<partial name="_PaginationPartial" />

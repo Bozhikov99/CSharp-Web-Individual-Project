@@ -1,0 +1,63 @@
+﻿.site-admin {
+    background-color: whitesmoke;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-left: 298px;
+    height: 47.917vw;
+    width: 90%;
+    position: absolute;
+}
+
+.admin-input {
+    border: 0.208vw solid #a4272d;
+    margin-bottom: 0.521vw;
+    border-radius: 0.6vw;
+}
+
+.form-container {
+    position: absolute;
+    right: 26.81vw;
+    top: 6vw;
+    width: 15vw;
+}
+
+.create-headline {
+    position: absolute;
+    right: 31.250vw;
+}
+
+.edit-headline {
+    position: absolute;
+    right: 29.25vw;
+}
+
+.edit-btn {
+    right: 4.77vw;
+}
+
+.create-btn {
+    right: 5.77vw;
+}
+
+.form-submit {
+    background-color: #a4272d;
+    color: whitesmoke;
+    border: none;
+    border-radius: 0.26vw;
+    position: absolute;
+    font-size: 0.938vw;
+    cursor: pointer;
+}
+
+    .form-submit:hover {
+        background-color: black;
+    }
+
+.form-group p{
+    margin-bottom: 0;
+}
+
+.active-page {
+    color: #0dcaf0;
+}

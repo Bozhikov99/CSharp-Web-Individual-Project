@@ -3,38 +3,27 @@
 @model EditUserModel
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Редактирай потребител";
 }
 
-<h1>View</h1>
-
-<h4>Genre</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" value=@Model.Id />
-            <input type="hidden" asp-for="Email" value=@Model.Email />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<h1 class="text-standard edit-headline">Редактирай</h1>
+<div class="col-md-4 form-container">
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" value=@Model.Id />
+        <input type="hidden" asp-for="Email" value=@Model.Email />
+        <div class="form-group">
+            <input asp-for="FirstName" placeholder="Име" class="form-control admin-input" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="LastName" placeholder="Фамилия" class="form-control admin-input" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Редактирай" class="edit-btn form-submit" />
+        </div>
+    </form>
 </div>
 
 @section Scripts {
