@@ -2,6 +2,7 @@
 using Core.ViewModels.Notification;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Controllers
 {
@@ -10,11 +11,13 @@ namespace Web.Controllers
     {
         private readonly INotificationService notificationService;
         private readonly IUserService userService;
+        private readonly IHtmlLocalizer<NotificationController> localizer;
 
-        public NotificationController(INotificationService notificationService, IUserService userService)
+        public NotificationController(INotificationService notificationService, IUserService userService, IHtmlLocalizer<NotificationController> localizer)
         {
             this.notificationService = notificationService;
             this.userService = userService;
+            this.localizer = localizer;
         }
 
         [HttpPost]
@@ -57,11 +60,16 @@ namespace Web.Controllers
                 }
             }
 
+
             ViewBag.PagesCount = pages;
             ViewBag.PageLimit = 5;
             ViewBag.ActivePage = activePage;
             ViewBag.Controller = "Notification";
             ViewBag.Action = "All";
+
+            var notificationsHeadline = localizer["NotificationsHeadline"];
+
+            ViewData["NotificationsHeadline"] = notificationsHeadline;
 
             return View(notifications);
         }

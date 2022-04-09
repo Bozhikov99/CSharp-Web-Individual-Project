@@ -21,7 +21,7 @@
                     </div>
                 </li>
             }
-            <button type="submit" value="SearchByGenre">Търсене</button>
+            <button type="submit" value="SearchByGenre">@ViewData["SearchButton"]</button>
         </ul>
     </form>
 </div>
@@ -34,9 +34,9 @@
             <div class="movie-info" hidden>
                 <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@movies[i].Id>@movies[i].Title</a></h2>
                 <div class="info-subdiv">
-                    <p class="text-information movie-text">Година: @movies[i].ReleaseYear</p>
-                    <p class="text-information movie-text">Времетраене: @Math.Floor(movies[i].Duration.TotalMinutes) мин.</p>
-                    <p class="text-information movie-text">Жанр: @string.Join(", ", movies[i].Genres)</p>
+                    <p class="text-information movie-text">@ViewData["Year"]: @movies[i].ReleaseYear</p>
+                    <p class="text-information movie-text">@ViewData["Duration"]: @Math.Floor(movies[i].Duration.TotalMinutes) @ViewData["Min"]</p>
+                    <p class="text-information movie-text">@ViewData["Genre"]: @string.Join(", ", movies[i].Genres)</p>
                 </div>
                 @if (@movies[i].Rating > 0)
                 {

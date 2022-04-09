@@ -2,8 +2,9 @@
 @model MovieDetailsModel;
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Title;
     string test = string.Join(", ", Model.Genres);
+    string actors = ViewData["Actors"].ToString();
 }
 
 
@@ -17,11 +18,11 @@
         <p class="movie-headline text-standard">@Model.Title</p>
         @if (@Model.Rating > 0)
         {
-            <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Model.Rating.ToString("F1")/10 • @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes мин. • @Model.ReleaseYear</p>
+            <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Model.Rating.ToString("F1")/10 • @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes @ViewData["Min"] • @Model.ReleaseYear</p>
         }
         else
         {
-            <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes мин. • @Model.ReleaseYear</p>
+            <p class="text-standard sub-info"><i class="fa fa-star"></i>  @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes @ViewData["Min"] • @Model.ReleaseYear</p>
         }
         <ul>
             @foreach (var g in Model.Genres)
@@ -33,9 +34,9 @@
                 </li>
             }
         </ul>
-        <p class="text-standard info-line">Актьори: @Model.Actors</p>
-        <p class="text-standard info-line">Режисьор: @Model.Director</p>
-        <p class="text-standard info-line">Държава: @Model.Country</p>
+        <p class="text-standard info-line">@ViewBag.Actors: @Model.Actors</p>
+        <p class="text-standard info-line">@ViewData["Director"]: @Model.Director</p>
+        <p class="text-standard info-line">@ViewData["Country"]: @Model.Country</p>
         <p class="text-standard info-line">@Model.Description</p>
 
     </div>

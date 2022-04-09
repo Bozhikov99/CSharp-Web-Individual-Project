@@ -3,6 +3,7 @@ using Core.ViewModels.Genre;
 using Core.ViewModels.Movie;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Controllers
 {
@@ -11,12 +12,18 @@ namespace Web.Controllers
         private readonly IMovieService movieService;
         private readonly IUserService userService;
         private readonly IGenreService genreService;
+        private readonly IHtmlLocalizer<MovieController> localizer;
 
-        public MovieController(IMovieService movieService, IGenreService genreService, IUserService userService)
+        public MovieController(
+            IMovieService movieService,
+            IGenreService genreService,
+            IUserService userService,
+            IHtmlLocalizer<MovieController> localizer)
         {
             this.movieService = movieService;
             this.genreService = genreService;
             this.userService = userService;
+            this.localizer = localizer;
         }
 
         public async Task<IActionResult> All(int activePage = 0, List<string> genresSearch = null, string search = null)
@@ -71,6 +78,18 @@ namespace Web.Controllers
             ViewBag.Action = "All";
             ViewBag.Search = search;
 
+            var searchButton = localizer["SearchButton"];
+            var year = localizer["Year"];
+            var duration = localizer["Duration"];
+            var genre = localizer["Genre"];
+            var min = localizer["Min"];
+
+            ViewData["Year"] = year;
+            ViewData["Duration"] = duration;
+            ViewData["Genre"] = genre;
+            ViewData["Min"] = min;
+            ViewData["SearchButton"] = searchButton;
+
             return View(movies);
         }
 
@@ -96,6 +115,29 @@ namespace Web.Controllers
 
             ViewBag.MovieId = id;
             ViewBag.IsLoggedIn = userId != null;
+
+            var year = localizer["Year"];
+            var duration = localizer["Duration"];
+            var genre = localizer["Genre"];
+            var min = localizer["Min"];
+            var actors = localizer["Actors"];
+            var director = localizer["Director"];
+            var country = localizer["Country"];
+            var favText = localizer["FavText"];
+            var unfavText = localizer["UnfavText"];
+            var rate = localizer["Rate"];
+
+            ViewData["Year"] = year;
+            ViewData["Duration"] = duration;
+            ViewData["Genre"] = genre;
+            ViewData["Min"] = min;
+            ViewBag.Actors = actors;            //ViewData glitches for some reason
+            ViewData["Actors"] = actors;
+            ViewData["Director"] = director;
+            ViewData["Country"] = country;
+            ViewData["FavText"] = favText;
+            ViewData["UnfavText"] = unfavText;
+            ViewData["Rate"] = rate;
 
             return View(model);
         }

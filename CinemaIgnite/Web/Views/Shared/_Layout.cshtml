@@ -1,9 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Builder
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> options
+
+@{
+    var language = Context.Features.Get<IRequestCultureFeature>();
+
+    var languageList = options.Value.SupportedUICultures
+                       .Select(c => new SelectListItem { Value = c.Name, Text = c.Name })
+                       .ToArray();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Web</title>
+    <title>@ViewData["Title"] - @localizer["PageTitle"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
@@ -23,20 +38,26 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item dropdown nav-headline">
                         <a class="dropdown-toggle text-standard" href="#" id="movieDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ФИЛМИ
+                            @localizer["Movies"]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="movieDropdown">
-                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="All">All</a></li>
+                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="All">@localizer["All"]</a></li>
                             @await Component.InvokeAsync("Genres")
                         </ul>
                     </li>
                     <li class="nav-item nav-headline">
-                        <a class="text-standard" asp-controller="Projection" asp-action="All" asp-route-date=@DateTime.Today>ПРОГРАМА</a>
+                        <a class="text-standard" asp-controller="Projection" asp-action="All" asp-route-date=@DateTime.Today>@localizer["Program"]</a>
                     </li>
                 </ul>
                 @await Component.InvokeAsync("UnreadNotifications")
                 <partial name="_LoginPartial" />
             </div>
+            <div>
+    <form asp-action="SetLanguage" asp-controller="Base" method="post">
+        <select name="language" asp-for=@language.RequestCulture.UICulture.Name asp-items=@languageList onchange="this.form.submit();">
+        </select>
+    </form>
+</div>*
         </nav>
     </header>
     <div class="container site-content">
@@ -47,7 +68,7 @@
 
     <footer class="footer text-muted">
         <div class="container text-standard">
-            &copy; 2022 - Cinema Ignite - Панайот Божиков
+            &copy; 2022 - Cinema Ignite - @localizer["DevName"]
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

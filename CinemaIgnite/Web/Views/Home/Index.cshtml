@@ -9,7 +9,7 @@
 
 <div class="headline-div">
     <img class="headline-icon" src="~/img/headline.png" />
-    <p class="text-standard headline">ПОПУЛЯРНИ В МОМЕНТА</p>
+    <p class="text-standard headline">@ViewData["Popular"]</p>
 </div>
 
 <div id="movie-container" class="card-deck d-flex justify-content-center movie-container">
@@ -20,9 +20,9 @@
             <div class="movie-info" hidden>
                 <h2 class="text-information movie-headline"><a class="text-information movie-headline movie-a" asp-controller="Movie" asp-action="Details" asp-route-id=@m.Id>@m.Title</a></h2>
                 <div class="info-subdiv">
-                    <p class="text-information movie-text">Година: @m.ReleaseYear</p>
-                    <p class="text-information movie-text">Времетраене: @Math.Floor(m.Duration.TotalMinutes) мин.</p>
-                    <p class="text-information movie-text">Жанр: @string.Join(", ", m.Genres)</p>
+                    <p class="text-information movie-text">@ViewData["Year"]: @m.ReleaseYear</p>
+                    <p class="text-information movie-text">@ViewData["Duration"]: @Math.Floor(m.Duration.TotalMinutes) @ViewData["Min"]</p>
+                    <p class="text-information movie-text">@ViewData["Genre"]: @string.Join(", ", m.Genres)</p>
                 </div>
                 <h3 class="text-information rating-info"><i class="fa fa-star"></i>  @($"{m.Rating:f1}")/10</h3>
             </div>
@@ -36,7 +36,6 @@
         let infoElement=mi.querySelector('.movie-info');
         infoElement.removeAttribute('hidden');
     }));
-
     movieInfoElements.forEach(mi=>mi.addEventListener('mouseout', ()=>{
         let infoElement=mi.querySelector('.movie-info');
         infoElement.setAttribute('hidden', true);

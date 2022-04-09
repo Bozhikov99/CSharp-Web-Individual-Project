@@ -7,11 +7,33 @@ using Infrastructure.Common;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using Web.ModelBinders;
 using Web.ModelBinders.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//cookie support for languages
+
+builder.Services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+    {
+        List<CultureInfo> languages = new List<CultureInfo> {
+            new CultureInfo("bg"),
+            new CultureInfo("en")
+        };
+
+        options.DefaultRequestCulture = new RequestCulture("bg");
+        options.SupportedCultures = languages;
+        options.SupportedUICultures = languages;
+    });
+
 // Add services to the container.
 builder.Services.AddApplicationDbContexts(builder.Configuration);
 
@@ -67,10 +89,14 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRequestLocalization();
 
 //Write cookie resource pipeline logic here
 //string[] supportedLanguages = { "bg", "en" };
-//RequestLocalizationOptions localizationOptions=new RequestLocalizationOptions();
+//RequestLocalizationOptions localizationOptions = new RequestLocalizationOptions()
+//    .SetDefaultCulture(supportedLanguages[0])
+//    .AddSupportedCultures(supportedLanguages)
+//    .AddSupportedUICultures(supportedLanguages);
 
 app.MapControllerRoute(
     name: "Area",

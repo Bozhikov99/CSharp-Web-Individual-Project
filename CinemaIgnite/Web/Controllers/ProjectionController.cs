@@ -2,6 +2,7 @@
 using Core.ViewModels.Movie;
 using Core.ViewModels.Projection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Controllers
 {
@@ -9,11 +10,16 @@ namespace Web.Controllers
     {
         private readonly IProjectionService projectionService;
         private readonly IMovieService movieService;
+        private readonly IHtmlLocalizer<ProjectionController> localizer;
 
-        public ProjectionController(IProjectionService projectionService, IMovieService movieService)
+        public ProjectionController(
+            IProjectionService projectionService,
+            IMovieService movieService, 
+            IHtmlLocalizer<ProjectionController> localizer)
         {
             this.projectionService = projectionService;
             this.movieService = movieService;
+            this.localizer = localizer;
         }
 
         public async Task<IActionResult> All(DateTime date, int activePage = 0)

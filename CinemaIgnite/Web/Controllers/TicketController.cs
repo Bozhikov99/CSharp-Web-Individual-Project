@@ -6,6 +6,7 @@ using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Controllers
 {
@@ -14,11 +15,13 @@ namespace Web.Controllers
     {
         private readonly ITicketService ticketService;
         private readonly IUserService userService;
+        private readonly IHtmlLocalizer<TicketController> localizer;
 
-        public TicketController(ITicketService ticketService, IUserService userService)
+        public TicketController(ITicketService ticketService, IUserService userService, IHtmlLocalizer<TicketController> localizer)
         {
             this.ticketService = ticketService;
             this.userService = userService;
+            this.localizer = localizer;
         }
 
         public async Task<IActionResult> Create(string id)

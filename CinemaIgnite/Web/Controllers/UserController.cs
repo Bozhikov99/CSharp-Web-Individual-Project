@@ -8,6 +8,7 @@ using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Controllers
 {
@@ -15,11 +16,16 @@ namespace Web.Controllers
     {
         private readonly IUserService userService;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IHtmlLocalizer<UserController> localizer;
 
-        public UserController(RoleManager<IdentityRole> roleManager, IUserService userService)
+        public UserController(
+            RoleManager<IdentityRole> roleManager, 
+            IUserService userService, 
+            IHtmlLocalizer<UserController> localizer)
         {
             this.userService = userService;
             this.roleManager = roleManager;
+            this.localizer = localizer;
         }
 
         public IActionResult Register()

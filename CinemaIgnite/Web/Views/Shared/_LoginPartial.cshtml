@@ -1,7 +1,9 @@
 ﻿@using Infrastructure.Models
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@inject IViewLocalizer localizer
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
@@ -48,7 +50,7 @@
     <li>
         <form id="search-form" asp-controller="Movie" asp-action="All" method="post" class="form-inline my-2 my-lg-0">
             <div class="search">
-                <input class="form-control mr-sm-2 searchbar" type="search" name="search" placeholder="Търсене" aria-label="Search" />
+                <input class="form-control mr-sm-2 searchbar" type="search" name="search" placeholder=@localizer["SearchBar"] aria-label="Search" />
                 <i class="search-icon fa fa-search text-standard" style="font-size: 1.146vw"></i>
             </div>
         </form>
