@@ -30,43 +30,13 @@
             <button id="close">X</button>
         </div>
     </div>
-
-    @*<div class="rate-div" hidden>
-        @for (int i = 0; i < 10; i++)
-        {
-        <button class=btn-primary value=@(i+1)>@(i+1)</button>
-        }
-        <input id="rating-input" class="disabled" value="">
-        <button id="rate" disabled>Оцени</button>
-        <button class="close-button">X</button>
-        </div>*@
 }
 
 <script type="text/javascript">
     let inputElement=document.querySelector('#rating-input');
-    //let rateButtonElement=document.querySelector('#rate');
-    //let rateToggleElement=document.querySelector('#rate-toggle');
 
     let rateElement=document.querySelector('#modal-rate');
     let ratingVisualizerElement=document.querySelector('#rating-visualizer');
-
-    //rateButtonElement.addEventListener('click', ()=>{
-    //    let inputValue=inputElement.value;
-    //    $.ajax({
-    //    type: "POST",
-    //    url: "@Url.Action("RateMovie")",
-    //    data: { movieId: '@ViewBag.MovieId', value: Number(inputValue)}
-    //    })
-    //    .then((result)=>{
-    //        let rating=JSON.stringify(result);
-    //        console.log(rating);
-    //        rateToggleElement.textContent=`${inputValue}/10`;
-    //    })
-    //    .fail((result)=>{
-    //    let rating=JSON.stringify(result);
-    //        console.log(rating);
-    //        rateToggleElement.textContent=`${inputValue}/10`;});
-    //});
 
     rateElement.addEventListener('click', ()=>{
         let inputValue=ratingVisualizerElement.value;
@@ -77,8 +47,18 @@
         })
         .then((result)=>{
             let rating=JSON.stringify(result);
+            rating=rating.substr(1, rating.length-2);
+            let subInfoElement=document.querySelector('.sub-info');
+            subInfoElement.textContent=` ${rating}/10 • @Math.Floor(Model.Duration.TotalHours) ч. @Model.Duration.Minutes мин. • @Model.ReleaseYear`
+
+            let iconElement=document.createElement('i');
+            iconElement.classList.add('fa');
+            iconElement.classList.add('fa-star');
+
+            subInfoElement.prepend(iconElement);
             console.log(rating);
-            rateToggleElement.textContent=`${inputValue}/10`;
+            let ratingElement=document.querySelector('.rate-wrapper p');
+            ratingElement.textContent=`${inputValue}/10`;
         })
         .fail((result)=>{
         let rating=JSON.stringify(result);

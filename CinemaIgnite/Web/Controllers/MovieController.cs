@@ -69,7 +69,7 @@ namespace Web.Controllers
             ViewBag.ActivePage = activePage;
             ViewBag.Controller = "Movie";
             ViewBag.Action = "All";
-            ViewBag.Search= search;
+            ViewBag.Search = search;
 
             return View(movies);
         }
@@ -79,7 +79,7 @@ namespace Web.Controllers
             MovieDetailsModel model = await movieService.GetMovieDetails(id);
             string userId = userService.GetUserId();
 
-            if (userId!=null)
+            if (userId != null)
             {
                 bool isFavourite = userService.HasFavouriteMovie(id);
                 (bool hasRating, int? value) = userService.GetRating(id);
@@ -124,12 +124,14 @@ namespace Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<PartialViewResult> RateMovie(string movieId, int value)
+        public async Task<IActionResult> RateMovie(string movieId, int value)
         {
             bool isSuccessful = await userService.RateMovie(movieId, value);
             ViewBag.HasRating = true;
             ViewBag.Rating = value;
-            return PartialView("_RateMoviePartial");
+            string calculatedRating = await movieService.GetRating(movieId);
+
+            return Ok(calculatedRating);
         }
     }
 }

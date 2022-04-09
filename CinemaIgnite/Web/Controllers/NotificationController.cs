@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.Controllers
 {
     [Authorize]
-    public class NotificationController : Controller
+    public class NotificationController : BaseController
     {
         private readonly INotificationService notificationService;
         private readonly IUserService userService;
