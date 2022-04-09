@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common;
+using Common.ValidationConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.User;
@@ -76,15 +77,7 @@ namespace Web.Controllers
 
             if (!result.Succeeded)
             {
-                var errors = result.Errors
-                    .Select(e => e.Description);
-
-                foreach (string e in errors)
-                {
-                    ModelState.AddModelError(string.Empty, e);
-                }
-
-                return View(model);
+                return View("UserError", ErrorMessagesConstants.ErrorRegistering);
             }
 
             return RedirectToAction("Index", "Home");
@@ -93,12 +86,19 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserModel model)
         {
-            (bool isLoggedIn, string error) = await userService.Login(model);
-
-            if (!isLoggedIn)
+            try
             {
-                return View("UserError", error);
+                await userService.Login(model);
             }
+            catch (ArgumentException ae)
+            {
+                return View("UserError", ae.Message);
+            }
+            catch (Exception)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorLoggingIn);
+            }
+
 
             return RedirectToAction("Index", "Home");
         }

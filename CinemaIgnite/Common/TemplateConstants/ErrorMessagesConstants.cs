@@ -21,11 +21,15 @@
         public const string SeatTaken = "One or more seats you have chosen are taken";
         public const string ErrorBuyingTicket = "Error buying ticket";
 
-        public const string ErrorDeletingUser = "Unexpected error deleting an user";
-
+        public const string InvalidLoginData = "Невалидни данни";
+        public const string ErrorLoggingIn = "Неочаква грешка при вписване";
+        public const string ErrorRegistering = "Неочаква грешка при регистрация";
+        public const string ErrorEditingUser = "Неочаквана грешка при редактиране на потребител";
+        public const string ErrorEditingUserRoles = "Неочаквана грешка при задаване на потребителски роли";
+        public const string ErrorDeletingUser = "Неочаквана грешка при изтриване на потребител";
         public const string ErrorEditingRoles = "Error editing user roles";
 
-        public const string GenreNameException = "Genre with name {0} already exists";
-        public const string MovieNameException = "Movie with name {0} already exists";
+        public const string GenreNameException = "Жанр с име {0} вече съществува";
+        public const string MovieNameException = "Филм с име {0} вече съществува";
     }
 }

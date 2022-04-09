@@ -11,13 +11,13 @@ namespace Core.Services.Contracts
 
         Task<IdentityResult?> Register(RegisterUserModel model);
 
-        Task<(bool isLoggedIn, string error)> Login(LoginUserModel model);
+        Task Login(LoginUserModel model);
 
         Task<EditUserModel> GetEditModel(string id);
 
-        Task<bool> Edit(EditUserModel model);
+        Task Edit(EditUserModel model);
 
-        Task<bool> Delete(string id);
+        Task Delete(string id);
 
         Task<UserProfileModel> GetUserProfile();
 
@@ -31,7 +31,7 @@ namespace Core.Services.Contracts
 
         Task<(UserRoleModel user, IEnumerable<SelectListItem> roles)> GetUserWithRoles(string id);
 
-        Task<bool> EditRoles(UserRoleModel model);
+        Task EditRoles(UserRoleModel model);
 
         bool HasFavouriteMovie(string movieId);
 

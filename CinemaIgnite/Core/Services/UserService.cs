@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common;
+using Common.ValidationConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.User;
@@ -16,7 +17,6 @@ namespace Core.Services
 {
     public class UserService : IUserService
     {
-        private const string logInErrorMessage = "Invalid data";
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -40,32 +40,25 @@ namespace Core.Services
             this.roleManager = roleManager;
         }
 
-        public async Task<(bool isLoggedIn, string error)> Login(LoginUserModel model)
+        public async Task Login(LoginUserModel model)
         {
-            bool isLoggedIn = false;
-            string error = string.Empty;
             string email = model.Email;
 
             User? user = await userManager.FindByEmailAsync(email);
 
             if (user == null)
             {
-                error = logInErrorMessage;
-                return (isLoggedIn, error);
+                throw new ArgumentException(ErrorMessagesConstants.InvalidLoginData);
             }
 
             bool isValidPassword = await userManager.CheckPasswordAsync(user, model.Password);
 
             if (!isValidPassword)
             {
-                error = logInErrorMessage;
-                return (isLoggedIn, error);
+                throw new ArgumentException(ErrorMessagesConstants.InvalidLoginData);
             }
 
             await signInManager.SignInAsync(user, true);
-            isLoggedIn = true;
-
-            return (isLoggedIn, error);
         }
 
         public async Task<IdentityResult?> Register(RegisterUserModel model)
@@ -86,41 +79,20 @@ namespace Core.Services
             return model;
         }
 
-        public async Task<bool> Edit(EditUserModel model)
+        public async Task Edit(EditUserModel model)
         {
-            bool isEdited = false;
             User user = await repository.GetByIdAsync<User>(model.Id);
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
 
-            try
-            {
-                repository.Update(user);
-                await repository.SaveChangesAsync();
-                isEdited = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return isEdited;
+            repository.Update(user);
+            await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> Delete(string id)
+        public async Task Delete(string id)
         {
-            bool isDeleted = false;
-
-            try
-            {
-                await repository.DeleteAsync<User>(id);
-                await repository.SaveChangesAsync();
-                isDeleted = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return isDeleted;
+            await repository.DeleteAsync<User>(id);
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> AddMovieToFavourites(string movieId)
@@ -310,28 +282,17 @@ namespace Core.Services
             return (model, roles);
         }
 
-        public async Task<bool> EditRoles(UserRoleModel model)
+        public async Task EditRoles(UserRoleModel model)
         {
-            bool isEdited = false;
-
             User user = await repository.GetByIdAsync<User>(model.Id);
             IEnumerable<string> userRoles = await userManager.GetRolesAsync(user);
 
-            try
-            {
-                await userManager.RemoveFromRolesAsync(user, userRoles);
+            await userManager.RemoveFromRolesAsync(user, userRoles);
 
-                if (model.RoleNames.Length > 0)
-                {
-                    await userManager.AddToRolesAsync(user, model.RoleNames);
-                }
-                isEdited = true;
-            }
-            catch (Exception)
+            if (model.RoleNames.Length > 0)
             {
+                await userManager.AddToRolesAsync(user, model.RoleNames);
             }
-
-            return isEdited;
         }
     }
 }

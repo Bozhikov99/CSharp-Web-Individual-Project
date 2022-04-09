@@ -64,11 +64,13 @@ namespace Web.Areas.Admin.Controllers
                 return View(user);
             }
 
-            bool isEdited = await userService.Edit(model);
-
-            if (!isEdited)
+            try
             {
-
+                await userService.Edit(model);
+            }
+            catch (Exception)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorEditingUser);
             }
 
             return RedirectToAction(nameof(ManageUsers));
@@ -76,9 +78,11 @@ namespace Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            bool isDeleted = await userService.Delete(id);
-
-            if (!isDeleted)
+            try
+            {
+                await userService.Delete(id);
+            }
+            catch (Exception)
             {
                 return View("UserError", ErrorMessagesConstants.ErrorDeletingUser);
             }
@@ -106,13 +110,14 @@ namespace Web.Areas.Admin.Controllers
                 return View(userModel);
             }
 
-            bool isEdited = await userService.EditRoles(model);
-
-            if (!isEdited)
+            try
             {
-                return View("UserError", "X");
+                await userService.EditRoles(model);
             }
-
+            catch (Exception)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorEditingUserRoles);
+            }
 
             return RedirectToAction(nameof(ManageUsers));
         }
