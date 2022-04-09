@@ -32,6 +32,8 @@ titleElements.forEach(te => te.addEventListener('click', (e) => {
     let notificationTextElement = targetElement.parentElement.parentElement
         .querySelector('.notification-text');
 
+    let isShown = notificationTextElement.hasAttribute('hidden');
+
     notificationDivElements.forEach(nde => nde.style.backgroundColor = '#333333');
     currentDivElement.style.backgroundColor = '#666666';
     targetElement.style.setProperty('font-weight', 'normal');
@@ -39,6 +41,7 @@ titleElements.forEach(te => te.addEventListener('click', (e) => {
     document.querySelectorAll('.notification-text')
         .forEach(nt => nt.setAttribute('hidden', true));
 
-
-    notificationTextElement.removeAttribute('hidden');
+    if (isShown) {
+        notificationTextElement.removeAttribute('hidden');
+    }
 }))

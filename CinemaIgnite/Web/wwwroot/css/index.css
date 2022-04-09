@@ -1,6 +1,6 @@
 ﻿.movie-container {
-    top: 165px;
-    right: 56px;
+    top: 8.594vw;
+    right: 3.385vw;
     position: absolute;
 }
 
@@ -54,7 +54,7 @@
 }
 
     .card img {
-        width: 100%;
+        width: 19vw;
         height: 27.5vw;
         max-width: inherit;
         max-height: inherit;
