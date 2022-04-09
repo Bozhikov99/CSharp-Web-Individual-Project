@@ -13,10 +13,7 @@ using Web.ModelBinders.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CinemaDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddApplicationDbContexts(builder.Configuration);
 
 builder.Services.AddDefaultIdentity<User>(options =>
 {
@@ -39,20 +36,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<GenreProfile>());
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MovieProfile>());
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<ProjectionProfile>());
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<UserProfile>());
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<NotificationProfile>());
-
-builder.Services.AddScoped<IRepository, Repository>();
-
-builder.Services.AddScoped<IGenreService, GenreService>();
-builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddScoped<IProjectionService, ProjectionService>();
-builder.Services.AddScoped<ITicketService, TicketService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddAutoMapperProfiles();
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
@@ -82,6 +67,10 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+//Write cookie resource pipeline logic here
+//string[] supportedLanguages = { "bg", "en" };
+//RequestLocalizationOptions localizationOptions=new RequestLocalizationOptions();
 
 app.MapControllerRoute(
     name: "Area",
