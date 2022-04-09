@@ -15,7 +15,8 @@
         public const string ErrorEditingMovie = "Error editing a movie";
         public const string MovieDoesNotExist = "Such movie does not exist";
 
-        public const string ErrorCreatingProjection = "Error creating a projection";
+        public const string ErrorCreatingProjection = "Неочаквана грешка при създаване на проекция";
+        public const string ErrorDeletingProjection = "Неочаквана грешка при изтриване на проекция";
         public const string InvalidDate = "Invalid date";
 
         public const string SeatTaken = "One or more seats you have chosen are taken";

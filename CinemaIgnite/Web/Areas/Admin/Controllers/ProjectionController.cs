@@ -44,13 +44,17 @@ namespace Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            (bool isDeleted, DateTime date) = await projectionService.Delete(id);
+            DateTime date;
 
-            if (!isDeleted)
+            try
             {
-                string error = "Unexpected error deleting projection";
-                return View("UserError", error);
+                date = await projectionService.Delete(id);
             }
+            catch (Exception)
+            {
+                return View("UserError", ErrorMessagesConstants.ErrorDeletingProjection);
+            }
+
             string dateString = date.ToString("yyyy-MM-dd");
             string url = $"https://localhost:44395/Projection/All?date={dateString}";
 

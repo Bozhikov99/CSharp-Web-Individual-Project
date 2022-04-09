@@ -6,7 +6,7 @@ namespace Core.Services.Contracts
     {
         Task<(bool isCreated, DateTime date)> Create(CreateProjectionModel model);
 
-        Task<(bool isDeleted, DateTime date)> Delete(string id);
+        Task<DateTime> Delete(string id);
 
         Task<IEnumerable<ListProjectionModel>> GetAllForDate(DateTime date);
     }

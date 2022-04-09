@@ -55,25 +55,16 @@ namespace Core.Services.Contracts
             return (isCreated, date);
         }
 
-        public async Task<(bool isDeleted, DateTime date)> Delete(string id)
+        public async Task<DateTime> Delete(string id)
         {
-            bool isDeleted = false;
             DateTime date;
 
-            try
-            {
-                date = await GetDate(id);
-                await NotifyUsersOnDeletion(id, date);
-                await repository.DeleteAsync<Projection>(id);
-                await repository.SaveChangesAsync();
-                isDeleted = true;
-            }
-            catch (Exception)
-            {
-                date = DateTime.MinValue;
-            }
+            date = await GetDate(id);
+            await NotifyUsersOnDeletion(id, date);
+            await repository.DeleteAsync<Projection>(id);
+            await repository.SaveChangesAsync();
 
-            return (isDeleted, date);
+            return date;
         }
 
         public async Task<IEnumerable<ListProjectionModel>> GetAllForDate(DateTime date)
