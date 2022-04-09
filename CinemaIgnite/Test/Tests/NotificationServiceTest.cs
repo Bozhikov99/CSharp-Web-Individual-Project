@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Test.Tests
@@ -109,8 +111,10 @@ namespace Test.Tests
             string[] ids = { firstId };
             await service.Delete(ids);
 
-            NotificationDetailsModel[] all = await service.GetAll(userId) as NotificationDetailsModel[];
-            int actual = all.Length;
+            IRepository repository = serviceProvider.GetService<IRepository>();
+            IEnumerable<Notification> notifications = repository.All<Notification>();
+
+            int actual = notifications.Count();
 
             Assert.AreEqual(expected, actual);
         }
@@ -123,8 +127,10 @@ namespace Test.Tests
             string[] ids = { firstId, secondId };
             await service.Delete(ids);
 
-            NotificationDetailsModel[] all = await service.GetAll(userId) as NotificationDetailsModel[];
-            int actual = all.Length;
+            IRepository repository = serviceProvider.GetService<IRepository>();
+            IEnumerable<Notification> all = repository.All<Notification>();
+
+            int actual = all.Count();
 
             Assert.AreEqual(expected, actual);
         }

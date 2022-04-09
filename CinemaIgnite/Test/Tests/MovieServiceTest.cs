@@ -92,8 +92,10 @@ namespace Test.Tests
             };
 
             await service.Create(movie);
-            int actual = (await service.GetAll())
-                .Count();
+            IRepository repository = serviceProvider.GetService<IRepository>();
+            IEnumerable<Movie> all = repository.All<Movie>();
+
+            int actual = all.Count();
 
             Assert.AreEqual(expected, actual);
         }
@@ -109,9 +111,10 @@ namespace Test.Tests
 
             await service.Delete(movieId);
 
-            ListMovieModel[] movies = await service.GetAll() as ListMovieModel[];
+            IRepository repository = serviceProvider.GetService<IRepository>();
+            IEnumerable<Movie> all = repository.All<Movie>();
 
-            Assert.AreEqual(expected, movies.Count());
+            Assert.AreEqual(expected, all.Count());
         }
 
         [Test]
@@ -192,9 +195,9 @@ namespace Test.Tests
 
             await service.Edit(movie);
 
-            EditMovieModel movie2 = await service.GetEditModel(testMovieId);
+            EditMovieModel editedMovie = await service.GetEditModel(testMovieId);
 
-            Assert.AreEqual(movie.Title, movie2.Title);
+            Assert.AreEqual(movie.Title, editedMovie.Title);
         }
 
         [Test]
@@ -297,8 +300,8 @@ namespace Test.Tests
             Genre genre = repository.All<Genre>().First();
             testGenreId = genre.Id;
 
-            User firstUserFromDb = repository.All<User>().First(u=>u.Email=="test@abv.bg");
-            User secondUserFromDb = repository.All<User>().First(u=>u.Email=="test2@abv.bg");
+            User firstUserFromDb = repository.All<User>().First(u => u.Email == "test@abv.bg");
+            User secondUserFromDb = repository.All<User>().First(u => u.Email == "test2@abv.bg");
 
             Rating firstRating = new Rating()
             {

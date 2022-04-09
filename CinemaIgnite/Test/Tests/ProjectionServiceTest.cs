@@ -74,9 +74,12 @@ namespace Test.Tests
 
             await service.Create(model);
 
-            ListProjectionModel[] projections = await service.GetAllForDate(date) as ListProjectionModel[];
 
-            Assert.AreEqual(expected, projections.Length);
+            IRepository repository = serviceProvider.GetService<IRepository>();
+
+            IEnumerable<Projection> projections = repository.All<Projection>(p => p.Date == date);
+
+            Assert.AreEqual(expected, projections.Count());
         }
 
         [Test]
@@ -87,9 +90,11 @@ namespace Test.Tests
 
 
             await service.Delete(firstId);
-            ListProjectionModel[] projections = await service.GetAllForDate(date) as ListProjectionModel[];
 
-            Assert.AreEqual(expected, projections.Length);
+            IRepository repository = serviceProvider.GetService<IRepository>();
+            IEnumerable<Projection> projections = repository.All<Projection>(p => p.Date == date);
+
+            Assert.AreEqual(expected, projections.Count());
         }
 
         [TearDown]

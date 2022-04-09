@@ -76,7 +76,9 @@ namespace Test.Tests
             };
 
             await service.Create(genre);
-            IEnumerable<ListGenreModel> genres = await service.GetAll();
+
+            IRepository repository = serviceProvider.GetService<IRepository>();
+            IEnumerable<Genre> genres = repository.All<Genre>();
 
             Assert.AreEqual(count, genres.Count());
         }
@@ -94,11 +96,14 @@ namespace Test.Tests
         {
             int expectedCount = 1;
 
-            ListGenreModel[] initialGenres = await service.GetAll() as ListGenreModel[];
-            string testId = initialGenres[0].Id;
+            IRepository repository = serviceProvider.GetService<IRepository>();
+            IEnumerable<Genre> initialGenres = repository.All<Genre>();
+            string testId = initialGenres
+                .First().Id;
 
             await service.Delete(testId);
-            ListGenreModel[] expectedGenres = await service.GetAll() as ListGenreModel[];
+
+            IEnumerable<Genre> expectedGenres = repository.All<Genre>();
 
             Assert.AreEqual(expectedCount, expectedGenres.Count());
         }
@@ -172,22 +177,8 @@ namespace Test.Tests
                 Name = "Test genre2"
             };
 
-            //Movie movie = new Movie()
-            //{
-            //    Title = "Test",
-            //    ImageUrl = "SomeUrl",
-            //    Description = "Simple description about a test movie",
-            //    Duration = new TimeSpan(1, 45, 2),
-            //    ReleaseYear = 1991,
-            //    Actors = "Arnold Weissneger",
-            //    Director = "Some Director",
-            //    Country = "Austria-Hungary",
-            //    Genres = new List<Genre>() { genre }
-            //};
-
             await repository.AddAsync(genre);
             await repository.AddAsync(secondGenre);
-            //await repository.AddAsync(movie);
             await repository.SaveChangesAsync();
 
             Genre firstFromDb = repository.All<Genre>(g => g.Name == "Test genre")
