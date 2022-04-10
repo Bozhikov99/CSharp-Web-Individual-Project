@@ -5,6 +5,7 @@ using Core.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Web.Areas.Admin.Controllers
@@ -12,10 +13,12 @@ namespace Web.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService userService;
+        private readonly IHtmlLocalizer<UserController> localizer;
 
-        public UserController(RoleManager<IdentityRole> roleManager, IUserService userService)
+        public UserController(RoleManager<IdentityRole> roleManager, IUserService userService, IHtmlLocalizer<UserController> localizer)
         {
             this.userService = userService;
+            this.localizer = localizer;
         }
 
         public async Task<IActionResult> ManageUsers(int activePage = 0)
@@ -44,12 +47,36 @@ namespace Web.Areas.Admin.Controllers
             ViewBag.Controller = "User";
             ViewBag.Action = "ManageUsers";
 
+            var names = localizer["Names"];
+            var email = localizer["Email"];
+            var options = localizer["Options"];
+            var editButton = localizer["EditButton"];
+            var deleteButton = localizer["DeleteButton"];
+            var roleButton = localizer["RoleButton"];
+
+            ViewData["Names"] = names;
+            ViewData["Email"] = email;
+            ViewData["Options"] = options;
+            ViewData["EditButton"] = editButton;
+            ViewData["DeleteButton"] = deleteButton;
+            ViewData["RoleButton"] = roleButton;
+
             return View(users);
         }
 
         public async Task<IActionResult> Edit(string id)
         {
             EditUserModel user = await userService.GetEditModel(id);
+
+            var editTitle = localizer["EditButton"];
+            var editHeadline = localizer["EditHeadline"];
+            var namePlaceholder = localizer["NamePlaceholder"];
+            var familyPlaceholder = localizer["FamilyPlaceholder"];
+
+            ViewData["EditPageTitle"] = editTitle;
+            ViewData["EditHeadline"] = editHeadline;
+            ViewData["NamePlaceholder"] = namePlaceholder;
+            ViewData["FamilyPlaceholder"] = familyPlaceholder;
 
             return View(user);
         }

@@ -3,25 +3,25 @@
 @model EditUserModel
 
 @{
-    ViewData["Title"] = "Редактирай потребител";
+    ViewData["Title"] = ViewData["EditPageTitle"];
 }
 
-<h1 class="text-standard edit-headline">Редактирай</h1>
+<h1 class="text-standard edit-headline">@ViewData["EditHeadline"]</h1>
 <div class="col-md-4 form-container">
     <form asp-action="Edit" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" value=@Model.Id />
         <input type="hidden" asp-for="Email" value=@Model.Email />
         <div class="form-group">
-            <input asp-for="FirstName" placeholder="Име" class="form-control admin-input" />
+            <input asp-for="FirstName" placeholder=@ViewData["NamePlaceholder"] class="form-control admin-input" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input asp-for="LastName" placeholder="Фамилия" class="form-control admin-input" />
+            <input asp-for="LastName" placeholder=@ViewData["FamilyPlaceholder"] class="form-control admin-input" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" value="Редактирай" class="edit-btn form-submit" />
+            <input type="submit" value=@ViewData["EditPageTitle"] class="edit-btn form-submit" />
         </div>
     </form>
 </div>

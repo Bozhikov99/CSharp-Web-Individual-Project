@@ -8,9 +8,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Имена</th>
-            <th scope="col">Имейл</th>
-            <th scope="col">Опции</th>
+            <th scope="col">@ViewData["Names"]</th>
+            <th scope="col">@ViewData["Email"]</th>
+            <th scope="col">@ViewData["Options"]</th>
         </tr>
     </thead>
     <tbody>
@@ -20,9 +20,9 @@
                 <td>@users[i].FullName</td>
                 <td>@users[i].Email</td>
                 <td>
-                    <a asp-area="Admin" asp-action="Edit" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-info btn-xs">Редактирай</a>
-                    <a asp-area="Admin" asp-action="Roles" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-warning btn-xs">Роли</a>
-                    <a asp-area="Admin" asp-action="Delete" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-danger btn-xs">Изтрий</a>
+                    <a asp-area="Admin" asp-action="Edit" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-info btn-xs">@ViewData["EditButton"]</a>
+                    <a asp-area="Admin" asp-action="Roles" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-warning btn-xs">@ViewData["RoleButton"]</a>
+                    <a asp-area="Admin" asp-action="Delete" asp-controller="User" asp-route-id="@users[i].Id" class="btn btn-block btn-outline-danger btn-xs">@ViewData["DeleteButton"]</a>
                 </td>
             </tr>
         }
