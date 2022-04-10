@@ -37,6 +37,32 @@ namespace Web.Controllers
             ViewBag.Movie = movieModel;
             ViewBag.Projection = projectionModel;
 
+            var ticketHeadline = localizer["TicketHeadline"];
+            var date = localizer["Date"];
+            var hour = localizer["Hour"];
+            var audio = localizer["Audio"];
+            var buy = localizer["Buy"];
+            var price = localizer["Price"];
+            var chosen = localizer["Chosen"];
+            var free = localizer["Free"];
+            var sold = localizer["Sold"];
+            var youHaveChosen = localizer["YouHaveChosen"];
+            var seats = localizer["Seats"];
+            var levs = localizer["Levs"];
+
+            ViewData["TicketHeadline"] = ticketHeadline;
+            ViewData["Date"] = date;
+            ViewData["Hour"] = hour;
+            ViewData["Audio"] = audio;
+            ViewData["Buy"] = buy;
+            ViewData["Price"] = price;
+            ViewData["Chosen"] = chosen;
+            ViewData["Free"] = free;
+            ViewData["Sold"] = sold;
+            ViewData["YouHaveChosen"] = youHaveChosen;
+            ViewData["Seats"] = seats;
+            ViewData["Levs"] = levs;
+
             return View();
         }
 
