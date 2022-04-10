@@ -2,7 +2,7 @@
 @model UserRoleModel
 
 @{
-    ViewData["Title"] = "Потребителски роли";
+    ViewData["Title"] = ViewData["RolesPageTitle"];
     SelectListItem[] items = (SelectListItem[])ViewBag.Roles;
 }
 
@@ -17,11 +17,11 @@
             <input type="hidden" name="Name" value=@Model.Name />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
-                <h3 class="text-standard">Потребител: @Html.DisplayFor(m=>m.Name)</h3>
+                <h3 class="text-standard">@ViewData["RoleUser"]: @Html.DisplayFor(m=>m.Name)</h3>
             </div>
             <div class="form-floating">
                 <div class="form-group">
-                    <label id="roles-label" class="text-standard">Роли</label>
+                    <label id="roles-label" class="text-standard">@ViewData["LocalizedRoles"]</label>
                     <select id="choices-multiple-remove-button" asp-for="RoleNames" asp-items=@items class="form-control">
                     </select>
                 </div>
@@ -29,7 +29,7 @@
             <div class="row">&nbsp;</div>
             <div class="row">
                 <div class="col-4">
-                    <input type="submit" value="Напред" class="create-btn form-submit" />
+                    <input type="submit" value=@ViewData["Submit"] class="create-btn form-submit" />
                 </div>
             </div>
         </form>

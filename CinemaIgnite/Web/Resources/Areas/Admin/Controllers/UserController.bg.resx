@@ -153,4 +153,16 @@
   <data name="RolePageTitle" xml:space="preserve">
     <value>Потребителски роли</value>
   </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Роли</value>
+  </data>
+  <data name="RolesPageTitle" xml:space="preserve">
+    <value>Роли</value>
+  </data>
+  <data name="RoleUser" xml:space="preserve">
+    <value>Потребител</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Напред</value>
+  </data>
 </root>

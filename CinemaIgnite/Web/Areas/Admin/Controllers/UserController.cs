@@ -122,6 +122,16 @@ namespace Web.Areas.Admin.Controllers
             (UserRoleModel user, IEnumerable<SelectListItem> roles) = await userService.GetUserWithRoles(id);
             ViewBag.Roles = roles;
 
+            var roleUser = localizer["RoleUser"];
+            var submit = localizer["Submit"];
+            var rolesPageTitle = localizer["RolesPageTitle"];
+            var localizerRoles = localizer["Roles"];
+
+            ViewData["LocalizedRoles"] = localizerRoles;
+            ViewData["RolesPageTitle"] = rolesPageTitle;
+            ViewData["Submit"] = submit;
+            ViewData["RoleUser"] = roleUser;
+
             return View(user);
         }
 

@@ -153,4 +153,16 @@
   <data name="RolePageTitle" xml:space="preserve">
     <value>User roles</value>
   </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="RolesPageTitle" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="RoleUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
 </root>
