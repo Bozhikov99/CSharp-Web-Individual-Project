@@ -1,8 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Управление";
+    ViewData["Title"] = ViewData["PageTitle"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">Добре дошли в зоната за администратори</h1>
+    <h1 class="display-4">@ViewData["AdminWelcome"]</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>@ViewData["AreaSummary"]</p>
 </div>

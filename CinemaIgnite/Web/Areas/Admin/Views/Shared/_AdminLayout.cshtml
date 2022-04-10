@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Builder
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> options
+
+@{
+    var language = Context.Features.Get<IRequestCultureFeature>();
+
+    var languageList = options.Value.SupportedUICultures
+                       .Select(c => new SelectListItem { Value = c.Name, Text = c.Name })
+                       .ToArray();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,11 +38,11 @@
                 </button>
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item nav-headline dropdown">
-                        <a class="text-standard" asp-area="Admin" asp-controller="User" asp-action="ManageUsers">ПОТРЕБИТЕЛИ</a>
+                        <a class="text-standard" asp-area="Admin" asp-controller="User" asp-action="ManageUsers">@localizer["Users"]</a>
                     </li>
                     <li class="nav-item nav-headline dropdown">
                         <a class="dropdown-toggle text-standard" href="#" id="genreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ЖАНРОВЕ
+                            @localizer["Genres"]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="genreDropdown">
                             <li><a class="dropdown-item" asp-controller="Genre" asp-action="Create">Създай</a></li>
@@ -36,7 +51,7 @@
                     </li>
                     <li class="nav-item nav-headline dropdown">
                         <a class="dropdown-toggle text-standard" href="#" id="movieDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ФИЛМИ
+                            @localizer["Movies"]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="movieDropdown">
                             <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create">Създай</a></li>
@@ -46,7 +61,7 @@
                     </li>
                     <li class="nav-item nav-headline dropdown">
                         <a class="text-standard dropdown-toggle" href="#" id="projectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ПРОГРАМА
+                            @localizer["Program"]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="projectionDropdown">
                             <li><a class="dropdown-item" asp-controller="Projection" asp-action="Create">Create</a></li>
