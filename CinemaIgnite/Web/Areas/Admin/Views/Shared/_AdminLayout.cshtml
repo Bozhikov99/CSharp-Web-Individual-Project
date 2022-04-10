@@ -45,8 +45,8 @@
                             @localizer["Genres"]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="genreDropdown">
-                            <li><a class="dropdown-item" asp-controller="Genre" asp-action="Create">Създай</a></li>
-                            <li><a class="dropdown-item" asp-controller="Genre" asp-action="All">Всички</a></li>
+                            <li><a class="dropdown-item" asp-controller="Genre" asp-action="Create">@localizer["Create"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="Genre" asp-action="All">@localizer["All"]</a></li>
                         </ul>
                     </li>
                     <li class="nav-item nav-headline dropdown">
@@ -54,8 +54,8 @@
                             @localizer["Movies"]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="movieDropdown">
-                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create">Създай</a></li>
-                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="All">Всички</a></li>
+                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create">@localizer["Create"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="Movie" asp-action="All">@localizer["All"]</a></li>
                             @await Component.InvokeAsync("Genres")
                         </ul>
                     </li>
@@ -64,8 +64,8 @@
                             @localizer["Program"]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="projectionDropdown">
-                            <li><a class="dropdown-item" asp-controller="Projection" asp-action="Create">Create</a></li>
-                            <li><a class="dropdown-item" asp-controller="Projection" asp-action="All" asp-route-date=@DateTime.Today>All</a></li>
+                            <li><a class="dropdown-item" asp-controller="Projection" asp-action="Create">@localizer["Create"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="Projection" asp-action="All" asp-route-date=@DateTime.Today>@localizer["All"]</a></li>
                         </ul>
                     </li>
 

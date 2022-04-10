@@ -2,20 +2,29 @@
 using Core.Services.Contracts;
 using Core.ViewModels.Genre;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Areas.Admin.Controllers
 {
     public class GenreController : BaseController
     {
         private readonly IGenreService genreService;
+        private readonly IHtmlLocalizer<GenreController> localizer;
 
-        public GenreController(IGenreService genreService)
+        public GenreController(IGenreService genreService, IHtmlLocalizer<GenreController> localizer)
         {
             this.genreService = genreService;
+            this.localizer = localizer;
         }
 
         public async Task<IActionResult> Create()
         {
+            var createPageTitle = localizer["CreatePageTitle"];
+            var namePlaceholder = localizer["NamePlaceholder"];
+
+            ViewData["CreatePageTitle"] = createPageTitle;
+            ViewData["NamePlaceholder"] = namePlaceholder;
+
             return View();
         }
 
@@ -50,6 +59,14 @@ namespace Web.Areas.Admin.Controllers
             ViewBag.ActivePage = activePage;
             ViewBag.Controller = "Genre";
             ViewBag.Action = "All";
+
+            var genresAllTitle = localizer["GenresAllTitle"];
+            var name = localizer["Name"];
+            var moviesCount = localizer["MoviesCount"];
+
+            ViewData["GenresAllTitle"] = genresAllTitle;
+            ViewData["Name"] = name;
+            ViewData["MoviesCount"] = moviesCount;
 
             return View(genres);
         }

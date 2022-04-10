@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="All" xml:space="preserve">
-    <value>Всички</value>
-  </data>
-  <data name="Create" xml:space="preserve">
+  <data name="CreatePageTitle" xml:space="preserve">
     <value>Създай</value>
   </data>
-  <data name="Genres" xml:space="preserve">
-    <value>ЖАНРОВЕ</value>
+  <data name="GenresAllTitle" xml:space="preserve">
+    <value>Жанрове</value>
   </data>
-  <data name="Movies" xml:space="preserve">
-    <value>ФИЛМИ</value>
+  <data name="MoviesCount" xml:space="preserve">
+    <value>Брой филми</value>
   </data>
-  <data name="Program" xml:space="preserve">
-    <value>ПРОГРАМА</value>
+  <data name="Name" xml:space="preserve">
+    <value>Име</value>
   </data>
-  <data name="Users" xml:space="preserve">
-    <value>ПОТРЕБИТЕЛИ</value>
+  <data name="NamePlaceholder" xml:space="preserve">
+    <value>Име</value>
   </data>
 </root>

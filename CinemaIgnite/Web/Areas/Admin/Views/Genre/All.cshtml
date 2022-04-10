@@ -6,13 +6,13 @@
     ListGenreModel[] genres = Model as ListGenreModel[];
 }
 
-<h1 class="text-standard edit-headline">Жанрове</h1>
+<h1 class="text-standard edit-headline">@ViewData["GenresAllTitle"]</h1>
 
 <table class="table" style="position: relative; top: 3vw;">
     <thead>
         <tr>
-            <th>Име</th>
-            <th>Брой филми</th>
+            <th>@ViewData["Name"]</th>
+            <th>@ViewData["MoviesCount"]</th>
         </tr>
     </thead>
     <tbody>
