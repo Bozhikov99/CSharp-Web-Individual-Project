@@ -68,6 +68,20 @@ namespace Web.Controllers
             ViewBag.Controller = "User";
             ViewBag.Action = "Profile";
 
+            var profileHeadline = localizer["ProfileHeadline"];
+            var favMovies = localizer["FavouriteMovies"];
+            var year = localizer["Year"];
+            var genre = localizer["Genre"];
+            var min = localizer["Min"];
+            var duration = localizer["Duration"];
+
+            ViewData["ProfileHeadline"] = profileHeadline;
+            ViewData["FavouriteMovies"] = favMovies;
+            ViewData["Year"] = year;
+            ViewData["Genre"] = genre;
+            ViewData["Duration"] = duration;
+            ViewData["Min"] = min;
+
             return View(model);
         }
 

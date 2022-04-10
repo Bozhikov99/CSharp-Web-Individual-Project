@@ -3,6 +3,7 @@ using Core.ViewModels.Movie;
 using Core.ViewModels.Projection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
+using System.Globalization;
 
 namespace Web.Controllers
 {
@@ -14,7 +15,7 @@ namespace Web.Controllers
 
         public ProjectionController(
             IProjectionService projectionService,
-            IMovieService movieService, 
+            IMovieService movieService,
             IHtmlLocalizer<ProjectionController> localizer)
         {
             this.projectionService = projectionService;
@@ -55,6 +56,16 @@ namespace Web.Controllers
             ViewBag.ActivePage = activePage;
             ViewBag.Controller = "Projection";
             ViewBag.Action = "All";
+
+            var projectionsHeadline = localizer["ProjectionsHeadline"];
+            var projectionsToday = localizer["ProjectionsToday"];
+            var minutes = localizer["Minutes"];
+            var levs = localizer["Levs"];
+
+            ViewData["ProjectionsHeadline"] = projectionsHeadline;
+            ViewData["ProjectionsToday"] = projectionsToday;
+            ViewData["Minutes"] = minutes;
+            ViewData["Levs"] = levs;
 
             return View(projections);
         }

@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Duration" xml:space="preserve">
-    <value>Времетраене</value>
+  <data name="Levs" xml:space="preserve">
+    <value>лв.</value>
   </data>
-  <data name="FavouriteMovies" xml:space="preserve">
-    <value>ЛЮБИМИ ФИЛМИ</value>
+  <data name="Minutes" xml:space="preserve">
+    <value>минути</value>
   </data>
-  <data name="Genre" xml:space="preserve">
-    <value>Жанр</value>
+  <data name="ProjectionsHeadline" xml:space="preserve">
+    <value>ПРОГРАМА ЗА</value>
   </data>
-  <data name="Min" xml:space="preserve">
-    <value>мин.</value>
-  </data>
-  <data name="ProfileHeadline" xml:space="preserve">
-    <value>ПРОФИЛ</value>
-  </data>
-  <data name="Year" xml:space="preserve">
-    <value>Година</value>
+  <data name="ProjectionsToday" xml:space="preserve">
+    <value>ПРОГРАМА ЗА ДНЕС</value>
   </data>
 </root>

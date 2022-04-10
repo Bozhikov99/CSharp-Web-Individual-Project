@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Duration" xml:space="preserve">
-    <value>Времетраене</value>
+    <value>Duration</value>
   </data>
   <data name="FavouriteMovies" xml:space="preserve">
-    <value>ЛЮБИМИ ФИЛМИ</value>
+    <value>FAVOURITE MOVIES</value>
   </data>
   <data name="Genre" xml:space="preserve">
-    <value>Жанр</value>
+    <value>Genre</value>
   </data>
   <data name="Min" xml:space="preserve">
-    <value>мин.</value>
+    <value>min.</value>
   </data>
   <data name="ProfileHeadline" xml:space="preserve">
-    <value>ПРОФИЛ</value>
+    <value>PROFILE</value>
   </data>
   <data name="Year" xml:space="preserve">
-    <value>Година</value>
+    <value>Year</value>
   </data>
 </root>

@@ -15,11 +15,11 @@
     @if (ViewBag.Date == @DateTime.Today)
     {
 
-        <p class="text-standard headline">ПРОГРАМА ЗА ДНЕС</p>
+        <p class="text-standard headline">@ViewData["ProjectionsToday"]</p>
     }
     else
     {
-        <p class="text-standard headline">ПРОГРАМА ЗА @date.ToString("dd.MM")</p>
+        <p class="text-standard headline">@ViewData["ProjectionsHeadline"] @date.ToString("dd.MM")</p>
     }
 </div>
 
@@ -39,7 +39,7 @@
                             <br>
                         <p class="movie-text">@string.Join(", ", movies[i].Genres)</p>
                         <br>
-                        <p class="movie-text">@Math.Floor(movies[i].Duration.TotalMinutes) минути</p>
+                        <p class="movie-text">@Math.Floor(movies[i].Duration.TotalMinutes) @ViewData["Minutes"]</p>
                         <br>
                                 @if (movies[i].Rating > 0)
                                 {
@@ -60,7 +60,7 @@
                                                         </div>
                                                         <button class="btn btn-danger tooltipC">
                                                                     @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
-                                                                    <p class="tooltiptext">@projection.Price лв.</p>
+                                                                    <p class="tooltiptext">@projection.Price @ViewData["Levs"]</p>
                                                         </button>
                                                     }
                                                 }
