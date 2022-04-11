@@ -4,6 +4,7 @@ using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.Projection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -11,11 +12,16 @@ namespace Web.Areas.Admin.Controllers
     {
         private readonly IProjectionService projectionService;
         private readonly IMovieService movieService;
+        private readonly IHtmlLocalizer<ProjectionController> localizer;
 
-        public ProjectionController(IProjectionService projectionService, IMovieService movieService)
+        public ProjectionController(
+            IProjectionService projectionService,
+            IMovieService movieService,
+            IHtmlLocalizer<ProjectionController> localizer)
         {
             this.projectionService = projectionService;
             this.movieService = movieService;
+            this.localizer = localizer;
         }
 
         public async Task<IActionResult> Create()
@@ -23,6 +29,25 @@ namespace Web.Areas.Admin.Controllers
             IEnumerable<ListMovieModel> movies = await movieService.GetAll();
             ViewBag.Movies = movies;
             ViewBag.TicketsAvailable = ProjectionConstants.TicketsAvailable;
+
+            //Localization parameters
+            var createPageTitle = localizer["CreatePageTitle"];
+            var createHeadline = localizer["CreateHeadline"];
+            var moviePlaceholder = localizer["MoviePlaceholder"];
+            var audioPlaceholder = localizer["AudioPlaceholder"];
+            var pricePlaceholder = localizer["PricePlaceholder"];
+            var subtitlesPlaceholer = localizer["SubtitlesPlaceholer"];
+            var formatPlaceholer = localizer["FormatPlaceholer"];
+            var createButton = localizer["CreateButton"];
+
+            ViewData["CreatePageTitle"] = createPageTitle;
+            ViewData["CreateHeadline"] = createHeadline;
+            ViewData["MoviePlaceholder"] = moviePlaceholder;
+            ViewData["AudioPlaceholder"] = audioPlaceholder;
+            ViewData["PricePlaceholder"] = pricePlaceholder;
+            ViewData["SubtitlesPlaceholer"] = subtitlesPlaceholer;
+            ViewData["FormatPlaceholer"] = formatPlaceholer;
+            ViewData["CreateButton"] = createButton;
 
             return View();
         }
@@ -38,6 +63,11 @@ namespace Web.Areas.Admin.Controllers
 
             ViewBag.Movies = movies;
             ViewBag.Date = date;
+
+            //Localization Parameters
+            var allPageTitle = localizer["AllPageTitle"];
+
+            ViewData["AllPageTitle"] = allPageTitle;
 
             return View(projections);
         }
@@ -69,7 +99,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 IEnumerable<ListMovieModel> movies = await movieService.GetAll();
                 ViewBag.Movies = movies;
-
+  
                 return View();
             }
 

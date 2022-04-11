@@ -2,11 +2,11 @@
 @model IEnumerable<ListProjectionModel>
 
 @{
-    ViewData["Title"] = "Проекции";
+    ViewData["Title"] = ViewData["AllPageTitle"];
     DateTime date = ViewBag.Date;
 }
 
-<h1 class="text-standard edit-headline">Проекции</h1>
+<h1 class="text-standard edit-headline">@ViewData["AllPageTitle"]</h1>
 
 <form class="date-input" style="display:inline" asp-controller="Projection" asp-action="All">
     <input type="date" id="projectionDate" value=@date.ToString("yyyy-MM-dd") name="date">
@@ -22,7 +22,6 @@
                 <button class="btn btn-danger abtn-projection">
                     @projection.Date.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture)
                     <a class="close" asp-controller="Projection" asp-action="Delete" asp-route-id=@projection.Id>x</a>
-                    @*<p class="tooltiptext">@projection.Price лв.</p>*@
                 </button>
             }
         </div>

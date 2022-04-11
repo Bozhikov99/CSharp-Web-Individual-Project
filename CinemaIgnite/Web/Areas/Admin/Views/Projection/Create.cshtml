@@ -2,27 +2,12 @@
 @model CreateProjectionModel
 
 @{
-    ViewData["Title"] = "Създай проекция";
+    ViewData["Title"] = ViewData["CreatePageTitle"];
 }
 
 <link rel="stylesheet" href="~/css/createProjection.css" />
 
-<h1 class="text-standard create-headline">Създай</h1>
-
-@*<h1 class="text-standard edit-headline">Редактирай</h1>
-    <div class="col-md-4 form-container">
-    <form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Id" value=@Model.Id />
-    <div class="form-group">
-    <input asp-for="Name" placeholder="Име" class="form-control admin-input" />
-    <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input type="submit" value="Редактирай" class="edit-btn form-submit" />
-    </div>
-    </form>
-    </div>*@
+<h1 class="text-standard create-headline">@ViewData["CreateHeadline"]</h1>
 
 <div class="row">
     <div class="col-md-4 form-container">
@@ -30,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="TicketsAvailable" hidden class="form-control admin-input" value=@ViewBag.TicketsAvailable />
             <div id="movie-picker" class="form-group">
-                <label asp-for="MovieId" class="control-label text-standard">Филм</label>
+                <label asp-for="MovieId" class="control-label text-standard">@ViewData["MoviePlaceholder"]</label>
                 <br>
                 <select id="MovieId" name="MovieId" class="admin-input">
                     @foreach (var m in ViewBag.Movies)
@@ -44,20 +29,20 @@
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Sound" placeholder="Аудио" class="form-control admin-input" />
+                <input asp-for="Sound" placeholder=@ViewData["AudioPlaceholer"] class="form-control admin-input" />
                 <span asp-validation-for="Sound" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Price" placeholder="Цена на билет" class="form-control admin-input" />
+                <input asp-for="Price" placeholder=@ViewData["PricePlaceholer"] class="form-control admin-input" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group form-check text-standard">
                 <label class="form-check-label">
-                    <input class="form-check-input admin-input" asp-for="Subtitles" /> Субтитри
+                    <input class="form-check-input admin-input" asp-for="Subtitles" /> @ViewData["SubtitlesPlaceholer"]
                 </label>
             </div>
             <div id="format-input" class="form-group">
-                <label asp-for="Format" class="control-label text-standard">Формат</label>
+                <label asp-for="Format" class="control-label text-standard">@ViewData["FormatPlaceholer"]</label>
                 <br>
                 <select id="Format" name="Format" class="admin-input">
                     <option value="3D">3D</option>
@@ -68,7 +53,7 @@
             </div>      
 
             <div class="form-group">
-                <input type="submit" value="Създай" class="create-btn form-submit" />
+                <input type="submit" value=@ViewData["CreateButton"] class="create-btn form-submit" />
             </div>
         </form>
     </div>
