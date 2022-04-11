@@ -2,7 +2,7 @@
 @model CreateMovieModel
 
 @{
-    ViewData["Title"] = @ViewData["CreatePageTitle"];
+    ViewData["Title"] = ViewData["CreatePageTitle"];
 }
 
 <h1 class="text-standard create-headline">@ViewData["CreateHeadline"]</h1>
@@ -33,7 +33,7 @@
                 <span asp-validation-for="ReleaseYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Actors" class="form-control admin-input" placeholder=@ViewData["ActorsPlaceholder"]/>
+                <input asp-for="Actors" class="form-control admin-input" placeholder=@ViewData["ActorsPlaceholder"] />
                 <span asp-validation-for="Actors" class="text-danger"></span>
             </div>
             <div class="form-group">

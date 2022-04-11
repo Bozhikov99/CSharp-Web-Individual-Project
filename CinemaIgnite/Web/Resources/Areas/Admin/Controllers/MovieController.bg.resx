@@ -141,6 +141,9 @@
   <data name="DurationPlaceholder" xml:space="preserve">
     <value>Времетраене</value>
   </data>
+  <data name="EditPageTitle" xml:space="preserve">
+    <value>Редактирай</value>
+  </data>
   <data name="Genre" xml:space="preserve">
     <value>Жанр</value>
   </data>

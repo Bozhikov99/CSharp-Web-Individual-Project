@@ -135,6 +135,25 @@ namespace Web.Areas.Admin.Controllers
             IEnumerable<ListGenreModel> genres = await genreService.GetAll();
             ViewBag.Genres = genres;
 
+            //Localization parameters
+            var editPageTitle = localizer["EditPageTitle"];
+            var searchPlaceholder = localizer["SearchPlaceholder"];
+            var moviePageTitle = localizer["MoviePageTitle"];
+            var genreIdsPlaceholder = localizer["GenreIdsPlaceholder"];
+            var minutes = localizer["Minutes"];
+            var year = localizer["Year"];
+            var duration = localizer["Duration"];
+            var genre = localizer["Genre"];
+
+            ViewData["EditPageTitle"] = editPageTitle;
+            ViewData["SearchPlaceholder"] = searchPlaceholder;
+            ViewData["MoviePageTitle"] = moviePageTitle;
+            ViewData["GenreIdsPlaceholder"] = genreIdsPlaceholder;
+            ViewData["Minutes"] = minutes;
+            ViewData["Year"] = year;
+            ViewData["Duration"] = duration;
+            ViewData["Genre"] = genre;
+
             return View(model);
         }
 
