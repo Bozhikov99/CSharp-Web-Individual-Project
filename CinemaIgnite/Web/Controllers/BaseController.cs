@@ -18,7 +18,9 @@ namespace Web.Controllers
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(language)),
                 new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
 
-            return RedirectToAction("Index", "Home");
+            string url = Request.Headers["Referer"].ToString();
+
+            return Redirect(url) ;
         }
     }
 
