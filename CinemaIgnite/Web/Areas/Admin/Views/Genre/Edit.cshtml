@@ -3,20 +3,20 @@
 @model EditGenreModel
 
 @{
-    ViewData["Title"] = "Редактирай жанр";
+    ViewData["Title"] = @ViewData["EditPageTitle"];
 }
 
-<h1 class="text-standard edit-headline">Редактирай</h1>
+<h1 class="text-standard edit-headline">@ViewData["EditHeadline"]</h1>
 <div class="col-md-4 form-container">
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" value=@Model.Id />
         <div class="form-group">
-            <input asp-for="Name" placeholder="Име" class="form-control admin-input" />
+            <input asp-for="Name" placeholder=@ViewData["NamePlaceholder"] class="form-control admin-input" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" value="Редактирай" class="edit-btn form-submit" />
+            <input type="submit" value=@ViewData["EditPageTitle"] class="edit-btn form-submit" />
         </div>
     </form>
 </div>

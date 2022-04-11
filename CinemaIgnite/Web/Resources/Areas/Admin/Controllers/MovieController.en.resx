@@ -117,25 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreatePageTitle" xml:space="preserve">
+  <data name="ActorsPlaceholder" xml:space="preserve">
+    <value>Actors</value>
+  </data>
+  <data name="CountryPlaceholder" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CreateHeadline" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="EditHeadline" xml:space="preserve">
-    <value>Edit</value>
+  <data name="CreatePageTitle" xml:space="preserve">
+    <value>Create movie</value>
   </data>
-  <data name="EditPageTitle" xml:space="preserve">
-    <value>Edit Genre</value>
+  <data name="DescriptionPlaceholder" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="GenresAllTitle" xml:space="preserve">
+  <data name="DirectorPlaceholder" xml:space="preserve">
+    <value>Director</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="DurationPlaceholder" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="GenreIdsPlaceholder" xml:space="preserve">
     <value>Genres</value>
   </data>
-  <data name="MoviesCount" xml:space="preserve">
-    <value>Movies Count</value>
+  <data name="HeadlinePlaceholder" xml:space="preserve">
+    <value>Headline</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="ImageUrlPlaceholder" xml:space="preserve">
+    <value>Image URL</value>
   </data>
-  <data name="NamePlaceholder" xml:space="preserve">
-    <value>Name</value>
+  <data name="Minutes" xml:space="preserve">
+    <value>min.</value>
+  </data>
+  <data name="MoviePageTitle" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ReleaseYearPlaceholder" xml:space="preserve">
+    <value>Release year</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
   </data>
 </root>

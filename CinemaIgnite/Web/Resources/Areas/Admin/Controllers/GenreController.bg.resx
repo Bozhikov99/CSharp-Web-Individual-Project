@@ -120,6 +120,12 @@
   <data name="CreatePageTitle" xml:space="preserve">
     <value>Създай</value>
   </data>
+  <data name="EditHeadline" xml:space="preserve">
+    <value>Редактирай</value>
+  </data>
+  <data name="EditPageTitle" xml:space="preserve">
+    <value>Редактирай жанр</value>
+  </data>
   <data name="GenresAllTitle" xml:space="preserve">
     <value>Жанрове</value>
   </data>

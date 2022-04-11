@@ -20,7 +20,7 @@ namespace Web.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
             var createPageTitle = localizer["CreatePageTitle"];
-            var namePlaceholder = localizer["NamePlaceholder"];
+            var namePlaceholder = localizer["Name"];
 
             ViewData["CreatePageTitle"] = createPageTitle;
             ViewData["NamePlaceholder"] = namePlaceholder;
@@ -31,6 +31,13 @@ namespace Web.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             EditGenreModel genre = await genreService.GetEditModel(id);
+
+            var editPageTitle = localizer["EditPageTitle"];
+            var editHeadline = localizer["EditHeadline"];
+
+            ViewData["EditPageTitle"] = editPageTitle;
+            ViewData["EditHeadline"] = editHeadline;
+
             return View(genre);
         }
 

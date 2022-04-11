@@ -117,25 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActorsPlaceholder" xml:space="preserve">
+    <value>Актьори</value>
+  </data>
+  <data name="CountryPlaceholder" xml:space="preserve">
+    <value>Държава</value>
+  </data>
+  <data name="CreateHeadline" xml:space="preserve">
+    <value>Създай</value>
+  </data>
   <data name="CreatePageTitle" xml:space="preserve">
-    <value>Create</value>
+    <value>Създай филм</value>
   </data>
-  <data name="EditHeadline" xml:space="preserve">
-    <value>Edit</value>
+  <data name="DescriptionPlaceholder" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="EditPageTitle" xml:space="preserve">
-    <value>Edit Genre</value>
+  <data name="DirectorPlaceholder" xml:space="preserve">
+    <value>Режисьор</value>
   </data>
-  <data name="GenresAllTitle" xml:space="preserve">
-    <value>Genres</value>
+  <data name="Duration" xml:space="preserve">
+    <value>Времетраене</value>
   </data>
-  <data name="MoviesCount" xml:space="preserve">
-    <value>Movies Count</value>
+  <data name="DurationPlaceholder" xml:space="preserve">
+    <value>Времетраене</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="Genre" xml:space="preserve">
+    <value>Жанр</value>
   </data>
-  <data name="NamePlaceholder" xml:space="preserve">
-    <value>Name</value>
+  <data name="GenreIdsPlaceholder" xml:space="preserve">
+    <value>Жанрове</value>
+  </data>
+  <data name="HeadlinePlaceholder" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="ImageUrlPlaceholder" xml:space="preserve">
+    <value>Адрес на изображение</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>мин.</value>
+  </data>
+  <data name="MoviePageTitle" xml:space="preserve">
+    <value>Всички</value>
+  </data>
+  <data name="ReleaseYearPlaceholder" xml:space="preserve">
+    <value>Година на създаване</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Година</value>
   </data>
 </root>
