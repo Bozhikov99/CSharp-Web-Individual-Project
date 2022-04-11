@@ -150,6 +150,9 @@
   <data name="HeadlinePlaceholder" xml:space="preserve">
     <value>Заглавие</value>
   </data>
+  <data name="Hour" xml:space="preserve">
+    <value>ч.</value>
+  </data>
   <data name="ImageUrlPlaceholder" xml:space="preserve">
     <value>Адрес на изображение</value>
   </data>

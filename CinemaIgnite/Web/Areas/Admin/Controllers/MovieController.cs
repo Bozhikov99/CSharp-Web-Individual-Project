@@ -15,8 +15,8 @@ namespace Web.Areas.Admin.Controllers
         private readonly IHtmlLocalizer<MovieController> localizer;
 
         public MovieController(
-            IMovieService movieService, 
-            IGenreService genreService, 
+            IMovieService movieService,
+            IGenreService genreService,
             IUserService userService,
             IHtmlLocalizer<MovieController> localizer)
         {
@@ -103,6 +103,7 @@ namespace Web.Areas.Admin.Controllers
                 }
             }
 
+            //Pagination parameters
             ViewBag.PagesCount = pages;
             ViewBag.PageLimit = 10;
             ViewBag.ActivePage = activePage;
@@ -110,6 +111,7 @@ namespace Web.Areas.Admin.Controllers
             ViewBag.Action = "All";
             ViewBag.Search = search;
 
+            //Localization parameters
             var searchPlaceholder = localizer["SearchPlaceholder"];
             var moviePageTitle = localizer["MoviePageTitle"];
             var minutes = localizer["Minutes"];
@@ -161,6 +163,8 @@ namespace Web.Areas.Admin.Controllers
                 return View("UserError", ErrorMessagesConstants.ErrorDeletingMovie);
             }
 
+
+
             return RedirectToAction(nameof(All));
         }
 
@@ -171,6 +175,19 @@ namespace Web.Areas.Admin.Controllers
 
             ViewBag.MovieId = id;
             ViewBag.IsLoggedIn = userId != null;
+
+            //Localization parameters
+            var hour = localizer["Hour"];
+            var minutes = localizer["Minutes"];
+            var actorsPlaceholder = localizer["ActorsPlaceholder"];
+            var directorPlaceholder = localizer["DirectorPlaceholder"];
+            var countryPlaceholder = localizer["CountryPlaceholder"];
+
+            ViewData["Hour"] = hour;
+            ViewData["Minutes"] = minutes;
+            ViewData["ActorsPlaceholder"] = actorsPlaceholder;
+            ViewData["DirectorPlaceholder"] = directorPlaceholder;
+            ViewData["CountryPlaceholder"] = countryPlaceholder;
 
             return View(model);
         }

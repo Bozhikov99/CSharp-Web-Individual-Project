@@ -150,6 +150,9 @@
   <data name="HeadlinePlaceholder" xml:space="preserve">
     <value>Headline</value>
   </data>
+  <data name="Hour" xml:space="preserve">
+    <value>h.</value>
+  </data>
   <data name="ImageUrlPlaceholder" xml:space="preserve">
     <value>Image URL</value>
   </data>
