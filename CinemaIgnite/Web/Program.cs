@@ -19,7 +19,8 @@ var builder = WebApplication.CreateBuilder(args);
 //cookie support for languages
 
 builder.Services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
-builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+builder.Services.AddMvc()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization();
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -90,13 +91,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRequestLocalization();
-
-//Write cookie resource pipeline logic here
-//string[] supportedLanguages = { "bg", "en" };
-//RequestLocalizationOptions localizationOptions = new RequestLocalizationOptions()
-//    .SetDefaultCulture(supportedLanguages[0])
-//    .AddSupportedCultures(supportedLanguages)
-//    .AddSupportedUICultures(supportedLanguages);
 
 app.MapControllerRoute(
     name: "Area",

@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow">
             <div class="container-fluid">
                 <a asp-controller="Home" asp-action="Index">
-                <img class="navbar-logo" src="~/img/Logo.png" alt="">
+                    <img class="navbar-logo" src="~/img/Logo.png" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -52,12 +52,7 @@
                 @await Component.InvokeAsync("UnreadNotifications")
                 <partial name="_LoginPartial" />
             </div>
-            <div>
-    <form asp-action="SetLanguage" asp-controller="Base" method="post">
-        <select name="language" asp-for=@language.RequestCulture.UICulture.Name asp-items=@languageList onchange="this.form.submit();">
-        </select>
-    </form>
-</div>*
+            <partial name="_LanguageSelectPartial" />
         </nav>
     </header>
     <div class="container site-content">
@@ -77,3 +72,16 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+<script type="text/javascript">
+    let form=document.querySelector('.language-form');
+    let select=document.querySelector('#language-select');
+    let flagElements=document.querySelectorAll('.language-flag');
+
+    flagElements.forEach(fe=>fe.addEventListener('click',()=>{
+        let value=fe.dataset.value;
+        select.value=value;
+        form.submit();
+    }))
+</script>

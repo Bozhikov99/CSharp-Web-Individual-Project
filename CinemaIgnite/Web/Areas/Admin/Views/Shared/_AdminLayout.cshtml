@@ -18,7 +18,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Администратор</title>
+    <title>@ViewData["Title"] - @localizer["Administrator"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
@@ -68,10 +68,10 @@
                             <li><a class="dropdown-item" asp-controller="Projection" asp-action="All" asp-route-date=@DateTime.Today>@localizer["All"]</a></li>
                         </ul>
                     </li>
-
                 </ul>
                 <partial name="_AdminLoginPartial" />
             </div>
+            <partial name="_LanguageSelectPartial" />
         </nav>
     </header>
     <div class="container site-admin">

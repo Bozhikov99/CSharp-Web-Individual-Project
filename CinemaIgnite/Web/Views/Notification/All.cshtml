@@ -61,17 +61,21 @@ else
     let delElements=document.querySelectorAll('.delete-notification');
 
     titleElements.forEach(te=>te.addEventListener('click', (e)=>{
-        let userId=document.querySelector('#user-id')
-            .textContent;
+        let parentElement=te
+            .parentElement
+            .parentElement;
+
+        let notificationDivElement=parentElement.querySelector('.notification-text');
+        let idElement=notificationDivElement.querySelector('#user-id');
+        let id=idElement.textContent;
 
         $.ajax({
         type: "POST",
         url: "@Url.Action("Read")",
-        data: { id: userId}
+        data: { id: id}
         })
         .then((result)=>{
         });
     }))
-  
 
 </script>

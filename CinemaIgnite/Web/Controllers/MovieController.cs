@@ -144,24 +144,24 @@ namespace Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<PartialViewResult> AddMovieToFavourites(string id)
+        public async Task<IActionResult> AddMovieToFavourites(string id)
         {
             await userService.AddMovieToFavourites(id);
             ViewBag.IsFavourite = true;
             ViewBag.IsLoggedIn = true;
 
-            return PartialView("_FavouriteMoviePartial");
+            return Ok();
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<PartialViewResult> RemoveMovieFromFavourites(string id)
+        public async Task<IActionResult> RemoveMovieFromFavourites(string id)
         {
             await userService.RemoveMovieFromFavourites(id);
             ViewBag.IsFavourite = false;
             ViewBag.IsLoggedIn = true;
 
-            return PartialView("_FavouriteMoviePartial");
+            return Ok();
         }
 
         [Authorize]

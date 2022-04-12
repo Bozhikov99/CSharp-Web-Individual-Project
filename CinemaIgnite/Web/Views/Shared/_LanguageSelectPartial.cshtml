@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Builder
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> options
+
+@{
+    var language = Context.Features.Get<IRequestCultureFeature>();
+
+    var languageList = options.Value.SupportedUICultures
+                       .Select(c => new SelectListItem { Value = c.Name, Text = c.Name })
+                       .ToArray();
+}
+
+<div>
+    <form class="language-form" asp-action="SetLanguage" asp-controller="Base" method="post">
+        <select id="language-select" name="language" asp-for=@language.RequestCulture.UICulture.Name asp-items=@languageList onchange="this.form.submit();">
+        </select>
+        <div class="languages">
+            <svg class="language-flag" data-value="bg" xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 5 3">
+                <rect width="5" height="3" fill="#fff" />
+                <rect width="5" height="2" y="1" fill="#00966E" />
+                <rect width="5" height="1" y="2" fill="#D62612" />
+            </svg>
+            <svg class="language-flag" data-value="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="1200" height="600">
+                <clipPath id="s">
+                    <path d="M0,0 v30 h60 v-30 z" />
+                </clipPath>
+                <clipPath id="t">
+                    <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
+                </clipPath>
+                <g clip-path="url(#s)">
+                    <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
+                    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+                    <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4" />
+                    <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
+                    <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
+                </g>
+            </svg>
+        </div>
+    </form>
+</div>
+
+<script type="module" src="~/js/chooseLanguage.js"></script>

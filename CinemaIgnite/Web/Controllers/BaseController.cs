@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Controllers
 {
@@ -16,11 +15,15 @@ namespace Web.Controllers
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(language)),
-                new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
+                new CookieOptions
+                {
+                    Expires = DateTimeOffset.Now.AddDays(30),
+                    SameSite = SameSiteMode.Strict
+                });
 
             string url = Request.Headers["Referer"].ToString();
 
-            return Redirect(url) ;
+            return Redirect(url);
         }
     }
 

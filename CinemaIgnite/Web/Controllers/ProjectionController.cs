@@ -25,6 +25,16 @@ namespace Web.Controllers
 
         public async Task<IActionResult> All(DateTime date, int activePage = 0)
         {
+            //Fix en culture switching days and months
+            bool isSameController = IsSameController(Request);
+
+            if (!isSameController && CultureInfo.CurrentCulture.Name == "en")
+            {
+                date = new DateTime(date.Year, date.Day, date.Month);
+
+                RedirectToAction(nameof(All), new { date, activePage });
+            }
+
             IEnumerable<ListProjectionModel> projections = await projectionService.GetAllForDate(date);
 
             IEnumerable<ListMovieModel> movies = await movieService
@@ -68,6 +78,14 @@ namespace Web.Controllers
             ViewData["Levs"] = levs;
 
             return View(projections);
+        }
+
+        private bool IsSameController(HttpRequest rex)
+        {
+            string url = rex.Headers["Referer"].ToString();
+
+            return url.Contains("/Projection/");
+
         }
 
     }
