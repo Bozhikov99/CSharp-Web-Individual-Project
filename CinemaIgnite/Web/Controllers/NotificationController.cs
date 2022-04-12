@@ -25,8 +25,8 @@ namespace Web.Controllers
         {
             await notificationService.Read(id);
             string userId = userService.GetUserId();
-            ViewBag.Unread = notificationService.GetUnreadCount(userId);
-            return new EmptyResult();
+            int unreadCount = await notificationService.GetUnreadCount(userId);
+            return Ok(unreadCount);
         }
 
         [HttpPost]

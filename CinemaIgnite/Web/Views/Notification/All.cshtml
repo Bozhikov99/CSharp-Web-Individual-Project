@@ -75,6 +75,15 @@ else
         data: { id: id}
         })
         .then((result)=>{
+            let notificationCountElement=document.querySelector('.notification-counter');
+            let count=Number(result);
+
+            if(count==0){
+                notificationCountElement.remove();
+            } else {
+            notificationCountElement.textContent=result;
+            }
+
         });
     }))
 
