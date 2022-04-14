@@ -123,6 +123,9 @@
   <data name="DevName" xml:space="preserve">
     <value>Панайот Божиков</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>ВХОД</value>
+  </data>
   <data name="Movies" xml:space="preserve">
     <value>ФИЛМИ</value>
   </data>
@@ -131,5 +134,8 @@
   </data>
   <data name="Program" xml:space="preserve">
     <value>ПРОГРАМА</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>РЕГИСТРАЦИЯ</value>
   </data>
 </root>

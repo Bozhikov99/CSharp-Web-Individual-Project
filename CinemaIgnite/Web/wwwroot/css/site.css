@@ -53,7 +53,7 @@ footer {
     padding-top: 0px;
     padding-bottom: 0px;
     margin-top: 0px;
-    margin-left: 298px;
+    margin-left: 15.521vw;
     position: absolute;
     box-shadow: 0 3px 10px rgb(255 0 0 / 70%);
     height: 90%;
@@ -134,8 +134,8 @@ footer {
 }
 
 .unsigned {
-    right: 315px;
-    position: fixed;
+    right: 22.406vw;
+    position: absolute;
     display: flex;
     top: 10px;
 }

@@ -7,7 +7,7 @@
 
 <div class="headline-div">
     <img class="headline-icon" src="~/img/headline.png" />
-    <p class="text-standard headline">Регистрация</p>
+    <p class="text-standard headline">@ViewData["Register"]</p>
 </div>
 
 <div id="auth-container">
@@ -17,28 +17,28 @@
     <form id="auth-form" method="post" asp-action="Register">
         <div asp-validation-summary="ModelOnly" class="danger"></div>
         <div class="form-group">
-            <input asp-for="FirstName" class="form-control auth-input" placeholder="Име">
-            <span asp-validation-for="FirstName"></span>
+            <input asp-for="FirstName" class="form-control auth-input" placeholder=@ViewData["FirstName"]>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input asp-for="LastName" class="form-control auth-input" placeholder="Фамилия">
+            <input asp-for="LastName" class="form-control auth-input" placeholder=@ViewData["LastName"]>
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input asp-for="Email" class="form-control auth-input" placeholder="Имейл">
+            <input asp-for="Email" class="form-control auth-input" placeholder=@ViewData["Email"]>
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="password" asp-for="Password" class="form-control auth-input" placeholder="Парола">
+            <input type="password" asp-for="Password" class="form-control auth-input" placeholder=@ViewData["Password"]>
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="password" asp-for="ConfirmPassword" class="form-control auth-input" placeholder="Повторете паролата">
+            <input type="password" asp-for="ConfirmPassword" class="form-control auth-input" placeholder=@ViewData["ConfirmPassword"]>
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
 
-        <input id="submit-button" type="submit" value="Регистрация" style="right: 5vw" />
+        <input id="submit-button" type="submit" value=@ViewData["Register"] style="right: 5vw" />
     </form>
 </div>
 

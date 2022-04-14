@@ -10,7 +10,7 @@ namespace Web.Controllers
         private readonly IGenreService genreService;
         private readonly IHtmlLocalizer<GenreController> localizer;
 
-        public GenreController(IGenreService genreService, IHtmlLocalizer<GenreController> localizer)
+        public GenreController(IGenreService genreService, IHtmlLocalizer<GenreController> localizer) 
         {
             this.genreService = genreService;
             this.localizer = localizer;

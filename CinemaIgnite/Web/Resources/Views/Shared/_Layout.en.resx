@@ -123,6 +123,9 @@
   <data name="DevName" xml:space="preserve">
     <value>Panaiot Bozhikov</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>LOGIN</value>
+  </data>
   <data name="Movies" xml:space="preserve">
     <value>MOVIES</value>
   </data>
@@ -131,5 +134,8 @@
   </data>
   <data name="Program" xml:space="preserve">
     <value>PROGRAM</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>REGISTER</value>
   </data>
 </root>

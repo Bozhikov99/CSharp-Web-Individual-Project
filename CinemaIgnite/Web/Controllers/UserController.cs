@@ -4,7 +4,6 @@ using Common.ValidationConstants;
 using Core.Services.Contracts;
 using Core.ViewModels.Movie;
 using Core.ViewModels.User;
-using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +14,12 @@ namespace Web.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService userService;
-        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IHtmlLocalizer<UserController> localizer;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public UserController(
-            RoleManager<IdentityRole> roleManager, 
-            IUserService userService, 
+            RoleManager<IdentityRole> roleManager,
+            IUserService userService,
             IHtmlLocalizer<UserController> localizer)
         {
             this.userService = userService;
@@ -30,11 +29,33 @@ namespace Web.Controllers
 
         public IActionResult Register()
         {
+            var register = localizer["Register"];
+            var password = localizer["Password"];
+            var email = localizer["Email"];
+            var name = localizer["FirstName"];
+            var lastName = localizer["LastName"];
+            var confirmPassword = localizer["ConfirmPassword"];
+
+            ViewData["Email"] = email;
+            ViewData["Password"] = password;
+            ViewData["Register"] = register;
+            ViewData["FirstName"] = name;
+            ViewData["LastName"] = lastName;
+            ViewData["ConfirmPassword"] = confirmPassword;
+
             return View();
         }
 
         public IActionResult Login()
         {
+            var login = localizer["Login"];
+            var password = localizer["Password"];
+            var email = localizer["Email"];
+
+            ViewData["Email"] = email;
+            ViewData["Password"] = password;
+            ViewData["Login"] = login;
+
             return View();
         }
 

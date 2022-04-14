@@ -2,6 +2,8 @@
 {
     public class UserConstants
     {
+        public const string NameRegex = @"^[A-ZА-Я][a-zа-я]+$";
+
         public const int NameMinLength = 2;
 
         public const int NameMaxLength = 50;

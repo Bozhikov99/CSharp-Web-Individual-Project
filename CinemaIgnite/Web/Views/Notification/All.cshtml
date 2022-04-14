@@ -51,7 +51,7 @@
 }
 else
 {
-    <h1 class="text-information empty-inbox">Няма известия</h1>
+    <h1 class="text-information empty-inbox">@ViewData["NoResults"]</h1>
 }
 
 <script src="~/js/notifications.js" type="module"></script>
@@ -81,7 +81,7 @@ else
             if(count==0){
                 notificationCountElement.remove();
             } else {
-            notificationCountElement.textContent=result;
+                notificationCountElement.textContent=result;
             }
 
         });

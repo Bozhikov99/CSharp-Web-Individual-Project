@@ -60,16 +60,19 @@ namespace Web.Controllers
                 }
             }
 
-
+            //Pagination parameters
             ViewBag.PagesCount = pages;
             ViewBag.PageLimit = 5;
             ViewBag.ActivePage = activePage;
             ViewBag.Controller = "Notification";
             ViewBag.Action = "All";
 
+            //Localization parameters
             var notificationsHeadline = localizer["NotificationsHeadline"];
+            var noResults = localizer["NoResults"];
 
             ViewData["NotificationsHeadline"] = notificationsHeadline;
+            ViewData["NoResults"] = noResults;
 
             return View(notifications);
         }

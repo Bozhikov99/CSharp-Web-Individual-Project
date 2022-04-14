@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Common.TemplateConstants;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Web.Controllers
 {
     public class BaseController : Controller
     {
+
         public BaseController()
         {
         }

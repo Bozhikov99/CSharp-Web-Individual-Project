@@ -9,10 +9,12 @@ namespace Core.ViewModels.User
 
         [Required]
         [StringLength(UserConstants.NameMaxLength, MinimumLength = UserConstants.NameMinLength, ErrorMessage = ErrorMessagesConstants.InvalidLengthMessage)]
+        [RegularExpression(UserConstants.NameRegex, ErrorMessage = ErrorMessagesConstants.InvalidUserName)]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(UserConstants.NameMaxLength, MinimumLength = UserConstants.NameMinLength, ErrorMessage = ErrorMessagesConstants.InvalidLengthMessage)]
+        [RegularExpression(UserConstants.NameRegex, ErrorMessage = ErrorMessagesConstants.InvalidUserName)]
         public string LastName { get; set; }
 
         [Required]

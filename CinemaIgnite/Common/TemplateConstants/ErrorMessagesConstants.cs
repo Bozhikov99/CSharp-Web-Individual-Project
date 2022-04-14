@@ -5,6 +5,8 @@
         public const string InvalidLengthMessage = "{0} must be between {2} and {1} characters long";
         public const string PasswordsNotMatchingMessage = "Passwords should match";
 
+        public const string InvalidUserName = "{0} must start with an uppercase letter and all other letters should be lowercase";
+
         public const string ErrorCreatingGenre = "Error creating a genre";
         public const string ErrorEditingGenre = "Error editing a genre";
         public const string ErrorDeletingGenre = "Error deleting a genre";
@@ -22,15 +24,15 @@
         public const string SeatTaken = "One or more seats you have chosen are taken";
         public const string ErrorBuyingTicket = "Error buying ticket";
 
-        public const string InvalidLoginData = "Невалидни данни";
-        public const string ErrorLoggingIn = "Неочаква грешка при вписване";
-        public const string ErrorRegistering = "Неочаква грешка при регистрация";
-        public const string ErrorEditingUser = "Неочаквана грешка при редактиране на потребител";
-        public const string ErrorEditingUserRoles = "Неочаквана грешка при задаване на потребителски роли";
-        public const string ErrorDeletingUser = "Неочаквана грешка при изтриване на потребител";
+        public const string InvalidLoginData = "Invalid Data";
+        public const string ErrorLoggingIn = "Error loging in";
+        public const string ErrorRegistering = "Error registering";
+        public const string ErrorEditingUser = "Error creating an user";
+        public const string ErrorEditingUserRoles = "Error editing user roles";
+        public const string ErrorDeletingUser = "Error deleting user";
         public const string ErrorEditingRoles = "Error editing user roles";
 
-        public const string GenreNameException = "Жанр с име {0} вече съществува";
-        public const string MovieNameException = "Филм с име {0} вече съществува";
+        public const string GenreNameException = "Genre {0} already exists";
+        public const string MovieNameException = "Movie {0} already exists";
     }
 }

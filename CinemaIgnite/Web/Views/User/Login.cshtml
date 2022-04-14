@@ -5,7 +5,7 @@
 
 <div class="headline-div">
     <img class="headline-icon" src="~/img/headline.png" />
-    <p class="text-standard headline">Вход</p>
+    <p class="text-standard headline">@ViewData["Login"]</p>
 </div>
 
 <div id="auth-container">
@@ -15,15 +15,15 @@
     <form id="auth-form" method="post" asp-action="Login">
         <div asp-validation-summary="ModelOnly" class="danger"></div>
         <div class="form-group">
-            <input asp-for="Email" class="form-control auth-input" placeholder="Имейл">
+            <input asp-for="Email" class="form-control auth-input" placeholder=@ViewData["Email"]>
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="password" asp-for="Password" class="form-control auth-input" placeholder="Парола">
+            <input type="password" asp-for="Password" class="form-control auth-input" placeholder=@ViewData["Password"]>
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
-        <input id="submit-button" type="submit" value="Вход" />
+        <input id="submit-button" type="submit" value=@ViewData["Login"] />
     </form>
 </div>
 
