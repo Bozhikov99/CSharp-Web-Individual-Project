@@ -16,10 +16,10 @@
                 <div class="menu">
                     @await Component.InvokeAsync("UserDropdown")
                     <ul>
-                        <li class="user-menu"><a asp-controller="User" asp-action="Profile">Профил</a></li>
+                        <li class="user-menu"><a asp-controller="User" asp-action="Profile">@localizer["Profile"]</a></li>
                         <li>
                             <a href="#" id="logout-trick">
-                                Изход
+                                @localizer["Logout"]
                             </a>
                             <form id="logout" hidden class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                                 <button type="submit" class="btn text-standard">Logout</button>
