@@ -30,7 +30,7 @@ namespace Web.Controllers
 
             if (!isSameController && CultureInfo.CurrentCulture.Name == "en")
             {
-                date = new DateTime(date.Year, date.Day, date.Month);
+                date = date == DateTime.MinValue ? DateTime.Today : new DateTime(date.Year, date.Day, date.Month);
 
                 RedirectToAction(nameof(All), new { date, activePage });
             }

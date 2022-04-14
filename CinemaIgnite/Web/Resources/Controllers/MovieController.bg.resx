@@ -129,6 +129,9 @@
   <data name="Duration" xml:space="preserve">
     <value>Времетраене</value>
   </data>
+  <data name="FavSuccessfull" xml:space="preserve">
+    <value>Добавихте филма в любими</value>
+  </data>
   <data name="FavText" xml:space="preserve">
     <value>Добави в любими</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="SearchButton" xml:space="preserve">
     <value>Търсене</value>
+  </data>
+  <data name="UnfavSuccessfull" xml:space="preserve">
+    <value>Премахнахте филма от любими</value>
   </data>
   <data name="UnfavText" xml:space="preserve">
     <value>Премахни от любими</value>

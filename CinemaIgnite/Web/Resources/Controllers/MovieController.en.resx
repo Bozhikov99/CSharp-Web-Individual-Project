@@ -129,6 +129,9 @@
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="FavSuccessfull" xml:space="preserve">
+    <value>You have successfully added this movie to favourites</value>
+  </data>
   <data name="FavText" xml:space="preserve">
     <value>Add to favorites</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="SearchButton" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="UnfavSuccessfull" xml:space="preserve">
+    <value>You have successfully removed this movie from favourites</value>
   </data>
   <data name="UnfavText" xml:space="preserve">
     <value>Remove from favorites</value>

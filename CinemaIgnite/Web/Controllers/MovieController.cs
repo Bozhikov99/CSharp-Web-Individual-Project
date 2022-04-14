@@ -1,4 +1,5 @@
-﻿using Core.Services.Contracts;
+﻿using Common.TemplateConstants;
+using Core.Services.Contracts;
 using Core.ViewModels.Genre;
 using Core.ViewModels.Movie;
 using Microsoft.AspNetCore.Authorization;

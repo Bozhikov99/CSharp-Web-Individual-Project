@@ -18,6 +18,7 @@
             <p class="text-standard fav-text">@ViewData["FavText"]</p>
             <p id="action" hidden>fav</p>
     </div>
+    <div id="toastr-partial"></div>
         }
 }
 <script type="text/javascript">
@@ -40,6 +41,8 @@
                 wrapperElement.classList.remove('fav-wrapper');
                 wrapperElement.classList.add('unfav-wrapper');
                 favTextElemen.textContent='@ViewData["UnfavText"]';
+
+                $("#toastr-partial").html(result);
             });
         } else {
             $.ajax({
